@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using LECommonLibrary;
 
@@ -11,6 +12,8 @@ namespace LEProc
 {
     internal static class Program
     {
+        internal static string[] Args;
+
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>
@@ -27,6 +30,8 @@ namespace LEProc
 
             try
             {
+                Args = args;
+
                 switch (args[0])
                 {
                     case "-run": //-run %APP%
@@ -141,11 +146,47 @@ namespace LEProc
 
                 uint ret;
                 if ((ret = l.Start()) != 0)
-                    MessageBox.Show(Convert.ToString(ret, 16));
+                {
+                    if (DialogResult.Yes == MessageBox.Show(
+                        String.Format(
+                            "{0} Error detected.\r\n\r\nThis may because the target executable is a 64-bit binary \r\n-or-\r\nYou do not have enough rights.\r\n\r\nDo you want to run it again with an elevated Locale Emulator?",
+                            Convert.ToString(ret, 16)),
+                        "Locale Emulator",
+                        MessageBoxButtons.YesNo))
+                    {
+                        RunWithElevatedProcess(Args);
+                    }
+
+                }
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
+            }
+        }
+
+        private static void RunWithElevatedProcess(string[] args)
+        {
+            string arg = String.Empty;
+            arg = args.Aggregate(arg, (current, s) => current + String.Format(" \"{0}\"", s));
+
+            var shExecInfo = new SHELLEXECUTEINFO();
+
+            shExecInfo.cbSize = Marshal.SizeOf(shExecInfo);
+
+            shExecInfo.fMask = 0;
+            shExecInfo.hwnd = IntPtr.Zero;
+            shExecInfo.lpVerb = "runas";
+            shExecInfo.lpFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                                             "LEProc.exe");
+            shExecInfo.lpParameters = arg;
+            shExecInfo.lpDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            ;
+
+            if (ShellExecuteEx(ref shExecInfo)==false)
+            {
+                MessageBox.Show("Error when run with elevated LE.");
             }
         }
 
@@ -216,5 +257,53 @@ namespace LEProc
 
             return charset;
         }
+        [DllImport("shell32.dll", CharSet = CharSet.Auto)]
+        static extern bool ShellExecuteEx(ref SHELLEXECUTEINFO lpExecInfo);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct SHELLEXECUTEINFO
+        {
+            public int cbSize;
+            public uint fMask;
+            public IntPtr hwnd;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpVerb;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpFile;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpParameters;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpDirectory;
+            public int nShow;
+            public IntPtr hInstApp;
+            public IntPtr lpIDList;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpClass;
+            public IntPtr hkeyClass;
+            public uint dwHotKey;
+            public IntPtr hIcon;
+            public IntPtr hProcess;
+        }
+
+        public enum ShowCommands : int
+        {
+            SW_HIDE = 0,
+            SW_SHOWNORMAL = 1,
+            SW_NORMAL = 1,
+            SW_SHOWMINIMIZED = 2,
+            SW_SHOWMAXIMIZED = 3,
+            SW_MAXIMIZE = 3,
+            SW_SHOWNOACTIVATE = 4,
+            SW_SHOW = 5,
+            SW_MINIMIZE = 6,
+            SW_SHOWMINNOACTIVE = 7,
+            SW_SHOWNA = 8,
+            SW_RESTORE = 9,
+            SW_SHOWDEFAULT = 10,
+            SW_FORCEMINIMIZE = 11,
+            SW_MAX = 11
+        }
+
+
     }
 }
