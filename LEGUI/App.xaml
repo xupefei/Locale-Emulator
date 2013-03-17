@@ -1,0 +1,12 @@
+﻿<Application x:Class="LEGUI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="GlobalConfig.xaml" Startup="App_OnStartup">
+    <Application.Resources>
+        <ResourceDictionary Source="/ReuxablesLegacy;component/Mercury.xaml">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Lang\DefaultLanguage.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
