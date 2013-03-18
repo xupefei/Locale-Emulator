@@ -41,8 +41,8 @@
                     <GroupBox Grid.Row="0" Header="{DynamicResource LocationSettings}" Margin="4,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="32*" />
-                                <ColumnDefinition Width="69*" />
+                                <ColumnDefinition Width="101*" />
+                                <ColumnDefinition Width="167*" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="{DynamicResource Location}" VerticalContentAlignment="Center" />
                             <ComboBox x:Name="cbLocation" Grid.Column="1" Height="Auto" SelectedIndex="0" Margin="0,3" />
@@ -51,8 +51,8 @@
                     <GroupBox Grid.Row="1" Header="{DynamicResource FontSettings}" Margin="4,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="32*" />
-                                <ColumnDefinition Width="69*" />
+                                <ColumnDefinition Width="101*" />
+                                <ColumnDefinition Width="167*" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" Width="Auto" Content="{DynamicResource DefaultFont}"
                                    VerticalContentAlignment="Center" />
@@ -64,8 +64,8 @@
                     <GroupBox Grid.Row="2" Header="{DynamicResource TimezoneSettings}" Margin="4,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="32*" />
-                                <ColumnDefinition Width="69*" />
+                                <ColumnDefinition Width="101*" />
+                                <ColumnDefinition Width="167*" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource Timezone}"
                                    VerticalContentAlignment="Center" />

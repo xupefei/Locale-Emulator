@@ -9,7 +9,7 @@ namespace LEGUI
     internal class I18n
     {
         internal static readonly CultureInfo CurrentCultureInfo = CultureInfo.CurrentUICulture;
-        //internal static readonly CultureInfo CurrentCultureInfo = CultureInfo.GetCultureInfo("zh-CN");
+        //internal static readonly CultureInfo CurrentCultureInfo = CultureInfo.GetCultureInfo("fr-FR");
 
         private static ResourceDictionary cacheDictionary;
 
