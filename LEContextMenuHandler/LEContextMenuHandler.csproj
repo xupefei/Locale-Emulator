@@ -86,6 +86,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Lang\fr-FR.xml" />
     <Content Include="Resources\Pink.bmp" />
   </ItemGroup>
   <ItemGroup>
