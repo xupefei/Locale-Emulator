@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Windows.Forms;
 using LECommonLibrary;
+using Microsoft.Win32;
 
 namespace LEProc
 {
@@ -99,9 +100,40 @@ namespace LEProc
                             "Locale Emulator Debug Mode Warning", MessageBoxButtons.YesNo)) return;
                 }
 
-                string applicationName = path;
+                string applicationName = string.Empty;
+                string commandLine = string.Empty;
+
+                if (Path.GetExtension(path) == ".exe")
+                {
+                    applicationName = path;
+
+                    commandLine = path.StartsWith("\"")
+                                      ? string.Format("{0} ", path)
+                                      : String.Format("\"{0}\" ", path);
+
+                    commandLine += profile.Parameter;
+                }
+                else
+                {
+                    var prog = GetAssociatedProgram(Path.GetExtension(path));
+
+                    if (prog == null)
+                        return;
+
+                    var jb = SplitExecutableAndArgument(prog);
+
+                    if (jb == null)
+                        return;
+
+                    applicationName = jb[0];
+
+                    commandLine = jb[0].StartsWith("\"")
+                                      ? string.Format("{0} ", jb[0])
+                                      : String.Format("\"{0}\" ", jb[0]);
+                    commandLine += jb[1].Replace("%1", path).Replace("%*", profile.Parameter);
+                }
+
                 string currentDirectory = Path.GetDirectoryName(path);
-                string commandLine = profile.Parameter;
                 bool debugMode = profile.RunWithSuspend;
                 var ansiCodePage = (uint) CultureInfo.GetCultureInfo(profile.Location).TextInfo.ANSICodePage;
                 var oemCodePage = (uint) CultureInfo.GetCultureInfo(profile.Location).TextInfo.OEMCodePage;
@@ -166,6 +198,34 @@ namespace LEProc
             {
                 MessageBox.Show(e.ToString());
             }
+        }
+
+        private static string[] SplitExecutableAndArgument(string line)
+        {
+            string[] ret;
+            ret = line.StartsWith("\"")
+                      ? line.Split(new[] {"\" "}, 2, StringSplitOptions.None)
+                      : line.Split(new[] {' '}, 2, StringSplitOptions.None);
+
+            if (ret.Length == 2)
+            {
+                ret[0] = ret[0].StartsWith("\"") ? ret[0].Substring(1) : ret[0];
+                return ret;
+            }
+            return null;
+        }
+
+        private static string GetAssociatedProgram(string ext)
+        {
+            var d = (string) Registry.GetValue(string.Format("HKEY_CLASSES_ROOT\\{0}", ext), null, null);
+
+            if (string.IsNullOrEmpty(d))
+                return null;
+
+            var prog =
+                (string) Registry.GetValue(String.Format("HKEY_CLASSES_ROOT\\{0}\\Shell\\Open\\Command", d), null, null);
+
+            return prog;
         }
 
         private static void RunWithElevatedProcess(string[] args)

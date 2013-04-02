@@ -114,12 +114,11 @@ namespace LEContextMenuHandler
         {
             try
             {
-                ShellExtReg.RegisterShellExtContextMenuHandler(t.GUID, ".exe", "LocaleEmulator.LEContextMenuHandler Class");
+                ShellExtReg.RegisterShellExtContextMenuHandler(t.GUID, "*", "LocaleEmulator.LEContextMenuHandler Class");
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message); // Log the error
-                throw; // Re-throw the exception
+                MessageBox.Show(ex.Message); // Log the error
             }
         }
 
@@ -128,12 +127,11 @@ namespace LEContextMenuHandler
         {
             try
             {
-                ShellExtReg.UnregisterShellExtContextMenuHandler(t.GUID, ".exe");
+                ShellExtReg.UnregisterShellExtContextMenuHandler(t.GUID, "*");
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message); // Log the error
-                throw; // Re-throw the exception
+                MessageBox.Show(ex.Message); // Log the error
             }
         }
 
