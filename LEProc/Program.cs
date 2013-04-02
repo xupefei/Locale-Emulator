@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 using System.Windows.Forms;
 using LECommonLibrary;
 
@@ -147,16 +148,18 @@ namespace LEProc
                 uint ret;
                 if ((ret = l.Start()) != 0)
                 {
-                    if (DialogResult.Yes == MessageBox.Show(
-                        String.Format(
-                            "{0} Error detected.\r\n\r\nThis may because the target executable is a 64-bit binary \r\n-or-\r\nYou do not have enough rights.\r\n\r\nDo you want to run it again with an elevated Locale Emulator?",
-                            Convert.ToString(ret, 16)),
-                        "Locale Emulator",
-                        MessageBoxButtons.YesNo))
+                    if (IsAdministrator())
+                    {
+                        MessageBox.Show(
+                            String.Format(
+                                "Error number {0} detected.\r\n\r\nThis may because the target executable is a 64-bit binary which is not supported by the current version of Locale Emulator.",
+                                Convert.ToString(ret, 16).ToUpper()),
+                            "Locale Emulator");
+                    }
+                    else
                     {
                         RunWithElevatedProcess(Args);
                     }
-
                 }
             }
             catch (Exception e)
@@ -188,6 +191,13 @@ namespace LEProc
             {
                 MessageBox.Show("Error when run with elevated LE.");
             }
+        }
+
+        private static bool IsAdministrator()
+        {
+            var wp = new WindowsPrincipal(WindowsIdentity.GetCurrent());
+
+            return wp.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
         private static int GetCharsetFromANSICodepage(int ansicp)
