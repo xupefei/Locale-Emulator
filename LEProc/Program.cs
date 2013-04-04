@@ -103,7 +103,7 @@ namespace LEProc
                 string applicationName = string.Empty;
                 string commandLine = string.Empty;
 
-                if (Path.GetExtension(path) == ".exe")
+                if (Path.GetExtension(path).ToLower() == ".exe")
                 {
                     applicationName = path;
 
