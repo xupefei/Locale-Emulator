@@ -8,12 +8,30 @@ using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Windows.Forms;
 using LECommonLibrary;
-using Microsoft.Win32;
 
 namespace LEProc
 {
     internal static class Program
     {
+        public enum ShowCommands
+        {
+            SW_HIDE = 0,
+            SW_SHOWNORMAL = 1,
+            SW_NORMAL = 1,
+            SW_SHOWMINIMIZED = 2,
+            SW_SHOWMAXIMIZED = 3,
+            SW_MAXIMIZE = 3,
+            SW_SHOWNOACTIVATE = 4,
+            SW_SHOW = 5,
+            SW_MINIMIZE = 6,
+            SW_SHOWMINNOACTIVE = 7,
+            SW_SHOWNA = 8,
+            SW_RESTORE = 9,
+            SW_SHOWDEFAULT = 10,
+            SW_FORCEMINIMIZE = 11,
+            SW_MAX = 11
+        }
+
         internal static string[] Args;
 
         /// <summary>
@@ -92,7 +110,7 @@ namespace LEProc
         {
             try
             {
-                if(profile.RunWithSuspend)
+                if (profile.RunWithSuspend)
                 {
                     if (DialogResult.No ==
                         MessageBox.Show(
@@ -115,7 +133,7 @@ namespace LEProc
                 }
                 else
                 {
-                    var jb = AssociationReader.GetAssociatedProgram(Path.GetExtension(path));
+                    string[] jb = AssociationReader.GetAssociatedProgram(Path.GetExtension(path));
 
                     if (jb == null)
                         return;
@@ -130,16 +148,16 @@ namespace LEProc
 
                 string currentDirectory = Path.GetDirectoryName(path);
                 bool debugMode = profile.RunWithSuspend;
-                var ansiCodePage = (uint) CultureInfo.GetCultureInfo(profile.Location).TextInfo.ANSICodePage;
-                var oemCodePage = (uint) CultureInfo.GetCultureInfo(profile.Location).TextInfo.OEMCodePage;
-                var localeID = (uint) CultureInfo.GetCultureInfo(profile.Location).TextInfo.LCID;
+                var ansiCodePage = (uint)CultureInfo.GetCultureInfo(profile.Location).TextInfo.ANSICodePage;
+                var oemCodePage = (uint)CultureInfo.GetCultureInfo(profile.Location).TextInfo.OEMCodePage;
+                var localeID = (uint)CultureInfo.GetCultureInfo(profile.Location).TextInfo.LCID;
                 var defaultCharset = (uint)
                                      GetCharsetFromANSICodepage(
                                          CultureInfo.GetCultureInfo(profile.Location).TextInfo.ANSICodePage);
                 string defaultFaceName = profile.DefaultFont;
 
                 TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById(profile.Timezone);
-                var timezoneBias = (int) -tzi.BaseUtcOffset.TotalMinutes;
+                var timezoneBias = (int)-tzi.BaseUtcOffset.TotalMinutes;
 
                 TimeZoneInfo.AdjustmentRule[] adjustmentRules = tzi.GetAdjustmentRules();
                 TimeZoneInfo.AdjustmentRule adjustmentRule = null;
@@ -149,7 +167,7 @@ namespace LEProc
                     adjustmentRule =
                         adjustmentRules.SingleOrDefault(ar => ar.DateStart <= DateTime.Now && DateTime.Now <= ar.DateEnd);
                 }
-                int timezoneDaylightBias = adjustmentRule == null ? 0 : (int) -adjustmentRule.DaylightDelta.TotalMinutes;
+                int timezoneDaylightBias = adjustmentRule == null ? 0 : (int)-adjustmentRule.DaylightDelta.TotalMinutes;
 
                 string timezoneStandardName = tzi.StandardName;
 
@@ -214,7 +232,7 @@ namespace LEProc
 
             ;
 
-            if (ShellExecuteEx(ref shExecInfo)==false)
+            if (ShellExecuteEx(ref shExecInfo) == false)
             {
                 MessageBox.Show("Error when run with elevated LE.");
             }
@@ -294,8 +312,9 @@ namespace LEProc
 
             return charset;
         }
+
         [DllImport("shell32.dll", CharSet = CharSet.Auto)]
-        static extern bool ShellExecuteEx(ref SHELLEXECUTEINFO lpExecInfo);
+        private static extern bool ShellExecuteEx(ref SHELLEXECUTEINFO lpExecInfo);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct SHELLEXECUTEINFO
@@ -303,44 +322,18 @@ namespace LEProc
             public int cbSize;
             public uint fMask;
             public IntPtr hwnd;
-            [MarshalAs(UnmanagedType.LPTStr)]
-            public string lpVerb;
-            [MarshalAs(UnmanagedType.LPTStr)]
-            public string lpFile;
-            [MarshalAs(UnmanagedType.LPTStr)]
-            public string lpParameters;
-            [MarshalAs(UnmanagedType.LPTStr)]
-            public string lpDirectory;
+            [MarshalAs(UnmanagedType.LPTStr)] public string lpVerb;
+            [MarshalAs(UnmanagedType.LPTStr)] public string lpFile;
+            [MarshalAs(UnmanagedType.LPTStr)] public string lpParameters;
+            [MarshalAs(UnmanagedType.LPTStr)] public string lpDirectory;
             public int nShow;
             public IntPtr hInstApp;
             public IntPtr lpIDList;
-            [MarshalAs(UnmanagedType.LPTStr)]
-            public string lpClass;
+            [MarshalAs(UnmanagedType.LPTStr)] public string lpClass;
             public IntPtr hkeyClass;
             public uint dwHotKey;
             public IntPtr hIcon;
             public IntPtr hProcess;
         }
-
-        public enum ShowCommands : int
-        {
-            SW_HIDE = 0,
-            SW_SHOWNORMAL = 1,
-            SW_NORMAL = 1,
-            SW_SHOWMINIMIZED = 2,
-            SW_SHOWMAXIMIZED = 3,
-            SW_MAXIMIZE = 3,
-            SW_SHOWNOACTIVATE = 4,
-            SW_SHOW = 5,
-            SW_MINIMIZE = 6,
-            SW_SHOWMINNOACTIVE = 7,
-            SW_SHOWNA = 8,
-            SW_RESTORE = 9,
-            SW_SHOWDEFAULT = 10,
-            SW_FORCEMINIMIZE = 11,
-            SW_MAX = 11
-        }
-
-
     }
 }

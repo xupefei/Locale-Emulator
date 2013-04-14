@@ -21,7 +21,7 @@
         /// <returns>A HRESULT constructed from the above 3 values</returns>
         public static int MAKE_HRESULT(uint sev, uint fac, uint code)
         {
-            return (int) ((sev << 31) | (fac << 16) | code);
+            return (int)((sev << 31) | (fac << 16) | code);
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows;
-using System.Windows.Markup;
-using System.Windows.Media;
 
 namespace LEGUI
 {
@@ -18,7 +16,7 @@ namespace LEGUI
             ResourceDictionary dict = LoadDictionary();
             try
             {
-                var s = (string) dict[key];
+                var s = (string)dict[key];
 
                 if (String.IsNullOrEmpty(s)) return key;
 
@@ -39,7 +37,7 @@ namespace LEGUI
             try
             {
                 dictionary =
-                    (ResourceDictionary) Application.LoadComponent(
+                    (ResourceDictionary)Application.LoadComponent(
                         new Uri(@"Lang\" + CurrentCultureInfo.Name + ".xaml", UriKind.Relative));
             }
             catch

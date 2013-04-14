@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using Microsoft.Win32;
 
 namespace LECommonLibrary
@@ -19,12 +15,12 @@ namespace LECommonLibrary
 
         public static string[] GetAssociatedProgram(string ext)
         {
-            var prog = GetAssociatedProgramFromRegistry(ext);
+            string prog = GetAssociatedProgramFromRegistry(ext);
 
             if (prog == null)
                 return null;
 
-            var jb = SplitExecutableAndArgument(prog);
+            string[] jb = SplitExecutableAndArgument(prog);
 
             return jb;
         }
@@ -45,13 +41,13 @@ namespace LECommonLibrary
 
         private static string GetAssociatedProgramFromRegistry(string ext)
         {
-            var d = (string) Registry.GetValue(string.Format("HKEY_CLASSES_ROOT\\{0}", ext), null, null);
+            var d = (string)Registry.GetValue(string.Format("HKEY_CLASSES_ROOT\\{0}", ext), null, null);
 
             if (string.IsNullOrEmpty(d))
                 return null;
 
             var prog =
-                (string) Registry.GetValue(String.Format("HKEY_CLASSES_ROOT\\{0}\\Shell\\Open\\Command", d), null, null);
+                (string)Registry.GetValue(String.Format("HKEY_CLASSES_ROOT\\{0}\\Shell\\Open\\Command", d), null, null);
 
             return prog;
         }

@@ -1,29 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using LECommonLibrary;
-using Path = System.IO.Path;
 
 namespace LEGUI
 {
     /// <summary>
-    /// Interaction logic for AppConfig.xaml
+    ///     Interaction logic for AppConfig.xaml
     /// </summary>
     public partial class AppConfig
     {
-
         private readonly List<CultureInfo> _cultureInfos = new List<CultureInfo>();
         private readonly List<TimeZoneInfo> _timezones = new List<TimeZoneInfo>();
 
@@ -69,22 +60,22 @@ namespace LEGUI
         private void bSaveAppSetting_Click(object sender, RoutedEventArgs e)
         {
             var crt = new LEProfile
-            {
-                Name = Path.GetFileName(App.StandaloneFilePath),
-                Guid = Guid.NewGuid().ToString(),
-                ShowInMainMenu = false,
-                Parameter =
-                    I18n.GetString("EnterArgument") == tbAppParameter.Text ? String.Empty : tbAppParameter.Text,
-                DefaultFont = cbDefaultFont.Text,
-                Location = _cultureInfos[cbLocation.SelectedIndex].Name,
-                Timezone = _timezones[cbTimezone.SelectedIndex].Id,
-                RunWithSuspend = cbStartAsSuspend.IsChecked != null && (bool)cbStartAsSuspend.IsChecked
-            };
+                {
+                    Name = Path.GetFileName(App.StandaloneFilePath),
+                    Guid = Guid.NewGuid().ToString(),
+                    ShowInMainMenu = false,
+                    Parameter =
+                        I18n.GetString("EnterArgument") == tbAppParameter.Text ? String.Empty : tbAppParameter.Text,
+                    DefaultFont = cbDefaultFont.Text,
+                    Location = _cultureInfos[cbLocation.SelectedIndex].Name,
+                    Timezone = _timezones[cbTimezone.SelectedIndex].Id,
+                    RunWithSuspend = cbStartAsSuspend.IsChecked != null && (bool)cbStartAsSuspend.IsChecked
+                };
 
             LEConfig.SaveApplicationConfigFile(App.StandaloneFilePath, crt);
 
             //Run the application.
-            System.Diagnostics.Process.Start(
+            Process.Start(
                 Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEProc.exe"),
                 string.Format("-run \"{0}\"", App.StandaloneFilePath.Replace(".le.config", "")));
 

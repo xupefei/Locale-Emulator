@@ -1,21 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace LEGUI
 {
     /// <summary>
-    /// Interaction logic for MaskTextBox.xaml
+    ///     Interaction logic for MaskTextBox.xaml
     /// </summary>
     public partial class MaskedTextBox : TextBox
     {
@@ -84,7 +74,7 @@ namespace LEGUI
                 base.Text = string.Empty;
                 FontStyle = FontStyles.Normal;
             }
-            
+
             base.OnGotFocus(e);
         }
     }

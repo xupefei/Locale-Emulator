@@ -1,10 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using LEInstaller.Properties;
 using LECommonLibrary;
+using LEInstaller.Properties;
 using Microsoft.Win32;
 
 namespace LEInstaller
@@ -81,7 +82,7 @@ namespace LEInstaller
             AskForKillExplorer();
         }
 
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
             Environment.Exit(0);
         }

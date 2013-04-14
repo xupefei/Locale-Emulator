@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 
 namespace LECommonLibrary
@@ -10,7 +7,7 @@ namespace LECommonLibrary
     {
         public static PEType GetPEType(string path)
         {
-            if(string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path))
                 return PEType.Unknown;
 
             var br =
@@ -22,7 +19,7 @@ namespace LECommonLibrary
 
             byte[] buffer = br.BaseStream.Length > 512
                                 ? br.ReadBytes(512)
-                                : br.ReadBytes((int) br.BaseStream.Length);
+                                : br.ReadBytes((int)br.BaseStream.Length);
 
             br.Close();
 

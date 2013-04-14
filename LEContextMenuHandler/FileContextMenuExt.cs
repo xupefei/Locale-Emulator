@@ -19,6 +19,7 @@ MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -60,7 +61,6 @@ namespace LEContextMenuHandler
                           p =>
                           menuItems.Add(new LEMenuItem(p.Name, p.ShowInMainMenu, _menuBmpGray,
                                                        string.Format("-runas \"{0}\" \"%APP%\"", p.Guid))));
-
         }
 
         ~FileContextMenuExt()
@@ -79,7 +79,7 @@ namespace LEContextMenuHandler
 
         private void OnVerbDisplayFileName(string cmd)
         {
-            System.Diagnostics.Process.Start(
+            Process.Start(
                 Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEProc.exe"),
                 cmd.Replace("%APP%", _selectedFile));
         }
@@ -345,7 +345,7 @@ namespace LEContextMenuHandler
         public void InvokeCommand(IntPtr pici)
         {
             var ici = (CMINVOKECOMMANDINFO)Marshal.PtrToStructure(
-                pici, typeof(CMINVOKECOMMANDINFO));
+                pici, typeof (CMINVOKECOMMANDINFO));
 
             LEMenuItem item = menuItems[NativeMethods.LowWord(ici.verb.ToInt32())];
 

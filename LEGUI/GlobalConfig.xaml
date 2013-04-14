@@ -19,7 +19,8 @@
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
-                <ComboBox SelectedIndex="0" x:Name="cbGlobalProfiles" Grid.Row="0" Grid.Column="0" Height="Auto" Margin="3,3,3,4"
+                <ComboBox SelectedIndex="0" x:Name="cbGlobalProfiles" Grid.Row="0" Grid.Column="0" Height="Auto"
+                          Margin="3,3,3,4"
                           VerticalContentAlignment="Center" Grid.ColumnSpan="4"
                           SelectionChanged="cbGlobalProfiles_SelectionChanged" />
                 <Button x:Name="bSaveGlobalSetting" Grid.Row="1" Grid.Column="0" Content="{DynamicResource Save}"
@@ -44,7 +45,8 @@
                                 <ColumnDefinition Width="101*" />
                                 <ColumnDefinition Width="167*" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Content="{DynamicResource Location}" VerticalContentAlignment="Center" />
+                            <Label Grid.Column="0" Content="{DynamicResource Location}"
+                                   VerticalContentAlignment="Center" />
                             <ComboBox x:Name="cbLocation" Grid.Column="1" Height="Auto" SelectedIndex="0" Margin="0,3" />
                         </Grid>
                     </GroupBox>

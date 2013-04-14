@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media.Effects;
 using LECommonLibrary;
 
@@ -49,7 +47,7 @@ namespace LEGUI
             crt.Location = _cultureInfos[cbLocation.SelectedIndex].Name;
             crt.Timezone = _timezones[cbTimezone.SelectedIndex].Id;
             crt.ShowInMainMenu = cbShowInMainMenu.IsChecked != null && (bool)cbShowInMainMenu.IsChecked;
-            crt.RunWithSuspend = cbStartAsSuspend.IsChecked != null && (bool) cbStartAsSuspend.IsChecked;
+            crt.RunWithSuspend = cbStartAsSuspend.IsChecked != null && (bool)cbStartAsSuspend.IsChecked;
 
             _profiles[cbGlobalProfiles.SelectedIndex] = crt;
 
@@ -102,12 +100,12 @@ namespace LEGUI
         {
             var pro = new LEProfile(name,
                                     Guid.NewGuid().ToString(),
-                                    cbShowInMainMenu.IsChecked != null && (bool) cbShowInMainMenu.IsChecked,
+                                    cbShowInMainMenu.IsChecked != null && (bool)cbShowInMainMenu.IsChecked,
                                     String.Empty,
                                     _cultureInfos[cbLocation.SelectedIndex].Name,
                                     cbDefaultFont.Text,
                                     _timezones[cbTimezone.SelectedIndex].Id,
-                                    cbStartAsSuspend.IsChecked != null && (bool) cbStartAsSuspend.IsChecked
+                                    cbStartAsSuspend.IsChecked != null && (bool)cbStartAsSuspend.IsChecked
                 );
 
             _profiles.Add(pro);
