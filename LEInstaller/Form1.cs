@@ -69,8 +69,17 @@ namespace LEInstaller
 
             // Clean up CLSID
             RegistryKey key = Registry.ClassesRoot;
-            key.DeleteSubKeyTree(@"\CLSID\{C52B9871-E5E9-41FD-B84D-C5ACADBEC7AE}\");
-            key.Close();
+            try
+            {
+                key.DeleteSubKeyTree(@"\CLSID\{C52B9871-E5E9-41FD-B84D-C5ACADBEC7AE}\");
+            }
+            catch
+            {
+            }
+            finally
+            {
+                key.Close();
+            }
 
             string output = p.StandardOutput.ReadToEnd();
             string error = p.StandardError.ReadToEnd();
