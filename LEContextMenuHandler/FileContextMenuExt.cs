@@ -88,7 +88,7 @@ namespace LEContextMenuHandler
                                      IntPtr registerTo)
         {
             var sub = new MENUITEMINFO();
-            sub.cbSize = (uint) Marshal.SizeOf(sub);
+            sub.cbSize = (uint)Marshal.SizeOf(sub);
 
             MIIM m = MIIM.MIIM_STRING | MIIM.MIIM_FTYPE | MIIM.MIIM_ID | MIIM.MIIM_STATE;
             if (bitmap != IntPtr.Zero) m |= MIIM.MIIM_BITMAP;
@@ -161,7 +161,7 @@ namespace LEContextMenuHandler
 
             var fe = new FORMATETC
                 {
-                    cfFormat = (short) CLIPFORMAT.CF_HDROP,
+                    cfFormat = (short)CLIPFORMAT.CF_HDROP,
                     ptd = IntPtr.Zero,
                     dwAspect = DVASPECT.DVASPECT_CONTENT,
                     lindex = -1,
@@ -172,7 +172,7 @@ namespace LEContextMenuHandler
             // The pDataObj pointer contains the objects being acted upon. In this 
             // example, we get an HDROP handle for enumerating the selected files 
             // and folders.
-            var dataObject = (IDataObject) Marshal.GetObjectForIUnknown(pDataObj);
+            var dataObject = (IDataObject)Marshal.GetObjectForIUnknown(pDataObj);
             dataObject.GetData(ref fe, out stm);
 
             try
@@ -198,7 +198,38 @@ namespace LEContextMenuHandler
                     {
                         Marshal.ThrowExceptionForHR(WinError.E_FAIL);
                     }
+
                     _selectedFile = fileName.ToString();
+
+                    // Check exe binary type
+                    string path = string.Empty;
+                    string ext = Path.GetExtension(_selectedFile).ToLower();
+
+                    if (ext == ".exe")
+                    {
+                        path = _selectedFile;
+                    }
+                    else
+                    {
+                        path = AssociationReader.HaveAssociatedProgram(ext)
+                                   ? AssociationReader.GetAssociatedProgram(ext)[0]
+                                   : string.Empty;
+
+                        if (SystemHelper.Is64BitOS())
+                        {
+                            path = SystemHelper.RedirectToWow64(path);
+                        }
+                    }
+                    // Do not display context menus for 64bit exe.
+                    switch (PEFileReader.GetPEType(path))
+                    {
+                        case PEType.Unknown:
+                        case PEType.X64:
+                            Marshal.ThrowExceptionForHR(WinError.E_FAIL);
+                            break;
+                        case PEType.X32:
+                            break;
+                    }
                 }
                 else
                 {
@@ -244,14 +275,14 @@ namespace LEContextMenuHandler
             uint uFlags)
         {
             // If uFlags include CMF_DEFAULTONLY then we should not do anything.
-            if (((uint) CMF.CMF_DEFAULTONLY & uFlags) != 0)
+            if (((uint)CMF.CMF_DEFAULTONLY & uFlags) != 0)
             {
                 return WinError.MAKE_HRESULT(WinError.SEVERITY_SUCCESS, 0, 0);
             }
 
             // Add a separator.
             var sep = new MENUITEMINFO();
-            sep.cbSize = (uint) Marshal.SizeOf(sep);
+            sep.cbSize = (uint)Marshal.SizeOf(sep);
             sep.fMask = MIIM.MIIM_TYPE;
             sep.fType = MFT.MFT_SEPARATOR;
             if (!NativeMethods.InsertMenuItem(hMenu, 0, true, ref sep))
@@ -285,23 +316,23 @@ namespace LEContextMenuHandler
                 }
                 else
                 {
-                    RegisterMenuItem((uint) i, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 0, hSubMenu);
+                    RegisterMenuItem((uint)i, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 0, hSubMenu);
                 }
             }
 
             // Add a separator.
             sep = new MENUITEMINFO();
-            sep.cbSize = (uint) Marshal.SizeOf(sep);
+            sep.cbSize = (uint)Marshal.SizeOf(sep);
             sep.fMask = MIIM.MIIM_TYPE;
             sep.fType = MFT.MFT_SEPARATOR;
             NativeMethods.InsertMenuItem(hSubMenu,
-                                         (uint) menuItems.FindAll(t => t.ShowInMainMenu != true).Count - 4,
+                                         (uint)menuItems.FindAll(t => t.ShowInMainMenu != true).Count - 4,
                                          true,
                                          ref sep);
 
             // Return an HRESULT value with the severity set to SEVERITY_SUCCESS. 
             // Set the code value to the total number of items added.
-            return WinError.MAKE_HRESULT(WinError.SEVERITY_SUCCESS, 0, 2 + (uint) menuItems.Count);
+            return WinError.MAKE_HRESULT(WinError.SEVERITY_SUCCESS, 0, 2 + (uint)menuItems.Count);
         }
 
         /// <summary>
@@ -313,8 +344,8 @@ namespace LEContextMenuHandler
         /// </param>
         public void InvokeCommand(IntPtr pici)
         {
-            var ici = (CMINVOKECOMMANDINFO) Marshal.PtrToStructure(
-                pici, typeof (CMINVOKECOMMANDINFO));
+            var ici = (CMINVOKECOMMANDINFO)Marshal.PtrToStructure(
+                pici, typeof(CMINVOKECOMMANDINFO));
 
             LEMenuItem item = menuItems[NativeMethods.LowWord(ici.verb.ToInt32())];
 

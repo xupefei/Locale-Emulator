@@ -4,6 +4,8 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using LEInstaller.Properties;
+using LECommonLibrary;
+using Microsoft.Win32;
 
 namespace LEInstaller
 {
@@ -64,6 +66,11 @@ namespace LEInstaller
 
             p.WaitForExit(5000);
 
+            // Clean up CLSID
+            RegistryKey key = Registry.ClassesRoot;
+            key.DeleteSubKeyTree(@"\CLSID\{C52B9871-E5E9-41FD-B84D-C5ACADBEC7AE}\");
+            key.Close();
+
             string output = p.StandardOutput.ReadToEnd();
             string error = p.StandardError.ReadToEnd();
 
@@ -109,7 +116,7 @@ namespace LEInstaller
             {
                 string tempFile = Path.GetTempFileName();
 
-                File.WriteAllBytes(tempFile, Is64BitOS() ? Resources.RegAsm64 : Resources.RegAsm);
+                File.WriteAllBytes(tempFile, SystemHelper.Is64BitOS() ? Resources.RegAsm64 : Resources.RegAsm);
 
                 return tempFile;
             }
@@ -118,17 +125,6 @@ namespace LEInstaller
                 MessageBox.Show(e.Message);
                 throw;
             }
-        }
-
-        private bool Is64BitOS()
-        {
-            if (IntPtr.Size == 4)
-                return false;
-            if (IntPtr.Size == 8)
-                return true;
-
-            MessageBox.Show("Unable to determine the type of your OS.");
-            throw new Exception("OS_ARCH_NOT_DEFINED");
         }
     }
 }
