@@ -17,8 +17,8 @@ namespace LECommonLibrary
                                                 FileShare.ReadWrite
                                      ));
 
-            byte[] buffer = br.BaseStream.Length > 512
-                                ? br.ReadBytes(512)
+            byte[] buffer = br.BaseStream.Length > 1024
+                                ? br.ReadBytes(1024)
                                 : br.ReadBytes((int)br.BaseStream.Length);
 
             br.Close();
