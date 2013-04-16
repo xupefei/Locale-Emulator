@@ -2,7 +2,7 @@
 
 namespace LECommonLibrary
 {
-    public class SystemHelper
+    public static class SystemHelper
     {
         public static bool Is64BitOS()
         {

@@ -1,9 +1,15 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace LECommonLibrary
 {
-    public class PEFileReader
+    public enum PEType
+    {
+        X32,
+        X64,
+        Unknown,
+    }
+
+    public static class PEFileReader
     {
         public static PEType GetPEType(string path)
         {
@@ -17,33 +23,17 @@ namespace LECommonLibrary
                                                 FileShare.ReadWrite
                                      ));
 
-            byte[] buffer = br.BaseStream.Length > 1024
-                                ? br.ReadBytes(1024)
-                                : br.ReadBytes((int)br.BaseStream.Length);
+            br.BaseStream.Seek(0x3C, SeekOrigin.Begin);
+            br.BaseStream.Seek(br.ReadInt32() + 4, SeekOrigin.Begin);
+            ushort machine = br.ReadUInt16();
 
             br.Close();
 
-            // http://superuser.com/questions/103071/quick-way-to-tell-if-an-installed-application-is-64-bit-or-32-bit
-            // "PE..L" (hex code: 50 45 00 00 4C) = 32 bit
-            // "PE..d†" (hex code: 50 45 00 00 64 86) = 64 bit
-            int loc = Array.IndexOf(buffer, (byte)0x50, 0);
-            while (loc != -1 && loc <= buffer.Length - 6)
-            {
-                if (buffer[loc + 1] == 0x45 && buffer[loc + 2] == 0x00 && buffer[loc + 3] == 0x00)
-                {
-                    if (buffer[loc + 4] == 0x4C)
-                    {
-                        return PEType.X32;
-                    }
+            if (machine == 0x014C)
+                return PEType.X32;
 
-                    if (buffer[loc + 4] == 0x64 && buffer[loc + 5] == 0x86)
-                    {
-                        return PEType.X64;
-                    }
-                }
-
-                loc = Array.IndexOf(buffer, (byte)0x50, loc + 1);
-            }
+            if (machine == 0x8664)
+                return PEType.X64;
 
             return PEType.Unknown;
         }

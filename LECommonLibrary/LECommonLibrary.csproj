@@ -48,7 +48,6 @@
     <Compile Include="LEConfig.cs" />
     <Compile Include="LEProfile.cs" />
     <Compile Include="PEFileReader.cs" />
-    <Compile Include="PEType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemHelper.cs" />
   </ItemGroup>
