@@ -43,7 +43,7 @@ namespace LEProc
             if (args.Length == 0)
             {
                 MessageBox.Show(
-                    "Welcome to Locale Emulator command line tool.\r\n\r\nUsage: LEProc.exe [-run <APP_PATH>]|[-manage <APP_PATH>]|[-global]|[-runas <PROFILE_GUID> <APP_PATH>]\r\n\r\n-run: Run an application with it's own profile.\r\n-manage: Modify the profile of one application.\r\n-global: Open Global Profile Manager.\r\n-runas: Run an application with a global profile of specific Guid.");
+                    "Welcome to Locale Emulator command line tool.\r\n\r\nUsage: LEProc.exe\r\n\t[-run <APP_PATH>]\r\n\t[-manage <APP_PATH>]\r\n\t[-global]\r\n\t[-runas <PROFILE_GUID> <APP_PATH>]\r\n\r\n-run: Run an application with it's own profile.\r\n-manage: Modify the profile of one application.\r\n-global: Open Global Profile Manager.\r\n-runas: Run an application with a global profile of specific Guid.");
 
                 return;
             }
@@ -96,13 +96,38 @@ namespace LEProc
             string conf = path + ".le.config";
 
             if (!File.Exists(conf))
+            {
+                if (!CheckPermission(Path.GetDirectoryName(path)))
+                {
+                    MessageBox.Show("The directory is not writable. Please use global profile instead.",
+                                    "Locale Emulator", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+
                 Process.Start(
                     Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEGUI.exe"),
                     String.Format("\"{0}.le.config\"", path));
+            }
             else
             {
                 LEProfile profile = LEConfig.GetProfiles(conf)[0];
                 DoRunWithLEProfile(path, profile);
+            }
+        }
+
+        private static bool CheckPermission(string path)
+        {
+            try
+            {
+                File.Create(Path.Combine(path, "36BED0DAD632.123")).Close();
+                File.Delete(Path.Combine(path, "36BED0DAD632.123"));
+
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
@@ -197,7 +222,7 @@ namespace LEProc
                     {
                         MessageBox.Show(
                             String.Format(
-                                "Error number {0} detected.\r\n\r\nThis may because the target executable is a 64-bit binary which is not supported by the current version of Locale Emulator.",
+                                "Error number {0} detected.\r\n\r\nIf you think this is an error, please submit an issue: https://github.com/xupefei/Locale-Emulator/issues",
                                 Convert.ToString(ret, 16).ToUpper()),
                             "Locale Emulator");
                     }
