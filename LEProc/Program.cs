@@ -222,7 +222,7 @@ namespace LEProc
                     {
                         MessageBox.Show(
                             String.Format(
-                                "Error number {0} detected.\r\n\r\nIf you think this is an error, please submit an issue: https://github.com/xupefei/Locale-Emulator/issues",
+                                "Error number {0} detected.\r\n\r\nIf you think this is an error, feel free to submit an issue: https://github.com/xupefei/Locale-Emulator/issues",
                                 Convert.ToString(ret, 16).ToUpper()),
                             "Locale Emulator");
                     }
