@@ -81,6 +81,7 @@
   <ItemGroup>
     <None Include="Lang\DefaultLanguage.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Lang\zh-CN.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -89,6 +90,7 @@
     <None Include="Lang\fr-FR.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Lang\zh-TW.xml" />
     <Content Include="Resources\Pink.bmp" />
   </ItemGroup>
   <ItemGroup>
