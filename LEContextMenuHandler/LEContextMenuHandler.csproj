@@ -95,6 +95,9 @@
     </None>
     <None Include="Resources\Blue.bmp" />
     <None Include="Resources\Green.bmp" />
+    <None Include="Lang\ja-JP.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Resources\Pink.bmp" />
   </ItemGroup>
   <ItemGroup>

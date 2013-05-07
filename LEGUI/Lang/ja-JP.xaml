@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <FontFamily x:Key="UIFont">Meiryo UI</FontFamily>
+    <system:String x:Key="EnterArgument">コマンドを入力</system:String>
+    <system:String x:Key="Save">保存</system:String>
+    <system:String x:Key="Cancel">キャンセル</system:String>
+    <system:String x:Key="SaveAs">名前を付けて保存</system:String>
+    <system:String x:Key="SaveAsInstruction">新しいプロファイルの名前を設定</system:String>
+    <system:String x:Key="Delete">削除</system:String>
+    <system:String x:Key="ConfirmDel">プロファイルを削除しますか？</system:String>
+    <system:String x:Key="Location">場所</system:String>
+    <system:String x:Key="LocationSettings">場所設定</system:String>
+    <system:String x:Key="FontSettings">フォント設定</system:String>
+    <system:String x:Key="DefaultFont">初期フォント</system:String>
+    <system:String x:Key="TimezoneSettings">タイムゾーンを設定</system:String>
+    <system:String x:Key="Timezone">タイムゾーン</system:String>
+    <system:String x:Key="DebugOptions">デバッグモード (上級者用)</system:String>
+    <system:String x:Key="WithCREATESUSPENDED">CREATE__SUSPENDEDでプロセスを実行</system:String>
+    <system:String x:Key="Miscellaneous">その他</system:String>
+    <system:String x:Key="ShowInMainMenu">メインメニュでプロファイルを表示</system:String>
+    <system:String x:Key="AskForShortcut">ショットカットを作成しますか？</system:String>
+</ResourceDictionary>
