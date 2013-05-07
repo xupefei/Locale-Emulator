@@ -91,6 +91,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Lang\zh-TW.xml" />
+    <None Include="Resources\Blue.bmp" />
+    <None Include="Resources\Green.bmp" />
     <Content Include="Resources\Pink.bmp" />
   </ItemGroup>
   <ItemGroup>

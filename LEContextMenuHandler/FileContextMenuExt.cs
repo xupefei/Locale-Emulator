@@ -38,6 +38,8 @@ namespace LEContextMenuHandler
     public class FileContextMenuExt : IShellExtInit, IContextMenu
     {
         // The name of the selected file.
+        private readonly IntPtr _menuBmpBlue = IntPtr.Zero;
+        private readonly IntPtr _menuBmpGreen = IntPtr.Zero;
         private readonly List<LEMenuItem> menuItems = new List<LEMenuItem>();
         private IntPtr _menuBmpGray = IntPtr.Zero;
         private IntPtr _menuBmpPink = IntPtr.Zero;
@@ -49,17 +51,19 @@ namespace LEContextMenuHandler
             //Load the bitmap for the menu item.
             _menuBmpPink = Resource.Pink.GetHbitmap();
             _menuBmpGray = Resource.Gray.GetHbitmap();
+            _menuBmpBlue = Resource.Blue.GetHbitmap();
+            _menuBmpGreen = Resource.Green.GetHbitmap();
 
             //Load default items.
-            menuItems.Add(new LEMenuItem(I18n.GetString("RunDefault"), null, _menuBmpPink, "-run \"%APP%\""));
-            menuItems.Add(new LEMenuItem(I18n.GetString("Submenu"), null, _menuBmpGray, ""));
+            menuItems.Add(new LEMenuItem(I18n.GetString("Submenu"), null, _menuBmpGreen, ""));
+            menuItems.Add(new LEMenuItem(I18n.GetString("RunDefault"), null, _menuBmpGreen, "-run \"%APP%\""));
             menuItems.Add(new LEMenuItem(I18n.GetString("ManageApp"), null, _menuBmpGray, "-manage \"%APP%\""));
-            menuItems.Add(new LEMenuItem(I18n.GetString("ManageAll"), null, _menuBmpGray, "-global"));
+            menuItems.Add(new LEMenuItem(I18n.GetString("ManageAll"), null, _menuBmpBlue, "-global"));
 
             //Load global profiles.
             Array.ForEach(LEConfig.GetProfiles(),
                           p =>
-                          menuItems.Add(new LEMenuItem(p.Name, p.ShowInMainMenu, _menuBmpGray,
+                          menuItems.Add(new LEMenuItem(p.Name, p.ShowInMainMenu, _menuBmpPink,
                                                        string.Format("-runas \"{0}\" \"%APP%\"", p.Guid))));
         }
 
@@ -288,22 +292,29 @@ namespace LEContextMenuHandler
             if (!NativeMethods.InsertMenuItem(hMenu, 0, true, ref sep))
                 return Marshal.GetHRForLastWin32Error();
 
-            // Register item 0: RunDefault
-            LEMenuItem item = menuItems[0];
-            RegisterMenuItem(0, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 1, hMenu);
-
-            // Register item 1: Submenu
+            // Register item 0: Submenu
             IntPtr hSubMenu = NativeMethods.CreatePopupMenu();
+            LEMenuItem item = menuItems[0];
+            RegisterMenuItem(0, idCmdFirst, item.Text, item.Bitmap, hSubMenu, 1, hMenu);
+
+            // Register item 1: RunDefault
             item = menuItems[1];
-            RegisterMenuItem(1, idCmdFirst, item.Text, item.Bitmap, hSubMenu, 2, hMenu);
+            RegisterMenuItem(1, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 0, hSubMenu);
+
+            // Add a separator.
+            sep = new MENUITEMINFO();
+            sep.cbSize = (uint)Marshal.SizeOf(sep);
+            sep.fMask = MIIM.MIIM_TYPE;
+            sep.fType = MFT.MFT_SEPARATOR;
+            NativeMethods.InsertMenuItem(hSubMenu, 1, true, ref sep);
 
             // Register item 2 (Submenu->ManageApp).
             item = menuItems[2];
-            RegisterMenuItem(2, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 0, hSubMenu);
+            RegisterMenuItem(2, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 2, hSubMenu);
 
             // Register item 3 (Submenu->ManageAll).
             item = menuItems[3];
-            RegisterMenuItem(3, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 1, hSubMenu);
+            RegisterMenuItem(3, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 3, hSubMenu);
 
             //Register user-defined profiles.
             //We should count down to 4.
@@ -312,7 +323,7 @@ namespace LEContextMenuHandler
                 item = menuItems[i];
                 if (item.ShowInMainMenu == true)
                 {
-                    RegisterMenuItem((uint)i, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 2, hMenu);
+                    RegisterMenuItem((uint)i, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 1, hMenu);
                 }
                 else
                 {
@@ -332,7 +343,7 @@ namespace LEContextMenuHandler
 
             // Return an HRESULT value with the severity set to SEVERITY_SUCCESS. 
             // Set the code value to the total number of items added.
-            return WinError.MAKE_HRESULT(WinError.SEVERITY_SUCCESS, 0, 2 + (uint)menuItems.Count);
+            return WinError.MAKE_HRESULT(WinError.SEVERITY_SUCCESS, 0, 3 + (uint)menuItems.Count);
         }
 
         /// <summary>
