@@ -4,5 +4,5 @@
   <RunDefault>以此程式設定執行</RunDefault>
   <Submenu>Locale Emulator</Submenu>
   <ManageApp>修改此程式的設定</ManageApp>
-  <ManageAll>管理常用設定清單</ManageAll>
+  <ManageAll>管理通用設定清單</ManageAll>
 </Strings>
