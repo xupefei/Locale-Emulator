@@ -3,6 +3,6 @@
 <Strings>
   <RunDefault>Executer avec le profil de cette application</RunDefault>
   <Submenu>Locale Emulator</Submenu>
-  <ManageApp>Modifier le profil de cette application</ManageApp>
+  <ManageApp>Modifier de profil application</ManageApp>
   <ManageAll>Management de profil global</ManageAll>
 </Strings>
