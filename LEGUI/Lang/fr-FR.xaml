@@ -19,4 +19,5 @@
     <system:String x:Key="WithCREATESUSPENDED">Créer le processus avec CREATE__SUSPENDED</system:String>
     <system:String x:Key="Miscellaneous">Divers</system:String>
     <system:String x:Key="ShowInMainMenu">Afficher ce profil dans le menu principal</system:String>
+    <system:String x:Key="AskForShortcut">Voulez vous créer un raccourci sur votre bureau?</system:String>
 </ResourceDictionary>

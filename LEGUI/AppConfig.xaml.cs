@@ -6,7 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using IWshRuntimeLibrary;
 using LECommonLibrary;
+using File = System.IO.File;
 
 namespace LEGUI
 {
@@ -74,12 +76,39 @@ namespace LEGUI
 
             LEConfig.SaveApplicationConfigFile(App.StandaloneFilePath, crt);
 
+            //Ask for create a shortcut.
+            if (MessageBoxResult.Yes ==
+                MessageBox.Show(I18n.GetString("AskForShortcut"), "LEGUI", MessageBoxButton.YesNo,
+                                MessageBoxImage.Question))
+            {
+                CreateShortcut(App.StandaloneFilePath.Replace(".le.config", ""));
+            }
+
             //Run the application.
             Process.Start(
                 Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEProc.exe"),
                 string.Format("-run \"{0}\"", App.StandaloneFilePath.Replace(".le.config", "")));
 
             Application.Current.Shutdown();
+        }
+
+        private void CreateShortcut(string path)
+        {
+            var shortcut =
+                (IWshShortcut)
+                new WshShell().CreateShortcut(string.Format("{0}\\{1}.lnk",
+                                                            Environment.GetFolderPath(
+                                                                Environment.SpecialFolder.DesktopDirectory),
+                                                            Path.GetFileNameWithoutExtension(path)));
+
+            shortcut.TargetPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                                               "LEProc.exe");
+            shortcut.Arguments = String.Format("-run \"{0}\"", path);
+            shortcut.WorkingDirectory = Path.GetDirectoryName(path);
+            shortcut.WindowStyle = 1;
+            shortcut.Description = string.Format("Run {0} with Locale Emulator", Path.GetFileName(path));
+            shortcut.IconLocation = AssociationReader.GetAssociatedIcon(Path.GetExtension(path)).Replace("%1", path);
+            shortcut.Save();
         }
 
         private void bDeleteAppSetting_Click(object sender, RoutedEventArgs e)

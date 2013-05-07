@@ -19,4 +19,5 @@
     <system:String x:Key="WithCREATESUSPENDED">用 CREATE__SUSPENDED 标志创建进程</system:String>
     <system:String x:Key="Miscellaneous">其它</system:String>
     <system:String x:Key="ShowInMainMenu">在一级菜单中显示此配置</system:String>
+    <system:String x:Key="AskForShortcut">您想在桌面上放置一个快捷方式吗？</system:String>
 </ResourceDictionary>

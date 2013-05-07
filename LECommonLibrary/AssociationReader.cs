@@ -25,6 +25,29 @@ namespace LECommonLibrary
             return jb;
         }
 
+        public static string GetAssociatedIcon(string ext)
+        {
+            string prog = GetAssociatedIconFromRegistry(ext);
+
+            if (prog == null)
+                return null;
+
+            return prog;
+        }
+
+        private static string GetAssociatedIconFromRegistry(string ext)
+        {
+            var d = (string)Registry.GetValue(string.Format("HKEY_CLASSES_ROOT\\{0}", ext), null, null);
+
+            if (string.IsNullOrEmpty(d))
+                return null;
+
+            var prog =
+                (string)Registry.GetValue(String.Format("HKEY_CLASSES_ROOT\\{0}\\DefaultIcon", d), null, null);
+
+            return prog;
+        }
+
         private static string[] SplitExecutableAndArgument(string line)
         {
             string[] ret = line.StartsWith("\"")

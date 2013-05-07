@@ -19,4 +19,5 @@
     <system:String x:Key="WithCREATESUSPENDED">用 CREATE__SUSPENDED 標誌建立進程</system:String>
     <system:String x:Key="Miscellaneous">其它</system:String>
     <system:String x:Key="ShowInMainMenu">在主選單中顯示此設定</system:String>
+    <system:String x:Key="AskForShortcut">您想在桌面上放置一個捷徑嗎？</system:String>
 </ResourceDictionary>
