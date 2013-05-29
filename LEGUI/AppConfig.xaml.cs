@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Windows;
 using IWshRuntimeLibrary;
 using LECommonLibrary;
-using File = System.IO.File;
 
 namespace LEGUI
 {
@@ -116,8 +115,8 @@ namespace LEGUI
             if (MessageBoxResult.No == MessageBox.Show(I18n.GetString("ConfirmDel"), "", MessageBoxButton.YesNo))
                 return;
 
-            if (File.Exists(App.StandaloneFilePath))
-                File.Delete(App.StandaloneFilePath);
+            if (System.IO.File.Exists(App.StandaloneFilePath))
+                System.IO.File.Delete(App.StandaloneFilePath);
 
             Application.Current.Shutdown();
         }
