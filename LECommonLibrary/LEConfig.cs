@@ -111,11 +111,7 @@ namespace LECommonLibrary
                     );
             }
 
-            var tree = new XElement("LEConfig",
-                                    new XAttribute("Version",
-                                                   Assembly.GetExecutingAssembly().GetName().Version.ToString()),
-                                    baseNode
-                );
+            var tree = new XElement("LEConfig", baseNode);
 
             tree.Save(writeTo);
         }
