@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\VersionInfo.cs">
+      <Link>Properties\VersionInfo.cs</Link>
+    </Compile>
     <Compile Include="FileContextMenuExt.cs" />
     <Compile Include="I18n.cs" />
     <Compile Include="NativeMethods.cs" />
