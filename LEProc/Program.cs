@@ -43,7 +43,19 @@ namespace LEProc
             if (args.Length == 0)
             {
                 MessageBox.Show(
-                    "Welcome to Locale Emulator command line tool.\r\n\r\nUsage: LEProc.exe\r\n\t[-run <APP_PATH>]\r\n\t[-manage <APP_PATH>]\r\n\t[-global]\r\n\t[-runas <PROFILE_GUID> <APP_PATH>]\r\n\r\n-run: Run an application with it's own profile.\r\n-manage: Modify the profile of one application.\r\n-global: Open Global Profile Manager.\r\n-runas: Run an application with a global profile of specific Guid.");
+                    "Welcome to Locale Emulator command line tool.\r\n" +
+                    "\r\n" +
+                    "Usage: LEProc.exe\r\n" +
+                    "\t[-run <APP_PATH>]\r\n" +
+                    "\t[-manage <APP_PATH>]\r\n" +
+                    "\t[-global]\r\n" +
+                    "\t[-runas <PROFILE_GUID> <APP_PATH>]\r\n" +
+                    "\r\n" +
+                    "-run: Run an application with it's own profile.\r\n" +
+                    "-manage: Modify the profile of one application.\r\n" +
+                    "-global: Open Global Profile Manager.\r\n" +
+                    "-runas: Run an application with a global profile of specific Guid."
+                    );
 
                 return;
             }
@@ -100,7 +112,7 @@ namespace LEProc
                 if (!CheckPermission(Path.GetDirectoryName(path)))
                 {
                     MessageBox.Show("The directory is not writable. Please use global profile instead.",
-                                    "Locale Emulator", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        "Locale Emulator", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return;
                 }
@@ -151,8 +163,8 @@ namespace LEProc
                     applicationName = path;
 
                     commandLine = path.StartsWith("\"")
-                                      ? string.Format("{0} ", path)
-                                      : String.Format("\"{0}\" ", path);
+                        ? string.Format("{0} ", path)
+                        : String.Format("\"{0}\" ", path);
 
                     commandLine += profile.Parameter;
                 }
@@ -166,8 +178,8 @@ namespace LEProc
                     applicationName = jb[0];
 
                     commandLine = jb[0].StartsWith("\"")
-                                      ? string.Format("{0} ", jb[0])
-                                      : String.Format("\"{0}\" ", jb[0]);
+                        ? string.Format("{0} ", jb[0])
+                        : String.Format("\"{0}\" ", jb[0]);
                     commandLine += jb[1].Replace("%1", path).Replace("%*", profile.Parameter);
                 }
 
@@ -177,8 +189,8 @@ namespace LEProc
                 var oemCodePage = (uint)CultureInfo.GetCultureInfo(profile.Location).TextInfo.OEMCodePage;
                 var localeID = (uint)CultureInfo.GetCultureInfo(profile.Location).TextInfo.LCID;
                 var defaultCharset = (uint)
-                                     GetCharsetFromANSICodepage(
-                                         CultureInfo.GetCultureInfo(profile.Location).TextInfo.ANSICodePage);
+                    GetCharsetFromANSICodepage(
+                        CultureInfo.GetCultureInfo(profile.Location).TextInfo.ANSICodePage);
                 string defaultFaceName = profile.DefaultFont;
 
                 TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById(profile.Timezone);
@@ -199,21 +211,21 @@ namespace LEProc
                 string timezoneDaylightName = tzi.DaylightName;
 
                 var l = new LoaderWrapper
-                    {
-                        ApplicationName = applicationName,
-                        CommandLine = commandLine,
-                        CurrentDirectory = currentDirectory,
-                        AnsiCodePage = ansiCodePage,
-                        OemCodePage = oemCodePage,
-                        LocaleID = localeID,
-                        DefaultCharset = defaultCharset,
-                        DefaultFaceName = defaultFaceName,
-                        TimezoneBias = timezoneBias,
-                        TimezoneDaylightBias = timezoneDaylightBias,
-                        TimezoneStandardName = timezoneStandardName,
-                        TimezoneDaylightName = timezoneDaylightName,
-                        DebugMode = debugMode,
-                    };
+                {
+                    ApplicationName = applicationName,
+                    CommandLine = commandLine,
+                    CurrentDirectory = currentDirectory,
+                    AnsiCodePage = ansiCodePage,
+                    OemCodePage = oemCodePage,
+                    LocaleID = localeID,
+                    DefaultCharset = defaultCharset,
+                    DefaultFaceName = defaultFaceName,
+                    TimezoneBias = timezoneBias,
+                    TimezoneDaylightBias = timezoneDaylightBias,
+                    TimezoneStandardName = timezoneStandardName,
+                    TimezoneDaylightName = timezoneDaylightName,
+                    DebugMode = debugMode,
+                };
 
                 uint ret;
                 if ((ret = l.Start()) != 0)
@@ -222,7 +234,11 @@ namespace LEProc
                     {
                         MessageBox.Show(
                             String.Format(
-                                "Error number {0} detected.\r\n\r\nIf you think this is an error, feel free to submit an issue: https://github.com/xupefei/Locale-Emulator/issues",
+                                "Error number {0} detected.\r\n" +
+                                "\r\n" +
+                                "If you have any antivirus software running, please turn it off and try again.\r\n" +
+                                "If you think this error is related to LE, feel free to submit an issue at\r\n" +
+                                "https://github.com/xupefei/Locale-Emulator/issues",
                                 Convert.ToString(ret, 16).ToUpper()),
                             "Locale Emulator");
                     }
@@ -251,7 +267,7 @@ namespace LEProc
             shExecInfo.hwnd = IntPtr.Zero;
             shExecInfo.lpVerb = "runas";
             shExecInfo.lpFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                             "LEProc.exe");
+                "LEProc.exe");
             shExecInfo.lpParameters = arg;
             shExecInfo.lpDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
