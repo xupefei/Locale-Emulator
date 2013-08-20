@@ -54,7 +54,8 @@ namespace LEProc
                     "-run: Run an application with it's own profile.\r\n" +
                     "-manage: Modify the profile of one application.\r\n" +
                     "-global: Open Global Profile Manager.\r\n" +
-                    "-runas: Run an application with a global profile of specific Guid."
+                    "-runas: Run an application with a global profile of specific Guid.",
+                    "Locale Emulator Version " + Application.ProductVersion
                     );
 
                 return;

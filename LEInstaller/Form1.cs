@@ -136,5 +136,10 @@ namespace LEInstaller
                 throw;
             }
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            label1.Text = "Version " + Application.ProductVersion;
+        }
     }
 }
