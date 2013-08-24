@@ -54,7 +54,10 @@ namespace LEProc
                     "-run: Run an application with it's own profile.\r\n" +
                     "-manage: Modify the profile of one application.\r\n" +
                     "-global: Open Global Profile Manager.\r\n" +
-                    "-runas: Run an application with a global profile of specific Guid.",
+                    "-runas: Run an application with a global profile of specific Guid.\r\n" +
+                    "\r\n" +
+                    "\r\n" +
+                    "You can press CTRL+C to copy this message to your clipboard.",
                     "Locale Emulator Version " + Application.ProductVersion
                     );
 
@@ -235,12 +238,18 @@ namespace LEProc
                     {
                         MessageBox.Show(
                             String.Format(
-                                "Error number {0} detected.\r\n" +
+                                "Launch failed.\r\n" +
+                                "\r\n" +
+                                "Commands: {1}\r\n" +
+                                "Error Number: {2}\r\n" +
                                 "\r\n" +
                                 "If you have any antivirus software running, please turn it off and try again.\r\n" +
-                                "If you think this error is related to LE, feel free to submit an issue at\r\n" +
-                                "https://github.com/xupefei/Locale-Emulator/issues",
-                                Convert.ToString(ret, 16).ToUpper()),
+                                "If you think this error is related to LE itself, feel free to submit an issue at\r\n" +
+                                "https://github.com/xupefei/Locale-Emulator/issues.\r\n" +
+                                "\r\n" +
+                                "\r\n" +
+                                "You can press CTRL+C to copy this message to your clipboard.",
+                                applicationName, commandLine, Convert.ToString(ret, 16).ToUpper()),
                             "Locale Emulator");
                     }
                     else
