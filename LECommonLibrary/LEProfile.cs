@@ -11,8 +11,14 @@
         public bool ShowInMainMenu;
         public string Timezone;
 
-        public LEProfile(string name, string guid, bool showInMainMenu, string parameter,
-                         string location, string defaultFont, string timezone, bool runWithSuspend)
+        public LEProfile(string name,
+                         string guid,
+                         bool showInMainMenu,
+                         string parameter,
+                         string location,
+                         string defaultFont,
+                         string timezone,
+                         bool runWithSuspend)
         {
             Name = name;
             Guid = guid;

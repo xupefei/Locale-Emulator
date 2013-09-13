@@ -23,16 +23,17 @@ namespace LEInstaller
         {
             string exe = ExtractRegAsm();
 
-            var psi = new ProcessStartInfo(exe, string.Format("\"{0}\" /codebase",
-                                                              Path.Combine(crtDir, "LEContextMenuHandler.dll")))
-                {
-                    CreateNoWindow = true,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    RedirectStandardInput = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                };
+            var psi = new ProcessStartInfo(exe,
+                                           string.Format("\"{0}\" /codebase",
+                                                         Path.Combine(crtDir, "LEContextMenuHandler.dll")))
+                      {
+                          CreateNoWindow = true,
+                          WindowStyle = ProcessWindowStyle.Hidden,
+                          RedirectStandardInput = false,
+                          RedirectStandardOutput = true,
+                          RedirectStandardError = true,
+                          UseShellExecute = false,
+                      };
 
             Process p = Process.Start(psi);
 
@@ -42,8 +43,9 @@ namespace LEInstaller
             string error = p.StandardError.ReadToEnd();
 
             if (output.ToLower().IndexOf("error") != -1 || error.ToLower().IndexOf("error") != -1)
-                MessageBox.Show(String.Format(
-                    "==STD_OUT=============\r\n{0}\r\n==STD_ERR=============\r\n{1}", output, error));
+                MessageBox.Show(String.Format("==STD_OUT=============\r\n{0}\r\n==STD_ERR=============\r\n{1}",
+                                              output,
+                                              error));
 
             AskForKillExplorer();
         }
@@ -52,16 +54,17 @@ namespace LEInstaller
         {
             string exe = ExtractRegAsm();
 
-            var psi = new ProcessStartInfo(exe, string.Format("/unregister \"{0}\" /codebase",
-                                                              Path.Combine(crtDir, "LEContextMenuHandler.dll")))
-                {
-                    CreateNoWindow = true,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    RedirectStandardInput = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                };
+            var psi = new ProcessStartInfo(exe,
+                                           string.Format("/unregister \"{0}\" /codebase",
+                                                         Path.Combine(crtDir, "LEContextMenuHandler.dll")))
+                      {
+                          CreateNoWindow = true,
+                          WindowStyle = ProcessWindowStyle.Hidden,
+                          RedirectStandardInput = false,
+                          RedirectStandardOutput = true,
+                          RedirectStandardError = true,
+                          UseShellExecute = false,
+                      };
 
             Process p = Process.Start(psi);
 
@@ -85,8 +88,9 @@ namespace LEInstaller
             string error = p.StandardError.ReadToEnd();
 
             if (output.ToLower().IndexOf("error") != -1 || error.ToLower().IndexOf("error") != -1)
-                MessageBox.Show(String.Format(
-                    "==STD_OUT=============\r\n{0}\r\n==STD_ERR=============\r\n{1}", output, error));
+                MessageBox.Show(String.Format("==STD_OUT=============\r\n{0}\r\n==STD_ERR=============\r\n{1}",
+                                              output,
+                                              error));
 
             AskForKillExplorer();
         }
@@ -100,9 +104,9 @@ namespace LEInstaller
         {
             if (DialogResult.No ==
                 MessageBox.Show(
-                    "Shell extension works (or disappears) only after restarting \"explorer.exe\".\r\nDo you want to do it now?",
-                    "LE Context Menu Installer",
-                    MessageBoxButtons.YesNo))
+                                "Shell extension works (or disappears) only after restarting \"explorer.exe\".\r\nDo you want to do it now?",
+                                "LE Context Menu Installer",
+                                MessageBoxButtons.YesNo))
                 return;
 
             try

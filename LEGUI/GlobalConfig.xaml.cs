@@ -23,10 +23,7 @@ namespace LEGUI
             InitializeComponent();
 
             // Region.
-            _cultureInfos =
-                CultureInfo.GetCultures(CultureTypes.AllCultures)
-                           .OrderBy(i => i.DisplayName)
-                           .ToList();
+            _cultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).OrderBy(i => i.DisplayName).ToList();
             cbLocation.ItemsSource = _cultureInfos.Select(c => c.DisplayName);
 
             //Timezone.
@@ -40,7 +37,8 @@ namespace LEGUI
 
         private void bSaveGlobalSetting_Click(object sender, RoutedEventArgs e)
         {
-            if (cbGlobalProfiles.Items.Count == 0) return;
+            if (cbGlobalProfiles.Items.Count == 0)
+                return;
 
             LEProfile crt = _profiles[cbGlobalProfiles.SelectedIndex];
             crt.DefaultFont = cbDefaultFont.Text;
@@ -78,13 +76,13 @@ namespace LEGUI
             mainGrid.Effect = new BlurEffect();
 
             var ib = new InputBox
-                {
-                    Owner = this,
-                    WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                    Instruction = I18n.GetString("SaveAsInstruction"),
-                    OkText = I18n.GetString("Save"),
-                    CancelText = I18n.GetString("Cancel"),
-                };
+                     {
+                         Owner = this,
+                         WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                         Instruction = I18n.GetString("SaveAsInstruction"),
+                         OkText = I18n.GetString("Save"),
+                         CancelText = I18n.GetString("Cancel"),
+                     };
 
             if (ib.ShowDialog() == true && !String.IsNullOrEmpty(ib.Text))
             {
@@ -105,8 +103,7 @@ namespace LEGUI
                                     _cultureInfos[cbLocation.SelectedIndex].Name,
                                     cbDefaultFont.Text,
                                     _timezones[cbTimezone.SelectedIndex].Id,
-                                    cbStartAsSuspend.IsChecked != null && (bool)cbStartAsSuspend.IsChecked
-                );
+                                    cbStartAsSuspend.IsChecked != null && (bool)cbStartAsSuspend.IsChecked);
 
             _profiles.Add(pro);
 
@@ -118,7 +115,8 @@ namespace LEGUI
 
         private void bDeleteGlobalSetting_Click(object sender, RoutedEventArgs e)
         {
-            if (cbGlobalProfiles.SelectedIndex == -1) return;
+            if (cbGlobalProfiles.SelectedIndex == -1)
+                return;
 
             if (MessageBoxResult.No == MessageBox.Show(I18n.GetString("ConfirmDel"), "", MessageBoxButton.YesNo))
                 return;

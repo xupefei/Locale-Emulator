@@ -25,7 +25,8 @@ namespace LEContextMenuHandler
 
                 string str = (from s in strings where s.Name == key select s.Value).FirstOrDefault();
 
-                if (String.IsNullOrEmpty(str)) return key;
+                if (String.IsNullOrEmpty(str))
+                    return key;
 
                 return str;
             }

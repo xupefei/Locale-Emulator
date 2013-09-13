@@ -63,7 +63,9 @@ namespace LEContextMenuHandler
             //Load global profiles.
             Array.ForEach(LEConfig.GetProfiles(),
                           p =>
-                          menuItems.Add(new LEMenuItem(p.Name, p.ShowInMainMenu, _menuBmpPink,
+                          menuItems.Add(new LEMenuItem(p.Name,
+                                                       p.ShowInMainMenu,
+                                                       _menuBmpPink,
                                                        string.Format("-runas \"{0}\" \"%APP%\"", p.Guid))));
         }
 
@@ -83,20 +85,26 @@ namespace LEContextMenuHandler
 
         private void OnVerbDisplayFileName(string cmd)
         {
-            Process.Start(
-                Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEProc.exe"),
-                cmd.Replace("%APP%", _selectedFile));
+            Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEProc.exe"),
+                          cmd.Replace("%APP%", _selectedFile));
         }
 
-        private int RegisterMenuItem(uint id, uint idCmdFirst, string text, IntPtr bitmap, IntPtr subMenu, uint position,
+        private int RegisterMenuItem(uint id,
+                                     uint idCmdFirst,
+                                     string text,
+                                     IntPtr bitmap,
+                                     IntPtr subMenu,
+                                     uint position,
                                      IntPtr registerTo)
         {
             var sub = new MENUITEMINFO();
             sub.cbSize = (uint)Marshal.SizeOf(sub);
 
             MIIM m = MIIM.MIIM_STRING | MIIM.MIIM_FTYPE | MIIM.MIIM_ID | MIIM.MIIM_STATE;
-            if (bitmap != IntPtr.Zero) m |= MIIM.MIIM_BITMAP;
-            if (subMenu != IntPtr.Zero) m |= MIIM.MIIM_SUBMENU;
+            if (bitmap != IntPtr.Zero)
+                m |= MIIM.MIIM_BITMAP;
+            if (subMenu != IntPtr.Zero)
+                m |= MIIM.MIIM_SUBMENU;
             sub.fMask = m;
 
             sub.wID = idCmdFirst + id;
@@ -164,13 +172,13 @@ namespace LEContextMenuHandler
             }
 
             var fe = new FORMATETC
-                {
-                    cfFormat = (short)CLIPFORMAT.CF_HDROP,
-                    ptd = IntPtr.Zero,
-                    dwAspect = DVASPECT.DVASPECT_CONTENT,
-                    lindex = -1,
-                    tymed = TYMED.TYMED_HGLOBAL
-                };
+                     {
+                         cfFormat = (short)CLIPFORMAT.CF_HDROP,
+                         ptd = IntPtr.Zero,
+                         dwAspect = DVASPECT.DVASPECT_CONTENT,
+                         lindex = -1,
+                         tymed = TYMED.TYMED_HGLOBAL
+                     };
             STGMEDIUM stm;
 
             // The pDataObj pointer contains the objects being acted upon. In this 
@@ -197,7 +205,9 @@ namespace LEContextMenuHandler
                 {
                     // Get the path of the file.
                     var fileName = new StringBuilder(260);
-                    if (0 == NativeMethods.DragQueryFile(hDrop, 0, fileName,
+                    if (0 == NativeMethods.DragQueryFile(hDrop,
+                                                         0,
+                                                         fileName,
                                                          fileName.Capacity))
                     {
                         Marshal.ThrowExceptionForHR(WinError.E_FAIL);
@@ -355,8 +365,7 @@ namespace LEContextMenuHandler
         /// </param>
         public void InvokeCommand(IntPtr pici)
         {
-            var ici = (CMINVOKECOMMANDINFO)Marshal.PtrToStructure(
-                pici, typeof (CMINVOKECOMMANDINFO));
+            var ici = (CMINVOKECOMMANDINFO)Marshal.PtrToStructure(pici, typeof (CMINVOKECOMMANDINFO));
 
             LEMenuItem item = menuItems[NativeMethods.LowWord(ici.verb.ToInt32())];
 

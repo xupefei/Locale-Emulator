@@ -80,7 +80,8 @@ namespace LEContextMenuHandler
         /// </param>
         /// <param name="friendlyName">The friendly name of the component.</param>
         public static void RegisterShellExtContextMenuHandler(Guid clsid,
-                                                              string fileType, string friendlyName)
+                                                              string fileType,
+                                                              string friendlyName)
         {
             if (clsid == Guid.Empty)
             {
@@ -113,7 +114,8 @@ namespace LEContextMenuHandler
 
             // Create the key HKCR\<File Type>\shellex\ContextMenuHandlers\{<CLSID>}.
             string keyName = string.Format(@"{0}\shellex\ContextMenuHandlers\{1}",
-                                           fileType, clsid.ToString("B"));
+                                           fileType,
+                                           clsid.ToString("B"));
             using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(keyName))
             {
                 // Set the default value of the key.
@@ -167,7 +169,8 @@ namespace LEContextMenuHandler
 
             // Remove the key HKCR\<File Type>\shellex\ContextMenuHandlers\{<CLSID>}.
             string keyName = string.Format(@"{0}\shellex\ContextMenuHandlers\{1}",
-                                           fileType, clsid.ToString("B"));
+                                           fileType,
+                                           clsid.ToString("B"));
             Registry.ClassesRoot.DeleteSubKeyTree(keyName);
         }
     }

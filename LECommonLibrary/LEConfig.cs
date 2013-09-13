@@ -41,7 +41,8 @@ namespace LECommonLibrary
 
                 LEProfile[] profiles =
                     pros.Select(p => new LEProfile(p.Attribute("Name").Value,
-                                                   p.Attribute("Guid").Value, bool.Parse(p.Attribute("MainMenu").Value),
+                                                   p.Attribute("Guid").Value,
+                                                   bool.Parse(p.Attribute("MainMenu").Value),
                                                    p.Element("Parameter").Value,
                                                    p.Element("Location").Value,
                                                    p.Element("DefaultFont").Value,
@@ -99,7 +100,8 @@ namespace LECommonLibrary
 
             foreach (LEProfile pro in profiles)
             {
-                baseNode.Add(new XElement("Profile", new XAttribute("Name", pro.Name),
+                baseNode.Add(new XElement("Profile",
+                                          new XAttribute("Name", pro.Name),
                                           new XAttribute("Guid", pro.Guid),
                                           new XAttribute("MainMenu", pro.ShowInMainMenu),
                                           new XElement("Parameter", pro.Parameter),

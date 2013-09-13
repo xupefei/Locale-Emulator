@@ -37,9 +37,7 @@ namespace LEContextMenuHandler
             // Call RegistrationServices.RegisterAssembly to register the classes in 
             // the current managed assembly to enable creation from COM.
             var regService = new RegistrationServices();
-            regService.RegisterAssembly(
-                GetType().Assembly,
-                AssemblyRegistrationFlags.SetCodeBase);
+            regService.RegisterAssembly(GetType().Assembly, AssemblyRegistrationFlags.SetCodeBase);
         }
 
         public override void Uninstall(IDictionary savedState)

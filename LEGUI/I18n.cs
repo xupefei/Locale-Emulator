@@ -18,7 +18,8 @@ namespace LEGUI
             {
                 var s = (string)dict[key];
 
-                if (String.IsNullOrEmpty(s)) return key;
+                if (String.IsNullOrEmpty(s))
+                    return key;
 
                 return s;
             }
@@ -37,8 +38,8 @@ namespace LEGUI
             try
             {
                 dictionary =
-                    (ResourceDictionary)Application.LoadComponent(
-                        new Uri(@"Lang\" + CurrentCultureInfo.Name + ".xaml", UriKind.Relative));
+                    (ResourceDictionary)
+                    Application.LoadComponent(new Uri(@"Lang\" + CurrentCultureInfo.Name + ".xaml", UriKind.Relative));
             }
             catch
             {

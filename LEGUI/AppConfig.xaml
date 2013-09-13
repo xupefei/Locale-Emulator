@@ -54,8 +54,7 @@
                             <Label Grid.Row="0" Grid.Column="0" Width="Auto" Content="{DynamicResource DefaultFont}"
                                    VerticalContentAlignment="Center" />
                             <ComboBox x:Name="cbDefaultFont" Grid.Row="0" Grid.Column="1" Height="Auto"
-                                      ItemsSource="{x:Static Fonts.SystemFontFamilies}" IsEditable="True" Margin="0,3">
-                            </ComboBox>
+                                      ItemsSource="{x:Static Fonts.SystemFontFamilies}" IsEditable="True" Margin="0,3" />
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Row="2" Header="{DynamicResource TimezoneSettings}" Margin="4,0">

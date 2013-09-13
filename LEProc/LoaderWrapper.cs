@@ -32,20 +32,20 @@ namespace LEProc
             CurrentDirectory = currentDirectory;
 
             _leb = new LEB
-                {
-                    AnsiCodePage = 932,
-                    OemCodePage = 932,
-                    LocaleID = 0x411,
-                    DefaultCharset = 128,
-                    DefaultFaceName = SetBytes(new byte[64], Encoding.Unicode.GetBytes("MS Gothic")),
-                    Timezone =
-                        {
-                            Bias = -540,
-                            DaylightBias = 0,
-                            StandardName = SetBytes(new byte[64], Encoding.Unicode.GetBytes("@tzres.dll,-632")),
-                            DaylightName = SetBytes(new byte[64], Encoding.Unicode.GetBytes("@tzres.dll,-631"))
-                        }
-                };
+                   {
+                       AnsiCodePage = 932,
+                       OemCodePage = 932,
+                       LocaleID = 0x411,
+                       DefaultCharset = 128,
+                       DefaultFaceName = SetBytes(new byte[64], Encoding.Unicode.GetBytes("MS Gothic")),
+                       Timezone =
+                       {
+                           Bias = -540,
+                           DaylightBias = 0,
+                           StandardName = SetBytes(new byte[64], Encoding.Unicode.GetBytes("@tzres.dll,-632")),
+                           DaylightName = SetBytes(new byte[64], Encoding.Unicode.GetBytes("@tzres.dll,-631"))
+                       }
+                   };
         }
 
         /// <summary>
@@ -112,7 +112,8 @@ namespace LEProc
             get { return Encoding.Unicode.GetString(_defaultFaceName).Replace("\x00", ""); }
             set
             {
-                if (value.Length > 32) throw new Exception("String too long.");
+                if (value.Length > 32)
+                    throw new Exception("String too long.");
                 _defaultFaceName = SetBytes(new byte[64], Encoding.Unicode.GetBytes(value));
             }
         }
@@ -136,27 +137,31 @@ namespace LEProc
         }
 
         /// <summary>
-        ///     String that represents a Timezone. Thia can be found in HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones.
+        ///     String that represents a Timezone.
+        ///     This can be found in HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones.
         /// </summary>
         internal string TimezoneStandardName
         {
             get { return Encoding.Unicode.GetString(_timezoneStandardName).Replace("\x00", ""); }
             set
             {
-                if (value.Length > 32) throw new Exception("String too long.");
+                if (value.Length > 32)
+                    throw new Exception("String too long.");
                 _timezoneStandardName = SetBytes(new byte[64], Encoding.Unicode.GetBytes(value));
             }
         }
 
         /// <summary>
-        ///     String that represents a Daylight. Thia can be found in HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones.
+        ///     String that represents a Daylight.
+        ///     This can be found in HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones.
         /// </summary>
         internal string TimezoneDaylightName
         {
             get { return Encoding.Unicode.GetString(_timezoneDaylightName).Replace("\x00", ""); }
             set
             {
-                if (value.Length > 32) throw new Exception("String too long.");
+                if (value.Length > 32)
+                    throw new Exception("String too long.");
                 _timezoneDaylightName = SetBytes(new byte[64], Encoding.Unicode.GetBytes(value));
             }
         }
@@ -170,18 +175,17 @@ namespace LEProc
             if (String.IsNullOrEmpty(ApplicationName))
                 throw new Exception("ApplicationName cannot null.");
 
-            return LeCreateProcess(
-                ref _leb,
-                ApplicationName,
-                CommandLine,
-                CurrentDirectory,
-                DebugMode ? CREATE_SUSPENDED : CREATE_NORMAL,
-                IntPtr.Zero,
-                IntPtr.Zero,
-                IntPtr.Zero,
-                IntPtr.Zero,
-                IntPtr.Zero,
-                IntPtr.Zero);
+            return LeCreateProcess(ref _leb,
+                                   ApplicationName,
+                                   CommandLine,
+                                   CurrentDirectory,
+                                   DebugMode ? CREATE_SUSPENDED : CREATE_NORMAL,
+                                   IntPtr.Zero,
+                                   IntPtr.Zero,
+                                   IntPtr.Zero,
+                                   IntPtr.Zero,
+                                   IntPtr.Zero,
+                                   IntPtr.Zero);
         }
 
         private static byte[] SetBytes(byte[] bytesInput, IEnumerable<byte> bytesValue)
