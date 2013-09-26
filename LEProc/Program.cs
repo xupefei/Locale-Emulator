@@ -138,8 +138,10 @@ namespace LEProc
         {
             try
             {
-                File.Create(Path.Combine(path, "36BED0DAD632.123")).Close();
-                File.Delete(Path.Combine(path, "36BED0DAD632.123"));
+                string tempGuid = Guid.NewGuid().ToString();
+
+                File.Create(Path.Combine(path, tempGuid)).Close();
+                File.Delete(Path.Combine(path, tempGuid));
 
                 return true;
             }
