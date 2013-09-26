@@ -167,6 +167,7 @@ namespace LEProc
                                         MessageBoxButtons.YesNo
                             ))
                         return;
+                }
 
                 string applicationName = string.Empty;
                 string commandLine = string.Empty;
