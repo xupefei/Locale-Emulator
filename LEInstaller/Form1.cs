@@ -104,9 +104,16 @@ namespace LEInstaller
         {
             if (DialogResult.No ==
                 MessageBox.Show(
-                                "Shell extension works (or disappears) only after restarting \"explorer.exe\".\r\nDo you want to do it now?",
+                                "You can start to use LE only after restarting explorer.exe.\r\n" +
+                                "\r\n" +
+                                "After that, you will see a new item named \"Locale Emulator\" in \r\n" +
+                                "the context menu of most file types.\r\n" +
+                                "\r\n" +
+                                "Do you want me to help you restarting explorer.exe?\r\n" +
+                                "If your answer is no, you may need to reboot your computer manually.",
                                 "LE Context Menu Installer",
-                                MessageBoxButtons.YesNo))
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question))
                 return;
 
             try
