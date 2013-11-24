@@ -82,7 +82,7 @@ namespace LECommonLibrary
         }
 
         /// <summary>
-        /// RunWithElevatedProcess
+        ///     RunWithElevatedProcess
         /// </summary>
         /// <exception cref="Exception">Run error.</exception>
         /// <param name="executable"></param>
@@ -96,7 +96,7 @@ namespace LECommonLibrary
 
             var shExecInfo = new SHELLEXECUTEINFO();
 
-            shExecInfo.cbSize = Marshal.SizeOf((object)shExecInfo);
+            shExecInfo.cbSize = Marshal.SizeOf(shExecInfo);
 
             shExecInfo.fMask = 0;
             shExecInfo.hwnd = IntPtr.Zero;
@@ -127,19 +127,14 @@ namespace LECommonLibrary
             public int cbSize;
             public uint fMask;
             public IntPtr hwnd;
-            [MarshalAs(UnmanagedType.LPTStr)]
-            public string lpVerb;
-            [MarshalAs(UnmanagedType.LPTStr)]
-            public string lpFile;
-            [MarshalAs(UnmanagedType.LPTStr)]
-            public string lpParameters;
-            [MarshalAs(UnmanagedType.LPTStr)]
-            public string lpDirectory;
+            [MarshalAs(UnmanagedType.LPTStr)] public string lpVerb;
+            [MarshalAs(UnmanagedType.LPTStr)] public string lpFile;
+            [MarshalAs(UnmanagedType.LPTStr)] public string lpParameters;
+            [MarshalAs(UnmanagedType.LPTStr)] public string lpDirectory;
             public int nShow;
             public IntPtr hInstApp;
             public IntPtr lpIDList;
-            [MarshalAs(UnmanagedType.LPTStr)]
-            public string lpClass;
+            [MarshalAs(UnmanagedType.LPTStr)] public string lpClass;
             public IntPtr hkeyClass;
             public uint dwHotKey;
             public IntPtr hIcon;
