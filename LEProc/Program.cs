@@ -57,6 +57,11 @@ namespace LEProc
                                 "-runas: Run an application with a global profile of specific Guid.\r\n" +
                                 "\r\n" +
                                 "\r\n" +
+                                "Have a suggestion? Want to report a bug? You are welcome! \r\n" +
+                                "Go to https://github.com/xupefei/Locale-Emulator/issues,\r\n" +
+                                "or send a message to https://google.com/+PaddyXu.\r\n" +
+                                "\r\n" +
+                                "\r\n" +
                                 "You can press CTRL+C to copy this message to your clipboard.",
                                 "Locale Emulator Version " + Application.ProductVersion
                     );
