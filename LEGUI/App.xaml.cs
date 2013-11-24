@@ -50,22 +50,25 @@ namespace LEGUI
 
                     Current.Shutdown();
                 }
-                // If we are not administrator, we can ask for administrator permission.
-                try
+                else
                 {
-                    SystemHelper.RunWithElevatedProcess(
-                                                        Path.Combine(
-                                                                     Path.GetDirectoryName(LEConfig.GlobalConfigPath),
-                                                                     "LEGUI.exe"),
-                                                        e.Args);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Locale Emulator", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                finally
-                {
-                    Current.Shutdown();
+                    // If we are not administrator, we can ask for administrator permission.
+                    try
+                    {
+                        SystemHelper.RunWithElevatedProcess(
+                                                            Path.Combine(
+                                                                         Path.GetDirectoryName(LEConfig.GlobalConfigPath),
+                                                                         "LEGUI.exe"),
+                                                            e.Args);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Locale Emulator", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    finally
+                    {
+                        Current.Shutdown();
+                    }
                 }
             }
 
