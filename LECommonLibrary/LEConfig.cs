@@ -61,12 +61,10 @@ namespace LECommonLibrary
 
         public static bool CheckGlobalConfigFile(bool buildNewConfig)
         {
-            bool res = File.Exists(GlobalConfigPath);
-
-            if (buildNewConfig && !res)
+            if (buildNewConfig && !File.Exists(GlobalConfigPath))
                 BuildGlobalConfigFile();
 
-            return res;
+            return File.Exists(GlobalConfigPath);
         }
 
         public static void SaveGlobalConfigFile(params LEProfile[] profiles)
@@ -115,7 +113,13 @@ namespace LECommonLibrary
 
             var tree = new XElement("LEConfig", baseNode);
 
-            tree.Save(writeTo);
+            try
+            {
+                tree.Save(writeTo);
+            }
+            catch
+            {
+            }
         }
     }
 }

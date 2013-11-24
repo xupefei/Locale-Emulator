@@ -1,5 +1,8 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 
 namespace LECommonLibrary
 {
@@ -53,5 +56,94 @@ namespace LECommonLibrary
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool IsWow64Process(IntPtr hProcess, out bool wow64Process);
+
+        public static bool CheckPermission(string path)
+        {
+            try
+            {
+                string tempGuid = Guid.NewGuid().ToString();
+
+                File.Create(Path.Combine(path, tempGuid)).Close();
+                File.Delete(Path.Combine(path, tempGuid));
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool IsAdministrator()
+        {
+            var wp = new WindowsPrincipal(WindowsIdentity.GetCurrent());
+
+            return wp.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
+        /// <summary>
+        /// RunWithElevatedProcess
+        /// </summary>
+        /// <exception cref="Exception">Run error.</exception>
+        /// <param name="executable"></param>
+        /// <param name="args"></param>
+        public static void RunWithElevatedProcess(string executable, string[] args)
+        {
+            string arg = string.Empty;
+            arg = args == null
+                      ? String.Empty
+                      : args.Aggregate(arg, (current, s) => current + String.Format(" \"{0}\"", s));
+
+            var shExecInfo = new SHELLEXECUTEINFO();
+
+            shExecInfo.cbSize = Marshal.SizeOf((object)shExecInfo);
+
+            shExecInfo.fMask = 0;
+            shExecInfo.hwnd = IntPtr.Zero;
+            shExecInfo.lpVerb = "runas";
+            shExecInfo.lpFile = executable;
+            shExecInfo.lpParameters = arg;
+            shExecInfo.lpDirectory = Path.GetDirectoryName(executable);
+
+            ;
+
+            if (ShellExecuteEx(ref shExecInfo) == false)
+            {
+                throw new Exception(string.Format(
+                                                  "Error when run with elevated LE.\r\n" +
+                                                  "Executable: {0}\r\n" +
+                                                  "Arguments: {1}",
+                                                  executable,
+                                                  arg));
+            }
+        }
+
+        [DllImport("shell32.dll", CharSet = CharSet.Auto)]
+        private static extern bool ShellExecuteEx(ref SHELLEXECUTEINFO lpExecInfo);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct SHELLEXECUTEINFO
+        {
+            public int cbSize;
+            public uint fMask;
+            public IntPtr hwnd;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpVerb;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpFile;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpParameters;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpDirectory;
+            public int nShow;
+            public IntPtr hInstApp;
+            public IntPtr lpIDList;
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string lpClass;
+            public IntPtr hkeyClass;
+            public uint dwHotKey;
+            public IntPtr hIcon;
+            public IntPtr hProcess;
+        }
     }
 }

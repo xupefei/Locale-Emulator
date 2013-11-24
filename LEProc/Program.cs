@@ -113,16 +113,6 @@ namespace LEProc
 
             if (!File.Exists(conf))
             {
-                if (!CheckPermission(Path.GetDirectoryName(path)))
-                {
-                    MessageBox.Show("The directory is not writable. Please use global profile instead.",
-                                    "Locale Emulator",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-
-                    return;
-                }
-
                 Process.Start(
                               Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEGUI.exe"),
                               String.Format("\"{0}.le.config\"", path));
@@ -131,23 +121,6 @@ namespace LEProc
             {
                 LEProfile profile = LEConfig.GetProfiles(conf)[0];
                 DoRunWithLEProfile(path, profile);
-            }
-        }
-
-        private static bool CheckPermission(string path)
-        {
-            try
-            {
-                string tempGuid = Guid.NewGuid().ToString();
-
-                File.Create(Path.Combine(path, tempGuid)).Close();
-                File.Delete(Path.Combine(path, tempGuid));
-
-                return true;
-            }
-            catch
-            {
-                return false;
             }
         }
 
@@ -244,7 +217,7 @@ namespace LEProc
                 uint ret;
                 if ((ret = l.Start()) != 0)
                 {
-                    if (IsAdministrator())
+                    if (SystemHelper.IsAdministrator())
                     {
                         MessageBox.Show(String.Format(
                                                       "Launch failed.\r\n" +
@@ -267,7 +240,22 @@ namespace LEProc
                     }
                     else
                     {
-                        RunWithElevatedProcess(Args);
+                        try
+                        {
+                            SystemHelper.RunWithElevatedProcess(
+                                                                Path.Combine(
+                                                                             Path.GetDirectoryName(
+                                                                                                   Assembly
+                                                                                                       .GetExecutingAssembly
+                                                                                                       ()
+                                                                                                       .Location),
+                                                                             "LEProc.exe"),
+                                                                Args);
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show(e.Message);
+                        }
                     }
                 }
             }
@@ -275,38 +263,6 @@ namespace LEProc
             {
                 MessageBox.Show(e.ToString());
             }
-        }
-
-        private static void RunWithElevatedProcess(string[] args)
-        {
-            string arg = String.Empty;
-            arg = args.Aggregate(arg, (current, s) => current + String.Format(" \"{0}\"", s));
-
-            var shExecInfo = new SHELLEXECUTEINFO();
-
-            shExecInfo.cbSize = Marshal.SizeOf(shExecInfo);
-
-            shExecInfo.fMask = 0;
-            shExecInfo.hwnd = IntPtr.Zero;
-            shExecInfo.lpVerb = "runas";
-            shExecInfo.lpFile = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                             "LEProc.exe");
-            shExecInfo.lpParameters = arg;
-            shExecInfo.lpDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-            ;
-
-            if (ShellExecuteEx(ref shExecInfo) == false)
-            {
-                MessageBox.Show("Error when run with elevated LE.");
-            }
-        }
-
-        private static bool IsAdministrator()
-        {
-            var wp = new WindowsPrincipal(WindowsIdentity.GetCurrent());
-
-            return wp.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
         private static int GetCharsetFromANSICodepage(int ansicp)
@@ -375,29 +331,6 @@ namespace LEProc
             }
 
             return charset;
-        }
-
-        [DllImport("shell32.dll", CharSet = CharSet.Auto)]
-        private static extern bool ShellExecuteEx(ref SHELLEXECUTEINFO lpExecInfo);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct SHELLEXECUTEINFO
-        {
-            public int cbSize;
-            public uint fMask;
-            public IntPtr hwnd;
-            [MarshalAs(UnmanagedType.LPTStr)] public string lpVerb;
-            [MarshalAs(UnmanagedType.LPTStr)] public string lpFile;
-            [MarshalAs(UnmanagedType.LPTStr)] public string lpParameters;
-            [MarshalAs(UnmanagedType.LPTStr)] public string lpDirectory;
-            public int nShow;
-            public IntPtr hInstApp;
-            public IntPtr lpIDList;
-            [MarshalAs(UnmanagedType.LPTStr)] public string lpClass;
-            public IntPtr hkeyClass;
-            public uint dwHotKey;
-            public IntPtr hIcon;
-            public IntPtr hProcess;
         }
     }
 }
