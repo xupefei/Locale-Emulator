@@ -3,8 +3,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using LECommonLibrary;
 using LEInstaller.Properties;
 using Microsoft.Win32;
 
@@ -137,7 +137,7 @@ namespace LEInstaller
             {
                 string tempFile = Path.GetTempFileName();
 
-                File.WriteAllBytes(tempFile, SystemHelper.Is64BitOS() ? Resources.RegAsm64 : Resources.RegAsm);
+                File.WriteAllBytes(tempFile, Is64BitOS() ? Resources.RegAsm64 : Resources.RegAsm);
 
                 return tempFile;
             }
@@ -147,6 +147,46 @@ namespace LEInstaller
                 throw;
             }
         }
+
+        // We should not use the LECommonLibrary.
+        private static bool Is64BitOS()
+        {
+            //The code below is from http://1code.codeplex.com/SourceControl/changeset/view/39074#842775
+            //which is under the Microsoft Public License: http://www.microsoft.com/opensource/licenses.mspx#Ms-PL.
+
+            if (IntPtr.Size == 8) // 64-bit programs run only on Win64
+            {
+                return true;
+            }
+            // Detect whether the current process is a 32-bit process 
+            // running on a 64-bit system.
+            bool flag;
+            return ((DoesWin32MethodExist("kernel32.dll", "IsWow64Process") &&
+                     IsWow64Process(GetCurrentProcess(), out flag)) && flag);
+        }
+
+        private static bool DoesWin32MethodExist(string moduleName, string methodName)
+        {
+            IntPtr moduleHandle = GetModuleHandle(moduleName);
+            if (moduleHandle == IntPtr.Zero)
+            {
+                return false;
+            }
+            return (GetProcAddress(moduleHandle, methodName) != IntPtr.Zero);
+        }
+
+        [DllImport("kernel32.dll")]
+        private static extern IntPtr GetCurrentProcess();
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        private static extern IntPtr GetModuleHandle(string moduleName);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr GetProcAddress(IntPtr hModule, [MarshalAs(UnmanagedType.LPStr)] string procName);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool IsWow64Process(IntPtr hProcess, out bool wow64Process);
 
         private void Form1_Load(object sender, EventArgs e)
         {

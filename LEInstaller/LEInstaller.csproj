@@ -95,12 +95,6 @@
   <ItemGroup>
     <Content Include="icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LECommonLibrary\LECommonLibrary.csproj">
-      <Project>{c4def32b-8fbb-41b6-80dc-c60339402323}</Project>
-      <Name>LECommonLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
