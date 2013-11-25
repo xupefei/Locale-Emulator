@@ -15,7 +15,13 @@ namespace LEGUI
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             if (e.Args.Length != 0)
+            {
                 StandaloneFilePath = e.Args[0];
+
+                // This happens when user is trying to drop a exe onto LEGUI.
+                if (!StandaloneFilePath.EndsWith(".le.config", true, null))
+                    StandaloneFilePath += ".le.config";
+            }
 
             bool isGlobalProfile = String.IsNullOrEmpty(StandaloneFilePath);
 
