@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
+using System.Reflection;
 using System.Windows;
+using System.Windows.Markup;
 
 namespace LEGUI
 {
@@ -37,9 +40,13 @@ namespace LEGUI
             ResourceDictionary dictionary = null;
             try
             {
-                dictionary =
-                    (ResourceDictionary)
-                    Application.LoadComponent(new Uri(@"Lang\" + CurrentCultureInfo.Name + ".xaml", UriKind.Relative));
+                Application.Current.Resources.MergedDictionaries
+                           .Insert(0,
+                                   XamlReader.Load(
+                                                   new FileStream(
+                                                       Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
+                                                       + @"\Lang\" + CurrentCultureInfo.Name + ".xaml",
+                                                       FileMode.Open)) as ResourceDictionary);
             }
             catch
             {
