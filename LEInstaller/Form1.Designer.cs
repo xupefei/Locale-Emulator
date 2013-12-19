@@ -31,6 +31,7 @@
             this.buttonInstall = new System.Windows.Forms.Button();
             this.buttonUninstall = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.buttonUpgrade = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonInstall
@@ -46,7 +47,7 @@
             // 
             // buttonUninstall
             // 
-            this.buttonUninstall.Location = new System.Drawing.Point(161, 15);
+            this.buttonUninstall.Location = new System.Drawing.Point(306, 15);
             this.buttonUninstall.Margin = new System.Windows.Forms.Padding(4);
             this.buttonUninstall.Name = "buttonUninstall";
             this.buttonUninstall.Size = new System.Drawing.Size(137, 69);
@@ -57,18 +58,29 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(161, 88);
+            this.label1.Location = new System.Drawing.Point(308, 88);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(137, 17);
             this.label1.TabIndex = 2;
             this.label1.Text = "Version 0.0.0.0";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // buttonUpgrade
+            // 
+            this.buttonUpgrade.Location = new System.Drawing.Point(161, 15);
+            this.buttonUpgrade.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonUpgrade.Name = "buttonUpgrade";
+            this.buttonUpgrade.Size = new System.Drawing.Size(137, 69);
+            this.buttonUpgrade.TabIndex = 3;
+            this.buttonUpgrade.Text = "Upgrade";
+            this.buttonUpgrade.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(315, 114);
+            this.ClientSize = new System.Drawing.Size(457, 114);
+            this.Controls.Add(this.buttonUpgrade);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonUninstall);
             this.Controls.Add(this.buttonInstall);
@@ -90,6 +102,7 @@
         private System.Windows.Forms.Button buttonInstall;
         private System.Windows.Forms.Button buttonUninstall;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonUpgrade;
     }
 }
 
