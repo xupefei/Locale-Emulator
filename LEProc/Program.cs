@@ -135,12 +135,14 @@ namespace LEProc
                 {
                     if (DialogResult.No ==
                         MessageBox.Show(
-                                        "You are running a exectuable with CREATE_SUSPEND flag.\r\n" +
-                                        "\r\nThe exectuable will be executed after you click the \"Yes\" button,\r\n" +
+                                        "You are running a exectuable with CREATE_SUSPENDED flag.\r\n" +
+                                        "\r\n" +
+                                        "The exectuable will be executed after you click the \"Yes\" button, " +
                                         "But as a background process which has no notfications at all." +
                                         "You can attach it by using OllyDbg, or stop it with Task Manager.\r\n",
                                         "Locale Emulator Debug Mode Warning",
-                                        MessageBoxButtons.YesNo
+                                        MessageBoxButtons.YesNo,
+                                        MessageBoxIcon.Information
                             ))
                         return;
                 }
