@@ -190,6 +190,16 @@ namespace LEInstaller
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            if (Environment.OSVersion.Version.CompareTo(new Version(6, 0)) <= 0)
+            {
+                MessageBox.Show("Sorry, Locale Emulator is only for Windows 7, 8/8.1 and above.",
+                                "OS Outdated",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+
+                Environment.Exit(0);
+            }
+
             label1.Text = "Version " + Application.ProductVersion;
         }
     }
