@@ -1,10 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
+using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Xml;
 using LEInstaller.Properties;
 using Microsoft.Win32;
 
@@ -13,6 +17,9 @@ namespace LEInstaller
     public partial class Form1 : Form
     {
         private readonly string crtDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+        private readonly XmlDocument xmlContent = new XmlDocument();
+        private bool hasNewVersion;
 
         public Form1()
         {
@@ -200,7 +207,137 @@ namespace LEInstaller
                 Environment.Exit(0);
             }
 
-            label1.Text = "Version " + Application.ProductVersion;
+            Text += @" - Version " + Application.ProductVersion;
+
+            CheckUpdate();
         }
+
+        private void CheckUpdate()
+        {
+            string url = string.Format(@"http://service.watashi.me/le/check.php?ver={0}&lang={1}",
+                                       Application.ProductVersion,
+                                       CultureInfo.CurrentUICulture.LCID);
+
+            try
+            {
+                var webFileUri = new Uri(url);
+                WebRequest webRequest = WebRequest.Create(webFileUri);
+                webRequest.Timeout = 5 * 1000;
+
+                webRequest.BeginGetResponse(RequestFinished, webRequest);
+            }
+            catch (Exception ex)
+            {
+                SetLabelVersion("Error occurs when checking new version: " + ex.Message, false);
+            }
+        }
+
+        private void RequestFinished(IAsyncResult ar)
+        {
+            try
+            {
+                WebResponse response = (ar.AsyncState as WebRequest).EndGetResponse(ar);
+
+                xmlContent.Load(response.GetResponseStream());
+
+                ProcessUpdate(xmlContent);
+            }
+            catch (Exception ex)
+            {
+                SetLabelVersion("Error occurs when checking new version: " + ex.Message, false);
+            }
+        }
+
+        private void ProcessUpdate(XmlDocument xmlContent)
+        {
+            string newVer = xmlContent.SelectSingleNode(@"/VersionInfo/Version/text()").Value;
+
+            if (CompareVersion(Application.ProductVersion, newVer))
+            {
+                hasNewVersion = true;
+
+                SetLabelVersion(string.Format("New version {0} available. Click here for more info.", newVer),
+                                true);
+            }
+            else
+            {
+                SetLabelVersion("You are using the latest version.", false);
+            }
+        }
+
+        /// <summary>
+        ///     If ver2 is bigger than ver1, return true.
+        /// </summary>
+        /// <param name="oldVer"></param>
+        /// <param name="newVer"></param>
+        /// <returns></returns>
+        private bool CompareVersion(string oldVer, string newVer)
+        {
+            var versionOld = new Version(oldVer);
+            var versionNew = new Version(newVer);
+
+            return versionOld < versionNew;
+        }
+
+        private void SetLabelVersion(string text, bool success)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (labelVersion.InvokeRequired)
+            {
+                var d = new SetTextCallback(SetLabelVersion);
+                Invoke(d, new object[] {text, success});
+            }
+            else
+            {
+                labelVersion.Text = text;
+                if (success)
+                {
+                    labelVersion.ForeColor = Color.Blue;
+                    labelVersion.Font = new Font(labelVersion.Font, FontStyle.Underline);
+                    labelVersion.Cursor = Cursors.Hand;
+                }
+            }
+        }
+
+        private void labelVersion_Click(object sender, EventArgs e)
+        {
+            if (!hasNewVersion)
+                return;
+
+            try
+            {
+                string version = xmlContent.SelectSingleNode(@"/VersionInfo/Version/text()").Value;
+                string data = xmlContent.SelectSingleNode(@"/VersionInfo/Date/text()").Value;
+                string url = xmlContent.SelectSingleNode(@"/VersionInfo/Url/text()").Value;
+                string note = xmlContent.SelectSingleNode(@"/VersionInfo/Note/text()").Value;
+
+                if (DialogResult.No == MessageBox.Show(String.Format("Current version: {0}\r\n" +
+                                                                     "New version: {1}\r\n" +
+                                                                     "Released on: {2}\r\n" +
+                                                                     "Release note: {3}\r\n" +
+                                                                     "\r\n" +
+                                                                     "Do you want to go to the download page now?",
+                                                                     Application.ProductVersion,
+                                                                     version,
+                                                                     data,
+                                                                     note),
+                                                       "New version available",
+                                                       MessageBoxButtons.YesNo,
+                                                       MessageBoxIcon.Information))
+                {
+                    return;
+                }
+
+                Process.Start(url);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private delegate void SetTextCallback(string text, bool success);
     }
 }
