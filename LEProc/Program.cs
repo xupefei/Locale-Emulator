@@ -19,7 +19,15 @@ namespace LEProc
         [STAThread]
         private static void Main(string[] args)
         {
-            LEConfig.CheckGlobalConfigFile(true);
+            if (!File.Exists(LEConfig.GlobalConfigPath))
+            {
+                MessageBox.Show(
+                                "\"LEConfig.xml\" not found. \r\n" +
+                                "Please run \"LEGUI.exe\" once to let it generate one for you.",
+                                "Locale Emulator Version " + Application.ProductVersion,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+            }
 
             if (args.Length == 0)
             {

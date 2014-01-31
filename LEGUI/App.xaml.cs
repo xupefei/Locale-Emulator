@@ -69,7 +69,10 @@ namespace LEGUI
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Locale Emulator", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("LEGUI requires administrator privilege to write to the current directory.",
+                                        "Locale Emulator",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
                     }
                     finally
                     {
