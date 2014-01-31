@@ -4,6 +4,7 @@
     <FontFamily x:Key="UIFont">Segoe UI</FontFamily>
     <system:String x:Key="EnterArgument">Entrer l'argument (s'il y en a)</system:String>
     <system:String x:Key="Save">Enregistrer</system:String>
+    <system:String x:Key="Shortcut">créer un raccourci</system:String>
     <system:String x:Key="Cancel">Annuler</system:String>
     <system:String x:Key="SaveAs">Enregistrer sous...</system:String>
     <system:String x:Key="SaveAsInstruction">Nom de profil</system:String>
@@ -15,9 +16,9 @@
     <system:String x:Key="DefaultFont">Police par défaut</system:String>
     <system:String x:Key="TimezoneSettings">Réglages fuseau horaire</system:String>
     <system:String x:Key="Timezone">Fuseau Horaire</system:String>
-    <system:String x:Key="DebugOptions">Options debug</system:String>
+    <system:String x:Key="DebugOptions">Options avancées</system:String>
+    <system:String x:Key="AsAdmin">Exécuter en tant qu'administrateur</system:String>
     <system:String x:Key="WithCREATESUSPENDED">Créer le processus avec CREATE__SUSPENDED</system:String>
     <system:String x:Key="Miscellaneous">Divers</system:String>
     <system:String x:Key="ShowInMainMenu">Afficher ce profil dans le menu principal</system:String>
-    <system:String x:Key="AskForShortcut">Voulez vous créer un raccourci sur votre bureau?</system:String>
 </ResourceDictionary>

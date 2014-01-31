@@ -4,6 +4,7 @@
     <FontFamily x:Key="UIFont">gulim</FontFamily>
     <system:String x:Key="EnterArgument">명령 입력</system:String>
     <system:String x:Key="Save">저장</system:String>
+    <system:String x:Key="Shortcut">바로가기를 만들</system:String>
     <system:String x:Key="Cancel">취소</system:String>
     <system:String x:Key="SaveAs">다른이름으로 저장</system:String>
     <system:String x:Key="SaveAsInstruction">새 프로필 이름:</system:String>
@@ -15,9 +16,9 @@
     <system:String x:Key="DefaultFont">기본 글꼴</system:String>
     <system:String x:Key="TimezoneSettings">시간대 설정</system:String>
     <system:String x:Key="Timezone">시간대</system:String>
-    <system:String x:Key="DebugOptions">디버그 옵션 (고급사용자)</system:String>
+    <system:String x:Key="DebugOptions">고급사용자 옵션</system:String>
+    <system:String x:Key="AsAdmin">관리자 권한으로 실행system:String>
     <system:String x:Key="WithCREATESUSPENDED">CREATE__SUSPENDED로 프로세스를 실행</system:String>
     <system:String x:Key="Miscellaneous">기타</system:String>
     <system:String x:Key="ShowInMainMenu">메인 메뉴에 이 프로필을 보이기</system:String>
-    <system:String x:Key="AskForShortcut">바탕화면에 바로가기를 만드시겠습니까？</system:String>
 </ResourceDictionary>

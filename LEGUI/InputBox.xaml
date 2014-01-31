@@ -6,8 +6,8 @@
         mc:Ignorable="d" ResizeMode="NoResize" Height="180.418" Width="280.219" ShowInTaskbar="False">
     <Grid>
         <Label x:Name="lText" Margin="10,10,10,10" Content="" />
-        <TextBox x:Name="tbText" Margin="10,52.474,10,78.847" Height="Auto" PreviewKeyDown="tbText_PreviewKeyDown" />
-        <Button x:Name="bOk" Content="OK" Margin="68.132,107.034,140.66,21.538" Click="bOk_Click" />
-        <Button x:Name="bCancel" Content="Cancel" Margin="138.559,107.034,70.233,21.538" Click="bCancel_Click" />
+        <TextBox x:Name="tbText" Margin="10,46,9.6,77.2" Height="Auto" PreviewKeyDown="tbText_PreviewKeyDown" />
+        <Button x:Name="bOk" Content="OK" Margin="68,98,140.6,21.2" Click="bOk_Click" />
+        <Button x:Name="bCancel" Content="Cancel" Margin="138,98,71.6,21.2" Click="bCancel_Click" />
     </Grid>
 </Window>

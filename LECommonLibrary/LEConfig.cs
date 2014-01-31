@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace LECommonLibrary
 {
-    public class LEConfig
+    public static class LEConfig
     {
         public static string GlobalConfigPath =
             Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
@@ -47,7 +47,8 @@ namespace LECommonLibrary
                                                    p.Element("Location").Value,
                                                    p.Element("DefaultFont").Value,
                                                    p.Element("Timezone").Value,
-                                                   bool.Parse(p.Element("RunWithSuspend").Value)
+                                                   bool.Parse(p.TryGetValue("RunAsAdmin", "false")),
+                                                   bool.Parse(p.TryGetValue("RunWithSuspend", "false"))
                                          )
                         ).ToArray();
 
@@ -79,17 +80,41 @@ namespace LECommonLibrary
 
         private static void BuildGlobalConfigFile()
         {
-            var defaultProfile = new LEProfile("Run in Japanese",
-                                               Guid.NewGuid().ToString(),
-                                               false,
-                                               String.Empty,
-                                               "ja-JP",
-                                               "MS Gothic",
-                                               "Tokyo Standard Time",
-                                               false
-                );
+            var defaultProfiles = new[]
+                                  {
+                                      new LEProfile("Run in Japanese",
+                                                    Guid.NewGuid().ToString(),
+                                                    false,
+                                                    String.Empty,
+                                                    "ja-JP",
+                                                    "MS Gothic",
+                                                    "Tokyo Standard Time",
+                                                    false,
+                                                    false
+                                          ),
+                                      new LEProfile("Run in Japanese (Admin)",
+                                                    Guid.NewGuid().ToString(),
+                                                    false,
+                                                    String.Empty,
+                                                    "ja-JP",
+                                                    "MS Gothic",
+                                                    "Tokyo Standard Time",
+                                                    true,
+                                                    false
+                                          )
+                                  };
 
-            WriteConfig(GlobalConfigPath, defaultProfile);
+            WriteConfig(GlobalConfigPath, defaultProfiles);
+        }
+
+        private static string TryGetValue(this XElement element, string name, string defaultValue = null)
+        {
+            XElement found = element.Element(name);
+            if (found != null)
+            {
+                return found.Value;
+            }
+            return defaultValue;
         }
 
         private static void WriteConfig(string writeTo, params LEProfile[] profiles)
@@ -106,6 +131,7 @@ namespace LECommonLibrary
                                           new XElement("Location", pro.Location),
                                           new XElement("DefaultFont", pro.DefaultFont),
                                           new XElement("Timezone", pro.Timezone),
+                                          new XElement("RunAsAdmin", pro.RunAsAdmin),
                                           new XElement("RunWithSuspend", pro.RunWithSuspend)
                                  )
                     );

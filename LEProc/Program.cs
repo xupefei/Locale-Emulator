@@ -11,25 +11,6 @@ namespace LEProc
 {
     internal static class Program
     {
-        public enum ShowCommands
-        {
-            SW_HIDE = 0,
-            SW_SHOWNORMAL = 1,
-            SW_NORMAL = 1,
-            SW_SHOWMINIMIZED = 2,
-            SW_SHOWMAXIMIZED = 3,
-            SW_MAXIMIZE = 3,
-            SW_SHOWNOACTIVATE = 4,
-            SW_SHOW = 5,
-            SW_MINIMIZE = 6,
-            SW_SHOWMINNOACTIVE = 7,
-            SW_SHOWNA = 8,
-            SW_RESTORE = 9,
-            SW_SHOWDEFAULT = 10,
-            SW_FORCEMINIMIZE = 11,
-            SW_MAX = 11
-        }
-
         internal static string[] Args;
 
         /// <summary>
@@ -38,6 +19,8 @@ namespace LEProc
         [STAThread]
         private static void Main(string[] args)
         {
+            LEConfig.CheckGlobalConfigFile(true);
+
             if (args.Length == 0)
             {
                 MessageBox.Show(
@@ -131,6 +114,13 @@ namespace LEProc
         {
             try
             {
+                if (profile.RunAsAdmin && !SystemHelper.IsAdministrator())
+                {
+                    ElevateProcess();
+
+                    return;
+                }
+
                 if (profile.RunWithSuspend)
                 {
                     if (DialogResult.No ==
@@ -245,28 +235,30 @@ namespace LEProc
                     }
                     else
                     {
-                        try
-                        {
-                            SystemHelper.RunWithElevatedProcess(
-                                                                Path.Combine(
-                                                                             Path.GetDirectoryName(
-                                                                                                   Assembly
-                                                                                                       .GetExecutingAssembly
-                                                                                                       ()
-                                                                                                       .Location),
-                                                                             "LEProc.exe"),
-                                                                Args);
-                        }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show(e.Message);
-                        }
+                        ElevateProcess();
                     }
                 }
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
+            }
+        }
+
+        private static void ElevateProcess()
+        {
+            try
+            {
+                SystemHelper.RunWithElevatedProcess(
+                                                    Path.Combine(
+                                                                 Path.GetDirectoryName(
+                                                                                       Assembly.GetExecutingAssembly()
+                                                                                               .Location),
+                                                                 "LEProc.exe"),
+                                                    Args);
+            }
+            catch (Exception e)
+            {
             }
         }
 

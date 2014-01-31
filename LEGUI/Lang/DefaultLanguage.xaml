@@ -4,6 +4,7 @@
     <FontFamily x:Key="UIFont">Segoe UI</FontFamily>
     <system:String x:Key="EnterArgument">Enter argument here (if any)</system:String>
     <system:String x:Key="Save">Save</system:String>
+    <system:String x:Key="Shortcut">Create shortcut</system:String>
     <system:String x:Key="Cancel">Cancel</system:String>
     <system:String x:Key="SaveAs">Save As ...</system:String>
     <system:String x:Key="SaveAsInstruction">New profile name:</system:String>
@@ -15,9 +16,9 @@
     <system:String x:Key="DefaultFont">Default Font</system:String>
     <system:String x:Key="TimezoneSettings">Timezone Settings</system:String>
     <system:String x:Key="Timezone">Timezone</system:String>
-    <system:String x:Key="DebugOptions">Debug Options (ADVANCED)</system:String>
+    <system:String x:Key="DebugOptions">Advanced Options</system:String>
+    <system:String x:Key="AsAdmin">Run as an administrator</system:String>
     <system:String x:Key="WithCREATESUSPENDED">Create process with CREATE__SUSPENDED</system:String>
     <system:String x:Key="Miscellaneous">Miscellaneous</system:String>
     <system:String x:Key="ShowInMainMenu">Show this profile in main menu</system:String>
-    <system:String x:Key="AskForShortcut">Do you want to create a shortcut on your Desktop?</system:String>
 </ResourceDictionary>

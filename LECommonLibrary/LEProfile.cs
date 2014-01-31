@@ -7,6 +7,7 @@
         public string Location;
         public string Name;
         public string Parameter;
+        public bool RunAsAdmin;
         public bool RunWithSuspend;
         public bool ShowInMainMenu;
         public string Timezone;
@@ -18,6 +19,7 @@
                          string location,
                          string defaultFont,
                          string timezone,
+                         bool runAsAdmin,
                          bool runWithSuspend)
         {
             Name = name;
@@ -27,6 +29,7 @@
             Location = location;
             DefaultFont = defaultFont;
             Timezone = timezone;
+            RunAsAdmin = runAsAdmin;
             RunWithSuspend = runWithSuspend;
         }
     }

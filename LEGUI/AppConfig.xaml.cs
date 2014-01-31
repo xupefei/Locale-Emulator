@@ -52,56 +52,40 @@ namespace LEGUI
                 cbDefaultFont.Text = conf.DefaultFont;
                 cbLocation.SelectedIndex = _cultureInfos.FindIndex(ci => ci.Name == conf.Location);
 
+                cbStartAsAdmin.IsChecked = conf.RunAsAdmin;
                 cbStartAsSuspend.IsChecked = conf.RunWithSuspend;
             }
         }
 
-        private void bSaveAppSetting_Click(object sender, RoutedEventArgs e)
+        private void SaveSetting()
         {
-            var crt = new LEProfile
-                      {
-                          Name = Path.GetFileName(App.StandaloneFilePath),
-                          Guid = Guid.NewGuid().ToString(),
-                          ShowInMainMenu = false,
-                          Parameter =
-                              I18n.GetString("EnterArgument") == tbAppParameter.Text
-                                  ? String.Empty
-                                  : tbAppParameter.Text,
-                          DefaultFont = cbDefaultFont.Text,
-                          Location = _cultureInfos[cbLocation.SelectedIndex].Name,
-                          Timezone = _timezones[cbTimezone.SelectedIndex].Id,
-                          RunWithSuspend =
-                              cbStartAsSuspend.IsChecked != null && (bool)cbStartAsSuspend.IsChecked
-                      };
+            var crt = new LEProfile(Path.GetFileName(App.StandaloneFilePath),
+                                    Guid.NewGuid().ToString(),
+                                    false,
+                                    tbAppParameter.Text,
+                                    _cultureInfos[cbLocation.SelectedIndex].Name,
+                                    cbDefaultFont.Text,
+                                    _timezones[cbTimezone.SelectedIndex].Id,
+                                    cbStartAsAdmin.IsChecked != null && (bool)cbStartAsAdmin.IsChecked,
+                                    cbStartAsSuspend.IsChecked != null && (bool)cbStartAsSuspend.IsChecked
+                );
 
             LEConfig.SaveApplicationConfigFile(App.StandaloneFilePath, crt);
-
-            //Ask for create a shortcut.
-            if (MessageBoxResult.Yes
-                == MessageBox.Show(I18n.GetString("AskForShortcut"),
-                                   "LEGUI",
-                                   MessageBoxButton.YesNo,
-                                   MessageBoxImage.Question))
-            {
-                CreateShortcut(App.StandaloneFilePath.Replace(".le.config", ""));
-            }
-
-            //Run the application.
-            Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEProc.exe"),
-                          string.Format("-run \"{0}\"", App.StandaloneFilePath.Replace(".le.config", "")));
-
-            Application.Current.Shutdown();
         }
 
         private void CreateShortcut(string path)
         {
             var shortcut =
-                (IWshShortcut)
                 new WshShell().CreateShortcut(string.Format("{0}\\{1}.lnk",
-                                                            Environment.GetFolderPath(
-                                                                                      Environment.SpecialFolder
+                                                            Environment.GetFolderPath(Environment.SpecialFolder
                                                                                                  .DesktopDirectory),
-                                                            Path.GetFileNameWithoutExtension(path)));
+                                                            Path.GetFileNameWithoutExtension(path))) as IWshShortcut;
+
+            if (shortcut == null)
+            {
+                MessageBox.Show("Create shortcut error", "LE", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             shortcut.TargetPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                                                "LEProc.exe");
@@ -111,6 +95,31 @@ namespace LEGUI
             shortcut.Description = string.Format("Run {0} with Locale Emulator", Path.GetFileName(path));
             shortcut.IconLocation = AssociationReader.GetAssociatedIcon(Path.GetExtension(path)).Replace("%1", path);
             shortcut.Save();
+        }
+
+        private void RunAndShutdown()
+        {
+            //Run the application.
+            Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEProc.exe"),
+                          string.Format("-run \"{0}\"", App.StandaloneFilePath.Replace(".le.config", "")));
+
+            Application.Current.Shutdown();
+        }
+
+        private void bSaveAppSetting_Click(object sender, RoutedEventArgs e)
+        {
+            SaveSetting();
+
+            RunAndShutdown();
+        }
+
+        private void bShortcut_Click(object sender, RoutedEventArgs e)
+        {
+            SaveSetting();
+
+            CreateShortcut(App.StandaloneFilePath.Replace(".le.config", ""));
+
+            RunAndShutdown();
         }
 
         private void bDeleteAppSetting_Click(object sender, RoutedEventArgs e)

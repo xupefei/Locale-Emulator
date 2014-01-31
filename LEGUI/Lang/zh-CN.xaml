@@ -4,6 +4,7 @@
     <FontFamily x:Key="UIFont">微软雅黑</FontFamily>
     <system:String x:Key="EnterArgument">在此输入运行参数</system:String>
     <system:String x:Key="Save">保存</system:String>
+    <system:String x:Key="Shortcut">建立快捷方式</system:String>
     <system:String x:Key="Cancel">取消</system:String>
     <system:String x:Key="SaveAs">保存为...</system:String>
     <system:String x:Key="SaveAsInstruction">配置名：</system:String>
@@ -15,9 +16,9 @@
     <system:String x:Key="DefaultFont">默认字体</system:String>
     <system:String x:Key="TimezoneSettings">时区设置</system:String>
     <system:String x:Key="Timezone">时区</system:String>
-    <system:String x:Key="DebugOptions">调试选项 (高级)</system:String>
+    <system:String x:Key="DebugOptions">高级选项</system:String>
+    <system:String x:Key="AsAdmin">以管理员权限运行</system:String>
     <system:String x:Key="WithCREATESUSPENDED">用 CREATE__SUSPENDED 标志创建进程</system:String>
     <system:String x:Key="Miscellaneous">其它</system:String>
     <system:String x:Key="ShowInMainMenu">在一级菜单中显示此配置</system:String>
-    <system:String x:Key="AskForShortcut">您想在桌面上放置一个快捷方式吗？</system:String>
 </ResourceDictionary>

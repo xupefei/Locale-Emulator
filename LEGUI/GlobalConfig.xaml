@@ -1,7 +1,7 @@
 ﻿<Window x:Class="LEGUI.GlobalConfig"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Locale Emulator GUI" Height="354" Width="310"
+        Title="Locale Emulator GUI GLOBAL" Height="382" Width="310"
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid TextElement.FontFamily="{DynamicResource UIFont}">
         <Grid x:Name="mainGrid">
@@ -9,7 +9,7 @@
                 <RowDefinition Height="60" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Grid x:Name="globalConfigGrid" Visibility="Visible" Grid.Row="0" Background="#FFE2E2E2">
+            <Grid x:Name="globalConfigGrid" Grid.Row="0" Background="#FFF1F1F1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="1*" />
@@ -21,14 +21,14 @@
                 </Grid.ColumnDefinitions>
                 <ComboBox SelectedIndex="0" x:Name="cbGlobalProfiles" Grid.Row="0" Grid.Column="0" Height="Auto"
                           Margin="3,3,3,4"
-                          VerticalContentAlignment="Center" Grid.ColumnSpan="4"
+                          VerticalContentAlignment="Center" Grid.ColumnSpan="3"
                           SelectionChanged="cbGlobalProfiles_SelectionChanged" />
                 <Button x:Name="bSaveGlobalSetting" Grid.Row="1" Grid.Column="0" Content="{DynamicResource Save}"
-                        Margin="3,0,3,5" Style="{StaticResource NuclearBlueButton}" Click="bSaveGlobalSetting_Click" />
+                        Margin="3,0,3,5" Click="bSaveGlobalSetting_Click" />
                 <Button x:Name="bSaveGlobalSettingAs" Grid.Row="1" Grid.Column="1" Content="{DynamicResource SaveAs}"
-                        Margin="3,0,3,5" Style="{StaticResource NuclearBlueButton}" Click="bSaveGlobalSettingAs_Click" />
+                        Margin="3,0,3,5" Click="bSaveGlobalSettingAs_Click" />
                 <Button x:Name="bDeleteGlobalSetting" Grid.Row="1" Grid.Column="2" Content="{DynamicResource Delete}"
-                        Margin="3,0,3,5" Style="{StaticResource NuclearGreenButton}" Click="bDeleteGlobalSetting_Click" />
+                        Margin="3,0,3,5" Click="bDeleteGlobalSetting_Click" />
             </Grid>
             <Grid Grid.Row="1" Margin="0,0,0,10">
                 <Grid Grid.Column="0">
@@ -36,7 +36,7 @@
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1.3*" />
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
                     <GroupBox Grid.Row="0" Header="{DynamicResource LocationSettings}" Margin="4,0">
@@ -77,9 +77,13 @@
                     <GroupBox Grid.Row="3" Header="{DynamicResource DebugOptions}" Margin="4,0">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
                             </Grid.RowDefinitions>
-                            <CheckBox x:Name="cbStartAsSuspend" Grid.Row="0"
+                            <CheckBox x:Name="cbStartAsAdmin" Grid.Row="0"
+                                      Content="{DynamicResource AsAdmin}" Margin="5,0,0,0"
+                                      VerticalAlignment="Center" />
+                            <CheckBox x:Name="cbStartAsSuspend" Grid.Row="1"
                                       Content="{DynamicResource WithCREATESUSPENDED}" Margin="5,0,0,0"
                                       VerticalAlignment="Center" />
                         </Grid>

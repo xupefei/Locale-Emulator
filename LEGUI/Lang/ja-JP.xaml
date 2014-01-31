@@ -4,6 +4,7 @@
     <FontFamily x:Key="UIFont">Meiryo UI</FontFamily>
     <system:String x:Key="EnterArgument">コマンドを入力</system:String>
     <system:String x:Key="Save">保存</system:String>
+    <system:String x:Key="Shortcut">ショットカット</system:String>
     <system:String x:Key="Cancel">キャンセル</system:String>
     <system:String x:Key="SaveAs">名前を付けて保存</system:String>
     <system:String x:Key="SaveAsInstruction">新しいプロファイルの名前を設定</system:String>
@@ -15,9 +16,9 @@
     <system:String x:Key="DefaultFont">初期フォント</system:String>
     <system:String x:Key="TimezoneSettings">タイムゾーンを設定</system:String>
     <system:String x:Key="Timezone">タイムゾーン</system:String>
-    <system:String x:Key="DebugOptions">デバッグモード (上級者用)</system:String>
+    <system:String x:Key="DebugOptions">上級者用オプション</system:String>
+    <system:String x:Key="AsAdmin">管理者として実行</system:String>
     <system:String x:Key="WithCREATESUSPENDED">CREATE__SUSPENDEDでプロセスを実行</system:String>
     <system:String x:Key="Miscellaneous">その他</system:String>
     <system:String x:Key="ShowInMainMenu">メインメニュでプロファイルを表示</system:String>
-    <system:String x:Key="AskForShortcut">ショットカットを作成しますか？</system:String>
 </ResourceDictionary>

@@ -4,6 +4,7 @@
     <FontFamily x:Key="UIFont">Segoe UI</FontFamily>
     <system:String x:Key="EnterArgument">Parameter (falls benötigt)</system:String>
     <system:String x:Key="Save">Speichern</system:String>
+    <system:String x:Key="Shortcut">een snelkoppeling</system:String>
     <system:String x:Key="Cancel">Abbrechen</system:String>
     <system:String x:Key="SaveAs">Speichern unter ...</system:String>
     <system:String x:Key="SaveAsInstruction">Neuer Profilname:</system:String>
@@ -15,9 +16,9 @@
     <system:String x:Key="DefaultFont">Standardschriftart</system:String>
     <system:String x:Key="TimezoneSettings">Zeitzone</system:String>
     <system:String x:Key="Timezone">Zeitzone</system:String>
-    <system:String x:Key="DebugOptions">Debug (Erweitert)</system:String>
+    <system:String x:Key="DebugOptions">Erweitert</system:String>
+    <system:String x:Key="AsAdmin">Uitgevoerd als beheerder</system:String>
     <system:String x:Key="WithCREATESUSPENDED">Prozess mit CREATE__SUSPENDED aufrufen</system:String>
     <system:String x:Key="Miscellaneous">Sonstiges</system:String>
     <system:String x:Key="ShowInMainMenu">Profil im Kontextmenü anzeigen</system:String>
-    <system:String x:Key="AskForShortcut">Möchten Sie eine Verknüpfung auf dem Desktop anlegen?</system:String>
 </ResourceDictionary>
