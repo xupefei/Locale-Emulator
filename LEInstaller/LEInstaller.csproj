@@ -82,7 +82,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="key.snk" />
     <None Include="Properties\Settings.settings">

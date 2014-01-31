@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        mc:Ignorable="d" ResizeMode="NoResize" Height="180.418" Width="280.219" ShowInTaskbar="False">
+        mc:Ignorable="d" ResizeMode="NoResize" Height="174.018" Width="280.219" ShowInTaskbar="False">
     <Grid>
         <Label x:Name="lText" Margin="10,10,10,10" Content="" />
         <TextBox x:Name="tbText" Margin="10,46,9.6,77.2" Height="Auto" PreviewKeyDown="tbText_PreviewKeyDown" />
