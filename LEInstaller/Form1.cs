@@ -23,6 +23,13 @@ namespace LEInstaller
 
         public Form1()
         {
+            // We need to remove all ADS first.
+            // https://github.com/xupefei/Locale-Emulator/issues/22.
+            foreach (string f in Directory.GetFiles(crtDir, "*", SearchOption.AllDirectories))
+            {
+                RemoveADS(f);
+            }
+
             InitializeComponent();
         }
 
@@ -55,6 +62,22 @@ namespace LEInstaller
                                               error));
 
             AskForKillExplorer();
+        }
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        private static extern int DeleteFile(string name);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern void SetLastError(int errorCode);
+
+        private void RemoveADS(string s)
+        {
+            File.SetAttributes(s, FileAttributes.Normal);
+
+            if (DeleteFile(s + ":Zone.Identifier") == 0)
+            {
+                SetLastError(0);
+            }
         }
 
         private void buttonUninstall_Click(object sender, EventArgs e)
