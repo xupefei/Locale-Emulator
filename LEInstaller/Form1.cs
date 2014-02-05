@@ -169,6 +169,8 @@ namespace LEInstaller
 
                 File.WriteAllBytes(tempFile, Is64BitOS() ? Resources.RegAsm64 : Resources.RegAsm);
 
+                RemoveADS(tempFile);
+
                 return tempFile;
             }
             catch (Exception e)
