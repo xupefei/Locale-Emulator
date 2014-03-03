@@ -158,7 +158,8 @@ namespace LEInstaller
             {
             }
 
-            Process.Start(Environment.SystemDirectory + "\\..\\explorer.exe", string.Format("/root,{0}", crtDir));
+            Process.Start(Environment.SystemDirectory + "\\..\\explorer.exe",
+                          string.Format("/select,{0}", Assembly.GetExecutingAssembly().Location));
         }
 
         private string ExtractRegAsm()
