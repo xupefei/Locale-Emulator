@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.Win32;
 
 namespace LECommonLibrary
@@ -50,16 +51,36 @@ namespace LECommonLibrary
 
         private static string[] SplitExecutableAndArgument(string line)
         {
-            string[] ret = line.StartsWith("\"")
-                               ? line.Split(new[] {"\" "}, 2, StringSplitOptions.None)
-                               : line.Split(new[] {' '}, 2, StringSplitOptions.None);
-
-            if (ret.Length == 2)
+            if (line.StartsWith("\""))
             {
-                ret[0] = ret[0].StartsWith("\"") ? ret[0].Substring(1) : ret[0];
-                return ret;
+                string[] ret = line.Split(new[] {"\" "}, 2, StringSplitOptions.None);
+                ret[0] = ret[0].Substring(1);
+
+                return File.Exists(ret[0]) ? ret : null;
             }
-            return null;
+
+            // Else
+            string exe = line;
+            string arg = string.Empty;
+
+            while (true)
+            {
+                try
+                {
+                    if (!line.Contains(" "))
+                        return File.Exists(exe) ? new[] {exe, arg} : null;
+
+                    arg = exe.Substring(exe.LastIndexOf(' ')) + " " + arg;
+                    exe = exe.Substring(0, exe.LastIndexOf(' '));
+
+                    if (File.Exists(exe))
+                        return new[] {exe, arg};
+                }
+                catch
+                {
+                    return null;
+                }
+            }
         }
 
         private static string GetAssociatedProgramFromRegistry(string ext)
