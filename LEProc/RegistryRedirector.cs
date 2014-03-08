@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-
 using Amemiya.Extensions;
 
 namespace LEProc
@@ -38,17 +36,11 @@ namespace LEProc
                 {"REG_QWORD", 11},
             };
 
+        private readonly List<byte> _objectData = new List<byte>();
         private readonly List<REGISTRY_REDIRECTION_ENTRY64> _registryReplacement;
 
         /// <summary>
-        /// Number of registry redirection entries.
-        /// </summary>
-        internal int NumberOfRegistryRedirectionEntries { get; set; }
-
-        private List<byte> _objectData = new List<byte>();
-
-        /// <summary>
-        /// Initialize
+        ///     Initialize
         /// </summary>
         /// <param name="count">Sum of registry entries</param>
         internal RegistryRedirector(int count)
@@ -59,15 +51,21 @@ namespace LEProc
         }
 
         /// <summary>
+        ///     Number of registry redirection entries.
+        /// </summary>
+        internal int NumberOfRegistryRedirectionEntries { get; set; }
+
+        /// <summary>
         ///     Get data in binary array format
         /// </summary>
         internal byte[] GetBinaryData()
         {
             // Write amount of REGISTRY_REDIRECTION_ENTRY64s
-            var result = BitConverter.GetBytes(NumberOfRegistryRedirectionEntries);
+            byte[] result = BitConverter.GetBytes(NumberOfRegistryRedirectionEntries);
 
             // Write REGISTRY_REDIRECTION_ENTRY64s
-            var entrys = new byte[NumberOfRegistryRedirectionEntries * Marshal.SizeOf(new REGISTRY_REDIRECTION_ENTRY64())];
+            var entrys =
+                new byte[NumberOfRegistryRedirectionEntries * Marshal.SizeOf(new REGISTRY_REDIRECTION_ENTRY64())];
             entrys.FillWith((byte)0x00);
 
             for (int i = 0; i < _registryReplacement.Count; i++)

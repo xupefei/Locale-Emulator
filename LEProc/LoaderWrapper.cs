@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-
 using Amemiya.Extensions;
 
 namespace LEProc
@@ -15,10 +13,9 @@ namespace LEProc
 
         private byte[] _defaultFaceName = new byte[64];
         private LEB _leb;
+        private RegistryRedirector _registry = new RegistryRedirector(0);
         private byte[] _timezoneDaylightName = new byte[64];
         private byte[] _timezoneStandardName = new byte[64];
-
-        private RegistryRedirector _registry = new RegistryRedirector(0);
 
         internal LoaderWrapper()
             : this(null, null, null)
@@ -172,7 +169,7 @@ namespace LEProc
         }
 
         /// <summary>
-        /// Get or set the number of registry redirection entries.
+        ///     Get or set the number of registry redirection entries.
         /// </summary>
         internal int NumberOfRegistryRedirectionEntries
         {
@@ -203,10 +200,10 @@ namespace LEProc
             if (String.IsNullOrEmpty(ApplicationName))
                 throw new Exception("ApplicationName cannot null.");
 
-            var newLEB = ArrayExtensions.StructToBytes(_leb);
+            byte[] newLEB = ArrayExtensions.StructToBytes(_leb);
             newLEB = newLEB.CombineWith(_registry.GetBinaryData());
 
-            var locLEB = Marshal.AllocHGlobal(newLEB.Length);
+            IntPtr locLEB = Marshal.AllocHGlobal(newLEB.Length);
             Marshal.Copy(newLEB, 0, locLEB, newLEB.Length);
 
             return LeCreateProcess(locLEB,
