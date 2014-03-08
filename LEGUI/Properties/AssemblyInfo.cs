@@ -11,7 +11,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Paddy Xu")]
 [assembly: AssemblyProduct("LEGUI")]
-[assembly: AssemblyCopyright("Copyright © Paddy Xu 2013")]
+[assembly: AssemblyCopyright("Copyright © Paddy Xu 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

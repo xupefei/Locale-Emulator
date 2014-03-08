@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Paddy Xu")]
 [assembly: AssemblyProduct("Context Menu Handler for LocaleEmulator")]
-[assembly: AssemblyCopyright("Copyright © Paddy Xu 2013")]
+[assembly: AssemblyCopyright("Copyright © Paddy Xu 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
