@@ -200,7 +200,7 @@ namespace LEProc
 
                 string timezoneDaylightName = tzi.DaylightName;
 
-                LERegistryEntry[] registires = profile.RedirectRegistry
+                LERegistryEntry[] registries = profile.RedirectRegistry
                                                    ? new LERegistry().GetRegistryEntries()
                                                    : new LERegistryEntry[0];
 
@@ -218,11 +218,11 @@ namespace LEProc
                             TimezoneDaylightBias = timezoneDaylightBias,
                             TimezoneStandardName = timezoneStandardName,
                             TimezoneDaylightName = timezoneDaylightName,
-                            NumberOfRegistryRedirectionEntries = registires.Length,
+                            NumberOfRegistryRedirectionEntries = registries.Length,
                             DebugMode = debugMode,
                         };
 
-                registires.ToList()
+                registries.ToList()
                           .ForEach(
                                    item =>
                                    l.AddRegistryRedirectEntry(item.Root, item.Key, item.Name, item.Type, item.Data));
