@@ -48,6 +48,7 @@ namespace LECommonLibrary
                                                    p.Element("DefaultFont").Value,
                                                    p.Element("Timezone").Value,
                                                    bool.Parse(p.TryGetValue("RunAsAdmin", "false")),
+                                                   bool.Parse(p.TryGetValue("RedirectRegistry", "true")),
                                                    bool.Parse(p.TryGetValue("RunWithSuspend", "false"))
                                          )
                         ).ToArray();
@@ -90,6 +91,7 @@ namespace LECommonLibrary
                                                     "MS Gothic",
                                                     "Tokyo Standard Time",
                                                     false,
+                                                    true,
                                                     false
                                           ),
                                       new LEProfile("Run in Japanese (Admin)",
@@ -99,6 +101,7 @@ namespace LECommonLibrary
                                                     "ja-JP",
                                                     "MS Gothic",
                                                     "Tokyo Standard Time",
+                                                    true,
                                                     true,
                                                     false
                                           )
@@ -132,6 +135,7 @@ namespace LECommonLibrary
                                           new XElement("DefaultFont", pro.DefaultFont),
                                           new XElement("Timezone", pro.Timezone),
                                           new XElement("RunAsAdmin", pro.RunAsAdmin),
+                                          new XElement("RedirectRegistry", pro.RedirectRegistry),
                                           new XElement("RunWithSuspend", pro.RunWithSuspend)
                                  )
                     );

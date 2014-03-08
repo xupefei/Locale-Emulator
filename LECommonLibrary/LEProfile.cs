@@ -7,6 +7,7 @@
         public string Location;
         public string Name;
         public string Parameter;
+        public bool RedirectRegistry;
         public bool RunAsAdmin;
         public bool RunWithSuspend;
         public bool ShowInMainMenu;
@@ -20,6 +21,7 @@
                          string defaultFont,
                          string timezone,
                          bool runAsAdmin,
+                         bool redirectRegistry,
                          bool runWithSuspend)
         {
             Name = name;
@@ -30,6 +32,7 @@
             DefaultFont = defaultFont;
             Timezone = timezone;
             RunAsAdmin = runAsAdmin;
+            RedirectRegistry = redirectRegistry;
             RunWithSuspend = runWithSuspend;
         }
     }

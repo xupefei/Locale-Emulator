@@ -1,7 +1,7 @@
 ﻿<Window x:Class="LEGUI.GlobalConfig"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="LEGUI GLOBAL" Height="382" Width="310"
+        Title="LEGUI GLOBAL" Height="396.4" Width="310"
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid TextElement.FontFamily="{DynamicResource UIFont}">
         <Grid x:Name="mainGrid">
@@ -36,7 +36,7 @@
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
-                        <RowDefinition Height="1.3*" />
+                        <RowDefinition Height="1.7*" />
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
                     <GroupBox Grid.Row="0" Header="{DynamicResource LocationSettings}" Margin="4,0">
@@ -79,11 +79,15 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*" />
                                 <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
                             </Grid.RowDefinitions>
                             <CheckBox x:Name="cbStartAsAdmin" Grid.Row="0"
                                       Content="{DynamicResource AsAdmin}" Margin="5,0,0,0"
                                       VerticalAlignment="Center" />
-                            <CheckBox x:Name="cbStartAsSuspend" Grid.Row="1"
+                            <CheckBox x:Name="cbRedirectRegistry" Grid.Row="1"
+                                      Content="{DynamicResource RedirectRegistry}" Margin="5,0,0,0"
+                                      VerticalAlignment="Center" IsChecked="True" />
+                            <CheckBox x:Name="cbStartAsSuspend" Grid.Row="2"
                                       Content="{DynamicResource WithCREATESUSPENDED}" Margin="5,0,0,0"
                                       VerticalAlignment="Center" />
                         </Grid>

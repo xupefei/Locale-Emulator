@@ -53,6 +53,7 @@ namespace LEGUI
                 cbLocation.SelectedIndex = _cultureInfos.FindIndex(ci => ci.Name == conf.Location);
 
                 cbStartAsAdmin.IsChecked = conf.RunAsAdmin;
+                cbRedirectRegistry.IsChecked = conf.RedirectRegistry;
                 cbStartAsSuspend.IsChecked = conf.RunWithSuspend;
             }
         }
@@ -67,6 +68,7 @@ namespace LEGUI
                                     cbDefaultFont.Text,
                                     _timezones[cbTimezone.SelectedIndex].Id,
                                     cbStartAsAdmin.IsChecked != null && (bool)cbStartAsAdmin.IsChecked,
+                                    cbRedirectRegistry.IsChecked != null && (bool)cbRedirectRegistry.IsChecked,
                                     cbStartAsSuspend.IsChecked != null && (bool)cbStartAsSuspend.IsChecked
                 );
 

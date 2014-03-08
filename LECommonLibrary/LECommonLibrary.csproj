@@ -53,6 +53,8 @@
     <Compile Include="AssociationReader.cs" />
     <Compile Include="LEConfig.cs" />
     <Compile Include="LEProfile.cs" />
+    <Compile Include="LERegistry.cs" />
+    <Compile Include="LERegistryEntry.cs" />
     <Compile Include="PEFileReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemHelper.cs" />

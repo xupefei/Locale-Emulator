@@ -45,7 +45,9 @@ namespace LEGUI
             crt.Location = _cultureInfos[cbLocation.SelectedIndex].Name;
             crt.Timezone = _timezones[cbTimezone.SelectedIndex].Id;
             crt.ShowInMainMenu = cbShowInMainMenu.IsChecked != null && (bool)cbShowInMainMenu.IsChecked;
+
             crt.RunAsAdmin = cbStartAsAdmin.IsChecked != null && (bool)cbStartAsAdmin.IsChecked;
+            crt.RedirectRegistry = cbRedirectRegistry.IsChecked != null && (bool)cbRedirectRegistry.IsChecked;
             crt.RunWithSuspend = cbStartAsSuspend.IsChecked != null && (bool)cbStartAsSuspend.IsChecked;
 
             _profiles[cbGlobalProfiles.SelectedIndex] = crt;
@@ -68,8 +70,10 @@ namespace LEGUI
             cbTimezone.SelectedIndex = _timezones.FindIndex(tz => tz.Id == crt.Timezone);
             cbDefaultFont.Text = crt.DefaultFont;
             cbLocation.SelectedIndex = _cultureInfos.FindIndex(ci => ci.Name == crt.Location);
+
             cbShowInMainMenu.IsChecked = crt.ShowInMainMenu;
             cbStartAsAdmin.IsChecked = crt.RunAsAdmin;
+            cbRedirectRegistry.IsChecked = crt.RedirectRegistry;
             cbStartAsSuspend.IsChecked = crt.RunWithSuspend;
         }
 
@@ -106,6 +110,7 @@ namespace LEGUI
                                     cbDefaultFont.Text,
                                     _timezones[cbTimezone.SelectedIndex].Id,
                                     cbStartAsAdmin.IsChecked != null && (bool)cbStartAsAdmin.IsChecked,
+                                    cbRedirectRegistry.IsChecked != null && (bool)cbRedirectRegistry.IsChecked,
                                     cbStartAsSuspend.IsChecked != null && (bool)cbStartAsSuspend.IsChecked);
 
             _profiles.Add(pro);
