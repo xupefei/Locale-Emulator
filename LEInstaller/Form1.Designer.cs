@@ -30,7 +30,6 @@
         {
             this.buttonInstall = new System.Windows.Forms.Button();
             this.buttonUninstall = new System.Windows.Forms.Button();
-            this.labelVersion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonInstall
@@ -55,22 +54,11 @@
             this.buttonUninstall.UseVisualStyleBackColor = true;
             this.buttonUninstall.Click += new System.EventHandler(this.buttonUninstall_Click);
             // 
-            // labelVersion
-            // 
-            this.labelVersion.AutoSize = true;
-            this.labelVersion.Location = new System.Drawing.Point(12, 88);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(161, 17);
-            this.labelVersion.TabIndex = 3;
-            this.labelVersion.Text = "Checking new version ...";
-            this.labelVersion.Click += new System.EventHandler(this.labelVersion_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 115);
-            this.Controls.Add(this.labelVersion);
+            this.ClientSize = new System.Drawing.Size(530, 98);
             this.Controls.Add(this.buttonUninstall);
             this.Controls.Add(this.buttonInstall);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -80,10 +68,8 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LE Context Menu Installer";
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -91,7 +77,6 @@
 
         private System.Windows.Forms.Button buttonInstall;
         private System.Windows.Forms.Button buttonUninstall;
-        private System.Windows.Forms.Label labelVersion;
     }
 }
 

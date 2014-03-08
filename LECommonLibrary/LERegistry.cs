@@ -13,7 +13,13 @@ namespace LECommonLibrary
             Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                          "LERegistry.xml");
 
-        public int Version { get; set; }
+        private int _version = -1;
+
+        public int Version
+        {
+            get { return _version; }
+            set { _version = value; }
+        }
 
         public LERegistryEntry[] GetRegistryEntries()
         {
