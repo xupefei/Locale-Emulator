@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using Amemiya.Extensions;
 
 namespace LEProc
 {
@@ -12,6 +13,7 @@ namespace LEProc
 
         private byte[] _defaultFaceName = new byte[64];
         private LEB _leb;
+        private RegistryRedirector _registry = new RegistryRedirector(0);
         private byte[] _timezoneDaylightName = new byte[64];
         private byte[] _timezoneStandardName = new byte[64];
 
@@ -167,6 +169,29 @@ namespace LEProc
         }
 
         /// <summary>
+        ///     Get or set the number of registry redirection entries.
+        /// </summary>
+        internal int NumberOfRegistryRedirectionEntries
+        {
+            get { return _registry.NumberOfRegistryRedirectionEntries; }
+            set { _registry = new RegistryRedirector(value); }
+        }
+
+        internal bool AddRegistryRedirectEntry(
+            string root,
+            string subkey,
+            string valueName,
+            string dataType,
+            string data)
+        {
+            return _registry.AddRegistryEntry(root,
+                                              subkey,
+                                              valueName,
+                                              dataType,
+                                              data);
+        }
+
+        /// <summary>
         ///     Create process.
         /// </summary>
         /// <returns>Error number</returns>
@@ -175,7 +200,13 @@ namespace LEProc
             if (String.IsNullOrEmpty(ApplicationName))
                 throw new Exception("ApplicationName cannot null.");
 
-            return LeCreateProcess(ref _leb,
+            byte[] newLEB = ArrayExtensions.StructToBytes(_leb);
+            newLEB = newLEB.CombineWith(_registry.GetBinaryData());
+
+            IntPtr locLEB = Marshal.AllocHGlobal(newLEB.Length);
+            Marshal.Copy(newLEB, 0, locLEB, newLEB.Length);
+
+            return LeCreateProcess(locLEB,
                                    ApplicationName,
                                    CommandLine,
                                    CurrentDirectory,
@@ -200,7 +231,7 @@ namespace LEProc
         }
 
         [DllImport("LoaderDll.dll", CharSet = CharSet.Unicode)]
-        public static extern uint LeCreateProcess(ref LEB leb,
+        public static extern uint LeCreateProcess(IntPtr leb,
                                                   [MarshalAs(UnmanagedType.LPWStr), In] string applicationName,
                                                   [MarshalAs(UnmanagedType.LPWStr), In] string commandLine,
                                                   [MarshalAs(UnmanagedType.LPWStr), In] string currentDirectory,
