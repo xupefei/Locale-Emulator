@@ -10,7 +10,7 @@ namespace LEUpdater
 {
     internal static class Program
     {
-        private static readonly NotifyIcon _notifyIcon = new NotifyIcon {Icon = Resources.icon, Visible = true};
+        private static readonly NotifyIcon _notifyIcon = new NotifyIcon {Icon = Resources.icon};
 
         private static void Main(string[] args)
         {
@@ -52,6 +52,8 @@ namespace LEUpdater
 
         private static void CheckUpdates(string appVer, int regVer)
         {
+            _notifyIcon.Visible = true;
+
             _notifyIcon.DoubleClick += _notifyIcon_DoubleClick;
 
             _notifyIcon.ShowBalloonTip(0,
