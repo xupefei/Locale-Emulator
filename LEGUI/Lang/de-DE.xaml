@@ -18,6 +18,7 @@
     <system:String x:Key="Timezone">Zeitzone</system:String>
     <system:String x:Key="DebugOptions">Erweitert</system:String>
     <system:String x:Key="AsAdmin">Als Administrator ausführen</system:String>
+    <system:String x:Key="RedirectRegistry">Solliciteer register omleiding</system:String>
     <system:String x:Key="WithCREATESUSPENDED">Prozess mit CREATE__SUSPENDED aufrufen</system:String>
     <system:String x:Key="Miscellaneous">Sonstiges</system:String>
     <system:String x:Key="ShowInMainMenu">Profil im Kontextmenü anzeigen</system:String>

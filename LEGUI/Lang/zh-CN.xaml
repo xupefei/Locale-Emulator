@@ -18,6 +18,7 @@
     <system:String x:Key="Timezone">时区</system:String>
     <system:String x:Key="DebugOptions">高级选项</system:String>
     <system:String x:Key="AsAdmin">以管理员权限运行</system:String>
+    <system:String x:Key="RedirectRegistry">使用注册表重定向</system:String>
     <system:String x:Key="WithCREATESUSPENDED">用 CREATE__SUSPENDED 标志创建进程</system:String>
     <system:String x:Key="Miscellaneous">其它</system:String>
     <system:String x:Key="ShowInMainMenu">在一级菜单中显示此配置</system:String>
