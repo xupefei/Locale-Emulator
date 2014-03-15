@@ -232,7 +232,14 @@ namespace LEInstaller
 
             Text += @" - Version " + Application.ProductVersion;
 
-            Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEUpdater.exe"));
+            try
+            {
+                Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                                           "LEUpdater.exe"));
+            }
+            catch
+            {
+            }
         }
     }
 }

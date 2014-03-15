@@ -19,7 +19,14 @@ namespace LEProc
         [STAThread]
         private static void Main(string[] args)
         {
-            Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEUpdater.exe"));
+            try
+            {
+                Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                                           "LEUpdater.exe"));
+            }
+            catch
+            {
+            }
 
             if (!File.Exists(LEConfig.GlobalConfigPath))
             {
