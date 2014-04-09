@@ -14,11 +14,6 @@ namespace LEUpdater
 
         internal static void CheckApplicationUpdate(string version, NotifyIcon notifyIcon)
         {
-            notifyIcon.ShowBalloonTip(0,
-                                      "Locale Emulator V" + Application.ProductVersion,
-                                      "Checking for application updates ...",
-                                      ToolTipIcon.Info);
-
             string url = string.Format(@"http://service.watashi.me/le/check.php?ver={0}&lang={1}",
                                        version,
                                        CultureInfo.CurrentUICulture.LCID);
@@ -37,12 +32,6 @@ namespace LEUpdater
             }
             catch (Exception ex)
             {
-                notifyIcon.ShowBalloonTip(0,
-                                          "Locale Emulator V" + Application.ProductVersion,
-                                          "Error occurs when checking new application version: \r\n" + ex.Message,
-                                          ToolTipIcon.Error);
-
-                Thread.Sleep(5000);
                 notifyIcon.Visible = false;
                 Environment.Exit(0);
             }
@@ -77,24 +66,12 @@ namespace LEUpdater
                 }
                 catch (Exception ex)
                 {
-                    notifyIcon.ShowBalloonTip(0,
-                                              "Locale Emulator V" + Application.ProductVersion,
-                                              "Error occurs when checking new application version: \r\n" + ex.Message,
-                                              ToolTipIcon.Error);
-
-                    Thread.Sleep(5000);
                     notifyIcon.Visible = false;
                     Environment.Exit(0);
                 }
             }
             else
             {
-                notifyIcon.ShowBalloonTip(0,
-                                          "Locale Emulator V" + Application.ProductVersion,
-                                          "You are using the lastest version :)",
-                                          ToolTipIcon.Info);
-
-                Thread.Sleep(5000);
                 notifyIcon.Visible = false;
                 Environment.Exit(0);
             }

@@ -13,11 +13,6 @@ namespace LEUpdater
     {
         internal static void CheckRegistryUpdate(int version, NotifyIcon notifyIcon)
         {
-            notifyIcon.ShowBalloonTip(0,
-                                      "Locale Emulator V" + Application.ProductVersion,
-                                      "Checking for registry updates ...",
-                                      ToolTipIcon.Info);
-
             string url = string.Format(@"http://service.watashi.me/le/registry.php?ver={0}&lang={1}",
                                        version,
                                        CultureInfo.CurrentUICulture.LCID);
@@ -36,12 +31,6 @@ namespace LEUpdater
             }
             catch (Exception ex)
             {
-                notifyIcon.ShowBalloonTip(0,
-                                          "Locale Emulator V" + Application.ProductVersion,
-                                          "Error occurs when downloading new registry data: \r\n" + ex.Message,
-                                          ToolTipIcon.Error);
-
-                Thread.Sleep(5000);
                 notifyIcon.Visible = false;
                 Environment.Exit(0);
             }
@@ -61,12 +50,6 @@ namespace LEUpdater
             }
             catch (Exception ex)
             {
-                notifyIcon.ShowBalloonTip(0,
-                                          "Locale Emulator V" + Application.ProductVersion,
-                                          "Error occurs when saving new registry data: \r\n" + ex.Message,
-                                          ToolTipIcon.Error);
-
-                Thread.Sleep(5000);
                 notifyIcon.Visible = false;
                 Environment.Exit(0);
             }
