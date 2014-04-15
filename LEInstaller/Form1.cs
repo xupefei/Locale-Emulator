@@ -5,7 +5,6 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Xml;
 using LEInstaller.Properties;
 using Microsoft.Win32;
 
@@ -14,9 +13,6 @@ namespace LEInstaller
     public partial class Form1 : Form
     {
         private readonly string crtDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-        private readonly XmlDocument xmlContent = new XmlDocument();
-        private bool hasNewVersion;
 
         public Form1()
         {

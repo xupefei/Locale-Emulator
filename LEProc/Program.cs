@@ -294,7 +294,7 @@ namespace LEProc
                                                                  "LEProc.exe"),
                                                     Args);
             }
-            catch (Exception e)
+            catch (Exception)
             {
             }
         }

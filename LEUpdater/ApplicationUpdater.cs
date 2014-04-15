@@ -29,7 +29,7 @@ namespace LEUpdater
 
                 ProcessUpdate(xmlContent, notifyIcon);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 notifyIcon.Visible = false;
                 Environment.Exit(0);
@@ -65,7 +65,7 @@ namespace LEUpdater
                                                             note),
                                               ToolTipIcon.Info);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     notifyIcon.Visible = false;
                     Environment.Exit(0);
