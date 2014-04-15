@@ -92,13 +92,20 @@ namespace LEProc
                         RunWithGlobalProfile(args[1], args[2]);
                         break;
 
-                    default:
-                        return;
+                    default: // Run with default profile
+                        if (File.Exists(args[0]))
+                            RunWithDefaultProfile(args[0]);
+                        break;
                 }
             }
             catch
             {
             }
+        }
+
+        private static void RunWithDefaultProfile(string path)
+        {
+            DoRunWithLEProfile(path, new LEProfile(true));
         }
 
         private static void RunWithGlobalProfile(string guid, string path)
