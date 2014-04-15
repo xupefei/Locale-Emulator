@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
 using LECommonLibrary;
 using LEUpdater.Properties;
