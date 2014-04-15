@@ -20,6 +20,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LEUpdater", "LEUpdater\LEUpdater.csproj", "{A0011409-0A25-4E95-BF6D-EE7CB9C287DA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{34E39673-EC72-4F08-AC9E-7BEAC88F3EAF}"
+	ProjectSection(SolutionItems) = preProject
+		Docs\changelog.eng.txt = Docs\changelog.eng.txt
+		Docs\changelog.txt = Docs\changelog.txt
+		Docs\Q&A.eng.txt = Docs\Q&A.eng.txt
+		Docs\Q&A.txt = Docs\Q&A.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

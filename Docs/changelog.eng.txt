@@ -1,0 +1,87 @@
+V1.1.0.2:
+Bugfix again, about MFC :)
+
+V1.1.0.1:
+Bugfix :)
+
+V1.1.0.0:
+Now LE can return fake result for any registry items (List is updateable).
+New update checker.
+
+V1.0.9.1:
+Fix a rarely issue which could cause context-menu fails to install (HRESULT 0x80131515).
+Fix GetUserDefaultLCID, NtQueryDefaultLocale, NtQueryDefaultUILanguage, NtQueryInstallUILanguage under Win 8.1.
+
+V1.0.9.0:
+Switch to .NET 4.0.
+Faster LEGUI loading speed.
+"Make shortcut" button.
+Allow "run as administrator".
+
+V1.0.8.2:
+Implement update checker.
+
+V1.0.8.1:
+Fix: LE is not working under Windows 7 32bit OS.
+
+V1.0.8.0:
+Kernel back to V1.0.7.2 and bring sone bugfixes :)
+Fix: Better compatibility with AdvHD games (ココロ＠ファンクション！) and (maybe) more games.
+
+V1.0.7.6:
+Fix: LEGUI.exe could not load language resource file if it is external.
+Enhancement: Add German and Korean translations (Thanks to carstene1ns and otromonde).
+
+V1.0.7.5:
+Fix: A bug that we may overwrite the target executable when user dropped it onto LEGUI.
+Enhancement: Remove dependency of LECommonLibrary on LEInstaller for smoother install & uninstall process.
+
+V1.0.7.4:
+Enhancement: Better compatibility with Visual Novel Reader - Now LEGUI will require administrator permission olny when necessary.
+If you have permission problems again, please report it to me.
+
+V1.0.7.3:
+Fix: Rollback core complements to V1.0.7.1 due to a compatibility issue.
+
+V1.0.7.2:
+Enhancement: Some small changes on GUI.
+Fix: Cannot run games which use RT_VERSION to detect system localization.
+
+V1.0.7.1:
+Enhancement: Dump crash log when target crashes.
+
+V1.0.7.0:
+Enhancement: Add ja-JP translation (Thanks to zz0165).
+Enhancement: Simplify context menu items.
+
+V1.0.6.0:
+Enhancement: Add zh-TW translation (Thanks to newgene from Sumisora).
+Enhancement: Now you can create a shortcut via "Modify Application Profile -> Save".
+
+V1.0.5.2:
+Fix: Crash when running an executable from a read-only directory (For example, form DVD-ROM).
+Fix: Crash when opening font dialog from notepad.
+
+V1.0.5.1:
+Fix: Reliability while determining the type of an executable.
+
+V1.0.5.0:
+Enhancement: Do not display context menus when right-clicking on a 64-bit executable.
+Enhancement: Force remove all registry entrys while uninstalling.
+
+V1.0.4.0:
+Fix: Font size is too small in some games (Justy×Nasty ～魔王はじめました～).
+
+V1.0.3.1:
+Fix: Mistake when determining file extension.
+
+V1.0.3.0:
+Enhancement: Automatically(No annoying msgbox) require administrator rights when error occurrs.
+Enhancement: Now support all file-types.
+
+V1.0.2.0:
+Enhancement: Add fr-FR translation (Thanks to 明镜止水 from 9gal).
+Enhancement: Support executables written in .NET.
+
+V1.0.1.0:
+Enhancement: Ask for administrator rights when error occurrs.
