@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * This is a *dirty* implementation due to the lack of support of StructureToPtr(struct-has-non-fix-lengthed-array).
+ * Maybe I will try another methods in the future.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;

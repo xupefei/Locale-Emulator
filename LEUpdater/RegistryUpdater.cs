@@ -3,7 +3,6 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 

@@ -57,11 +57,13 @@ namespace LEUpdater
                                               String.Format("Current version: {0}\r\n" +
                                                             "New version: {1}\r\n" +
                                                             "Released on: {2}\r\n" +
+                                                            "Recent changelog: {3}\r\n" +
                                                             "\r\n" +
-                                                            "Please click on me to go to the download page.",
+                                                            "Click on me to open download page.",
                                                             Application.ProductVersion,
                                                             version,
-                                                            data),
+                                                            data,
+                                                            note),
                                               ToolTipIcon.Info);
                 }
                 catch (Exception ex)
