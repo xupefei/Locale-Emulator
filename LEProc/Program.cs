@@ -44,15 +44,17 @@ namespace LEProc
                                 "Welcome to Locale Emulator command line tool.\r\n" +
                                 "\r\n" +
                                 "Usage: LEProc.exe\r\n" +
-                                "\t[-run <APP_PATH>]\r\n" +
-                                "\t[-manage <APP_PATH>]\r\n" +
-                                "\t[-global]\r\n" +
-                                "\t[-runas <PROFILE_GUID> <APP_PATH>]\r\n" +
+                                "\t<APP_PATH>\t\t\t--(1)\r\n" +
+                                "\t-run <APP_PATH>\t\t\t--(2)\r\n" +
+                                "\t-manage <APP_PATH>\t\t--(3)\r\n" +
+                                "\t-global\t\t\t\t--(4)\r\n" +
+                                "\t-runas <PROFILE_GUID> <APP_PATH>\t--(5)\r\n" +
                                 "\r\n" +
-                                "-run: Run an application with it's own profile.\r\n" +
-                                "-manage: Modify the profile of one application.\r\n" +
-                                "-global: Open Global Profile Manager.\r\n" +
-                                "-runas: Run an application with a global profile of specific Guid.\r\n" +
+                                "(1): Run an application with a build-in profile(as Japanese).\r\n" +
+                                "(2): Run an application with it's own profile.\r\n" +
+                                "(3): Modify the profile of one application.\r\n" +
+                                "(4): Open Global Profile Manager.\r\n" +
+                                "(5): Run an application with a global profile of specific Guid.\r\n" +
                                 "\r\n" +
                                 "\r\n" +
                                 "Have a suggestion? Want to report a bug? You are welcome! \r\n" +
