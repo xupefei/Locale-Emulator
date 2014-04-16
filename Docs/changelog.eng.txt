@@ -25,7 +25,7 @@ V1.0.8.1:
 Fix: LE is not working under Windows 7 32bit OS.
 
 V1.0.8.0:
-Kernel back to V1.0.7.2 and bring sone bugfixes :)
+Kernel back to V1.0.7.2 and bring some bugfixes :)
 Fix: Better compatibility with AdvHD games (ココロ＠ファンクション！) and (maybe) more games.
 
 V1.0.7.6:
@@ -37,7 +37,7 @@ Fix: A bug that we may overwrite the target executable when user dropped it onto
 Enhancement: Remove dependency of LECommonLibrary on LEInstaller for smoother install & uninstall process.
 
 V1.0.7.4:
-Enhancement: Better compatibility with Visual Novel Reader - Now LEGUI will require administrator permission olny when necessary.
+Enhancement: Better compatibility with Visual Novel Reader - Now LEGUI will require administrator permission only when necessary.
 If you have permission problems again, please report it to me.
 
 V1.0.7.3:
@@ -67,7 +67,7 @@ Fix: Reliability while determining the type of an executable.
 
 V1.0.5.0:
 Enhancement: Do not display context menus when right-clicking on a 64-bit executable.
-Enhancement: Force remove all registry entrys while uninstalling.
+Enhancement: Force remove all registry entries while uninstalling.
 
 V1.0.4.0:
 Fix: Font size is too small in some games (Justy×Nasty ～魔王はじめました～).
@@ -76,7 +76,7 @@ V1.0.3.1:
 Fix: Mistake when determining file extension.
 
 V1.0.3.0:
-Enhancement: Automatically(No annoying msgbox) require administrator rights when error occurrs.
+Enhancement: Automatically (No annoying msgbox) require administrator rights when error occurs.
 Enhancement: Now support all file-types.
 
 V1.0.2.0:
@@ -84,4 +84,4 @@ Enhancement: Add fr-FR translation (Thanks to 明镜止水 from 9gal).
 Enhancement: Support executables written in .NET.
 
 V1.0.1.0:
-Enhancement: Ask for administrator rights when error occurrs.
+Enhancement: Ask for administrator rights when error occurs.
