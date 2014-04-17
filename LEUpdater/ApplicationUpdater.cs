@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.Net;
+using System.IO;
 using System.Windows.Forms;
 using System.Xml;
+using BingWallpaper;
 
 namespace LEUpdater
 {
@@ -19,13 +20,11 @@ namespace LEUpdater
 
             try
             {
-                var webFileUri = new Uri(url);
-                WebRequest webRequest = WebRequest.Create(webFileUri);
-                webRequest.Timeout = 10 * 1000;
+                var client = new WebClientEx(10 * 1000);
+                MemoryStream stream = client.DownloadDataStream(url);
 
-                WebResponse response = webRequest.GetResponse();
                 var xmlContent = new XmlDocument();
-                xmlContent.Load(response.GetResponseStream());
+                xmlContent.Load(stream);
 
                 ProcessUpdate(xmlContent, notifyIcon);
             }

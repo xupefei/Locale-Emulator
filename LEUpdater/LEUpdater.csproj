@@ -57,6 +57,9 @@
     <Compile Include="..\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Amemiya.Net.WebClientEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ApplicationUpdater.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
