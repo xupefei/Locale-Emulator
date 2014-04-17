@@ -1,3 +1,5 @@
+Release Page: http://i.watashi.me/archives/locale-emulator.html
+
 Q: What is the easiest way to use LE?
 A: Right click on a executable, then select "Run in Japanese".
 

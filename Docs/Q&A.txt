@@ -1,3 +1,5 @@
+发布页面：http://i.watashi.me/archives/locale-emulator.html
+
 常见问题：
 Q: 这东西怎么用？
 A: 右键单击文件，选择 Run in Japanese 即可。

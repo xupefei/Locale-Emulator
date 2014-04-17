@@ -44,7 +44,7 @@ namespace LEUpdater
                 try
                 {
                     string version = xmlContent.SelectSingleNode(@"/VersionInfo/Version/text()").Value;
-                    string data = xmlContent.SelectSingleNode(@"/VersionInfo/Date/text()").Value;
+                    string date = xmlContent.SelectSingleNode(@"/VersionInfo/Date/text()").Value;
                     url = xmlContent.SelectSingleNode(@"/VersionInfo/Url/text()").Value;
                     string note = xmlContent.SelectSingleNode(@"/VersionInfo/Note/text()").Value;
 
@@ -62,16 +62,9 @@ namespace LEUpdater
                                                    };
 
                     notifyIcon.ShowBalloonTip(0,
-                                              "New version available",
-                                              String.Format("Current version: {0}\r\n" +
-                                                            "New version: {1}\r\n" +
-                                                            "Released on: {2}\r\n" +
-                                                            "Recent changelog: {3}\r\n" +
-                                                            "\r\n" +
-                                                            "Click on me to open download page.",
-                                                            Application.ProductVersion,
-                                                            version,
-                                                            data,
+                                              String.Format("New Version {0} Available", version),
+                                              String.Format("{0}\r\n" +
+                                                            "Click here to open download page.",
                                                             note),
                                               ToolTipIcon.Info);
                 }
