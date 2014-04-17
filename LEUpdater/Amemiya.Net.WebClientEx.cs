@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net;
 
-namespace BingWallpaper
+namespace Amemiya.Net
 {
     public class WebClientEx : WebClient
     {
