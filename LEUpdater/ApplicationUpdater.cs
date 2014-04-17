@@ -48,7 +48,18 @@ namespace LEUpdater
                     url = xmlContent.SelectSingleNode(@"/VersionInfo/Url/text()").Value;
                     string note = xmlContent.SelectSingleNode(@"/VersionInfo/Note/text()").Value;
 
-                    notifyIcon.BalloonTipClicked += notifyIcon_BalloonTipClicked;
+                    notifyIcon.BalloonTipClicked += (sender, e) =>
+                                                    {
+                                                        Process.Start(url);
+
+                                                        notifyIcon.Visible = false;
+                                                        Environment.Exit(0);
+                                                    };
+                    notifyIcon.BalloonTipClosed += (sender, e) =>
+                                                   {
+                                                       notifyIcon.Visible = false;
+                                                       Environment.Exit(0);
+                                                   };
 
                     notifyIcon.ShowBalloonTip(0,
                                               "New version available",
@@ -75,16 +86,6 @@ namespace LEUpdater
                 notifyIcon.Visible = false;
                 Environment.Exit(0);
             }
-        }
-
-        private static void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
-        {
-            Process.Start(url);
-
-            var notifyIcon = (NotifyIcon)sender;
-
-            notifyIcon.Visible = false;
-            Environment.Exit(0);
         }
 
         /// <summary>

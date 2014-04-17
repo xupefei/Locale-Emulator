@@ -46,18 +46,16 @@ namespace LEUpdater
         {
             _notifyIcon.Visible = true;
 
-            _notifyIcon.DoubleClick += _notifyIcon_DoubleClick;
+            _notifyIcon.DoubleClick += (sender, e) =>
+                                       {
+                                           _notifyIcon.Visible = false;
+                                           Environment.Exit(0);
+                                       };
 
             RegistryUpdater.CheckRegistryUpdate(regVer, _notifyIcon);
             ApplicationUpdater.CheckApplicationUpdate(appVer, _notifyIcon);
 
             Application.Run();
-        }
-
-        private static void _notifyIcon_DoubleClick(object sender, EventArgs e)
-        {
-            _notifyIcon.Visible = false;
-            Environment.Exit(0);
         }
     }
 }
