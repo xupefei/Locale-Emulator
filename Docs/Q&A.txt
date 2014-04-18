@@ -1,6 +1,5 @@
 发布页面：http://i.watashi.me/archives/locale-emulator.html
 
-常见问题：
 Q: 这东西怎么用？
 A: 右键单击文件，选择 Run in Japanese 即可。
 
@@ -9,6 +8,9 @@ A: 点击“管理通用配置列表”（Edit Global Profile List），点“�
 
 Q: “此程序的配置”（Application Profile）是干啥的？
 A: 当你的某个程序需要用参数才能运行时，请用这个方式运行。另外，快捷方式也是在这里建立的。
+
+Q: 我运行 LiveMaker 引擎的游戏时，需要十多秒才能看到游戏界面。这正常吗？
+A: 正常。LiveMaker 用了许多次 EnumFontFamiliesEx API，LE 在这里花了很多时间。
 
 Q: 我想建一个桌面快捷方式。
 A: 右键，“修改此程序的配置”（Modify Application Profile），“保存”（Save）。

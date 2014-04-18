@@ -9,6 +9,9 @@ A: Yes. Click on "Edit Global Profile List" -> "Save", then input another name.
 Q: What is "Application Profile"?
 A: You should use it when one of your application needs a arguments to run properly. Besides, you can create a shortcut on your desktop here.
 
+Q: When I an running LiveMaker games, I need to wait for more than 10 seconds to see the game. Is this normal?
+A: Yes. LiveMaker calls for EnumFontFamiliesEx API many times, and LE spend much time on that.
+
 Q: I want to create a shortcut on my desktop.
 A: Select "Modify Application Profile", then click "Save".
 
