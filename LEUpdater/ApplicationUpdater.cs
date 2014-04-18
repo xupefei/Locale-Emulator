@@ -64,6 +64,7 @@ namespace LEUpdater
                     notifyIcon.ShowBalloonTip(0,
                                               String.Format("New Version {0} Available", version),
                                               String.Format("{0}\r\n" +
+                                                            "\r\n" +
                                                             "Click here to open download page.",
                                                             note),
                                               ToolTipIcon.Info);
