@@ -41,7 +41,6 @@ namespace LEGUI
                 return;
 
             LEProfile crt = _profiles[cbGlobalProfiles.SelectedIndex];
-            crt.DefaultFont = cbDefaultFont.Text;
             crt.Location = _cultureInfos[cbLocation.SelectedIndex].Name;
             crt.Timezone = _timezones[cbTimezone.SelectedIndex].Id;
             crt.ShowInMainMenu = cbShowInMainMenu.IsChecked != null && (bool)cbShowInMainMenu.IsChecked;
@@ -68,7 +67,6 @@ namespace LEGUI
             LEProfile crt = _profiles[cbGlobalProfiles.SelectedIndex];
 
             cbTimezone.SelectedIndex = _timezones.FindIndex(tz => tz.Id == crt.Timezone);
-            cbDefaultFont.Text = crt.DefaultFont;
             cbLocation.SelectedIndex = _cultureInfos.FindIndex(ci => ci.Name == crt.Location);
 
             cbShowInMainMenu.IsChecked = crt.ShowInMainMenu;
@@ -107,7 +105,6 @@ namespace LEGUI
                                     cbShowInMainMenu.IsChecked != null && (bool)cbShowInMainMenu.IsChecked,
                                     String.Empty,
                                     _cultureInfos[cbLocation.SelectedIndex].Name,
-                                    cbDefaultFont.Text,
                                     _timezones[cbTimezone.SelectedIndex].Id,
                                     cbStartAsAdmin.IsChecked != null && (bool)cbStartAsAdmin.IsChecked,
                                     cbRedirectRegistry.IsChecked != null && (bool)cbRedirectRegistry.IsChecked,

@@ -39,7 +39,9 @@ namespace LEProc
                        OemCodePage = 932,
                        LocaleID = 0x411,
                        DefaultCharset = 128,
-                       DefaultFaceName = SetBytes(new byte[64], Encoding.Unicode.GetBytes("MS Gothic")),
+                       // As we have abandoned the "default font" parameter,
+                       // we decide to put here some empty bytes.
+                       DefaultFaceName = new byte[64],
                        Timezone =
                        {
                            Bias = -540,
@@ -104,20 +106,6 @@ namespace LEProc
         {
             get { return _leb.DefaultCharset; }
             set { _leb.DefaultCharset = value; }
-        }
-
-        /// <summary>
-        ///     Default fontname. Default value is "MS Gothic".
-        /// </summary>
-        internal string DefaultFaceName
-        {
-            get { return Encoding.Unicode.GetString(_defaultFaceName).Replace("\x00", ""); }
-            set
-            {
-                if (value.Length > 32)
-                    throw new Exception("String too long.");
-                _defaultFaceName = SetBytes(new byte[64], Encoding.Unicode.GetBytes(value));
-            }
         }
 
         /// <summary>

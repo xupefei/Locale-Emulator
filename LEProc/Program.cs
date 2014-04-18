@@ -199,7 +199,6 @@ namespace LEProc
                 var defaultCharset = (uint)
                                      GetCharsetFromANSICodepage(CultureInfo.GetCultureInfo(profile.Location)
                                                                            .TextInfo.ANSICodePage);
-                string defaultFaceName = profile.DefaultFont;
 
                 TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById(profile.Timezone);
                 var timezoneBias = (int)-tzi.BaseUtcOffset.TotalMinutes;
@@ -231,7 +230,6 @@ namespace LEProc
                             OemCodePage = oemCodePage,
                             LocaleID = localeID,
                             DefaultCharset = defaultCharset,
-                            DefaultFaceName = defaultFaceName,
                             TimezoneBias = timezoneBias,
                             TimezoneDaylightBias = timezoneDaylightBias,
                             TimezoneStandardName = timezoneStandardName,

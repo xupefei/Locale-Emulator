@@ -34,9 +34,6 @@ namespace LEGUI
             cbTimezone.ItemsSource = _timezones.Select(t => t.DisplayName);
             cbTimezone.SelectedIndex = _timezones.FindIndex(tz => tz.Id == "Tokyo Standard Time");
 
-            //Font.
-            cbDefaultFont.Text = "MS Gothic";
-
             // Load exists config.
             LEProfile[] configs = LEConfig.GetProfiles(App.StandaloneFilePath);
             if (configs.Length > 0)
@@ -49,7 +46,6 @@ namespace LEGUI
                     tbAppParameter.Text = conf.Parameter;
                 }
                 cbTimezone.SelectedIndex = _timezones.FindIndex(tz => tz.Id == conf.Timezone);
-                cbDefaultFont.Text = conf.DefaultFont;
                 cbLocation.SelectedIndex = _cultureInfos.FindIndex(ci => ci.Name == conf.Location);
 
                 cbStartAsAdmin.IsChecked = conf.RunAsAdmin;
@@ -65,7 +61,6 @@ namespace LEGUI
                                     false,
                                     tbAppParameter.Text,
                                     _cultureInfos[cbLocation.SelectedIndex].Name,
-                                    cbDefaultFont.Text,
                                     _timezones[cbTimezone.SelectedIndex].Id,
                                     cbStartAsAdmin.IsChecked != null && (bool)cbStartAsAdmin.IsChecked,
                                     cbRedirectRegistry.IsChecked != null && (bool)cbRedirectRegistry.IsChecked,

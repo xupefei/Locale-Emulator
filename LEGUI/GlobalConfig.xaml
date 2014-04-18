@@ -1,7 +1,7 @@
 ﻿<Window x:Class="LEGUI.GlobalConfig"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="LEGUI GLOBAL" Height="396.4" Width="310"
+        Title="LEGUI GLOBAL" Height="344.4" Width="310"
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid TextElement.FontFamily="{DynamicResource UIFont}">
         <Grid x:Name="mainGrid">
@@ -35,7 +35,6 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
                         <RowDefinition Height="1.7*" />
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
@@ -50,19 +49,7 @@
                             <ComboBox x:Name="cbLocation" Grid.Column="1" Height="Auto" SelectedIndex="0" Margin="0,3" />
                         </Grid>
                     </GroupBox>
-                    <GroupBox Grid.Row="1" Header="{DynamicResource FontSettings}" Margin="4,0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="101*" />
-                                <ColumnDefinition Width="167*" />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Width="Auto" Content="{DynamicResource DefaultFont}"
-                                   VerticalContentAlignment="Center" />
-                            <ComboBox x:Name="cbDefaultFont" Grid.Row="0" Grid.Column="1" Height="Auto"
-                                      ItemsSource="{x:Static Fonts.SystemFontFamilies}" IsEditable="True" Margin="0,3" />
-                        </Grid>
-                    </GroupBox>
-                    <GroupBox Grid.Row="2" Header="{DynamicResource TimezoneSettings}" Margin="4,0">
+                    <GroupBox Grid.Row="1" Header="{DynamicResource TimezoneSettings}" Margin="4,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="101*" />
@@ -74,7 +61,7 @@
                                       Margin="0,3" />
                         </Grid>
                     </GroupBox>
-                    <GroupBox Grid.Row="3" Header="{DynamicResource DebugOptions}" Margin="4,0">
+                    <GroupBox Grid.Row="2" Header="{DynamicResource DebugOptions}" Margin="4,0">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="1*" />
@@ -92,7 +79,7 @@
                                       VerticalAlignment="Center" />
                         </Grid>
                     </GroupBox>
-                    <GroupBox Grid.Row="4" Header="{DynamicResource Miscellaneous}" Margin="4,0">
+                    <GroupBox Grid.Row="3" Header="{DynamicResource Miscellaneous}" Margin="4,0">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />

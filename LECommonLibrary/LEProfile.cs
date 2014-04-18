@@ -4,7 +4,6 @@ namespace LECommonLibrary
 {
     public struct LEProfile
     {
-        public string DefaultFont;
         public string Guid;
         public string Location;
         public string Name;
@@ -26,7 +25,6 @@ namespace LECommonLibrary
                 false,
                 String.Empty,
                 "ja-JP",
-                "MS Gothic",
                 "Tokyo Standard Time",
                 false,
                 true,
@@ -42,7 +40,6 @@ namespace LECommonLibrary
                          bool showInMainMenu,
                          string parameter,
                          string location,
-                         string defaultFont,
                          string timezone,
                          bool runAsAdmin,
                          bool redirectRegistry,
@@ -53,7 +50,6 @@ namespace LECommonLibrary
             ShowInMainMenu = showInMainMenu;
             Parameter = parameter;
             Location = location;
-            DefaultFont = defaultFont;
             Timezone = timezone;
             RunAsAdmin = runAsAdmin;
             RedirectRegistry = redirectRegistry;
