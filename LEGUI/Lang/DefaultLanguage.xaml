@@ -12,8 +12,6 @@
     <system:String x:Key="ConfirmDel">Are you sure want to delete this profile?</system:String>
     <system:String x:Key="Location">Location</system:String>
     <system:String x:Key="LocationSettings">Location Settings</system:String>
-    <system:String x:Key="FontSettings">Font Settings</system:String>
-    <system:String x:Key="DefaultFont">Default Font</system:String>
     <system:String x:Key="TimezoneSettings">Timezone Settings</system:String>
     <system:String x:Key="Timezone">Timezone</system:String>
     <system:String x:Key="DebugOptions">Advanced Options</system:String>

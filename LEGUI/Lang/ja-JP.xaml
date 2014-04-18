@@ -12,8 +12,6 @@
     <system:String x:Key="ConfirmDel">プロファイルを削除しますか？</system:String>
     <system:String x:Key="Location">場所</system:String>
     <system:String x:Key="LocationSettings">場所設定</system:String>
-    <system:String x:Key="FontSettings">フォント設定</system:String>
-    <system:String x:Key="DefaultFont">初期フォント</system:String>
     <system:String x:Key="TimezoneSettings">タイムゾーンを設定</system:String>
     <system:String x:Key="Timezone">タイムゾーン</system:String>
     <system:String x:Key="DebugOptions">上級者用オプション</system:String>

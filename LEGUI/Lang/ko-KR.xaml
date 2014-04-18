@@ -12,8 +12,6 @@
     <system:String x:Key="ConfirmDel">이 프로필을 정말로 삭제 하시겠습니까?</system:String>
     <system:String x:Key="Location">위치</system:String>
     <system:String x:Key="LocationSettings">위치 설정</system:String>
-    <system:String x:Key="FontSettings">글꼴 설정</system:String>
-    <system:String x:Key="DefaultFont">기본 글꼴</system:String>
     <system:String x:Key="TimezoneSettings">시간대 설정</system:String>
     <system:String x:Key="Timezone">시간대</system:String>
     <system:String x:Key="DebugOptions">고급사용자 옵션</system:String>

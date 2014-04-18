@@ -12,8 +12,6 @@
     <system:String x:Key="ConfirmDel">确认删除此配置么？</system:String>
     <system:String x:Key="Location">预置配置</system:String>
     <system:String x:Key="LocationSettings">位置设定</system:String>
-    <system:String x:Key="FontSettings">字体设置</system:String>
-    <system:String x:Key="DefaultFont">默认字体</system:String>
     <system:String x:Key="TimezoneSettings">时区设置</system:String>
     <system:String x:Key="Timezone">时区</system:String>
     <system:String x:Key="DebugOptions">高级选项</system:String>
