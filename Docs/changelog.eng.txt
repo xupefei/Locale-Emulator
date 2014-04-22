@@ -1,3 +1,6 @@
+V1.1.1.1:
+Speed up the loading speed of LiveMaker games.
+
 V1.1.1.0:
 Return localized font name (MS Gothic ==ja-JP==> ＭＳ ゴシック) to run LiveMaker-powered games.
 When dropping a file onto LEProc.exe, LE will use a default profile (Japanese profile) to run it.
