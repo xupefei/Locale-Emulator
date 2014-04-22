@@ -69,9 +69,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\VersionInfo.cs">
-      <Link>Properties\VersionInfo.cs</Link>
-    </Compile>
     <Compile Include="Amemiya.Extensions.ArrayExtensions.cs" />
     <Compile Include="LoaderWrapper.cs" />
     <Compile Include="Program.cs" />
@@ -131,6 +128,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LERegistry.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LEVersion.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -78,9 +78,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\VersionInfo.cs">
-      <Link>Properties\VersionInfo.cs</Link>
-    </Compile>
     <Compile Include="AppConfig.xaml.cs">
       <DependentUpon>AppConfig.xaml</DependentUpon>
     </Compile>

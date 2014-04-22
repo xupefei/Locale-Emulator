@@ -2,9 +2,11 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using LEInstaller.Properties;
 using Microsoft.Win32;
 
@@ -175,6 +177,24 @@ namespace LEInstaller
         }
 
         // We should not use the LECommonLibrary.
+        private static string GetLEVersion()
+        {
+            try
+            {
+                string versionPath =
+                    Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                                 "LEVersion.xml");
+
+                XDocument doc = XDocument.Load(versionPath);
+
+                return doc.Descendants("LEVersion").First().Attribute("Version").Value;
+            }
+            catch
+            {
+                return "0.0.0.0";
+            }
+        }
+
         private static bool Is64BitOS()
         {
             //The code below is from http://1code.codeplex.com/SourceControl/changeset/view/39074#842775
@@ -226,7 +246,7 @@ namespace LEInstaller
                 Environment.Exit(0);
             }
 
-            Text += @" - Version " + Application.ProductVersion;
+            Text += @" - Version " + GetLEVersion();
 
             try
             {

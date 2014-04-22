@@ -39,7 +39,7 @@ namespace LEUpdater
                 }
             }
 
-            CheckUpdates(Application.ProductVersion, reg.Version);
+            CheckUpdates(GlobalHelper.GetLEVersion(), reg.Version);
         }
 
         private static void CheckUpdates(string appVer, int regVer)

@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using Amemiya.Net;
+using LECommonLibrary;
 
 namespace LEUpdater
 {
@@ -39,7 +40,7 @@ namespace LEUpdater
         {
             string newVer = xmlContent.SelectSingleNode(@"/VersionInfo/Version/text()").Value;
 
-            if (CompareVersion(Application.ProductVersion, newVer))
+            if (CompareVersion(GlobalHelper.GetLEVersion(), newVer))
             {
                 try
                 {
@@ -62,7 +63,9 @@ namespace LEUpdater
                                                    };
 
                     notifyIcon.ShowBalloonTip(0,
-                                              String.Format("New Version {0} Available", version),
+                                              String.Format("New Version {0} Available (Current: {1})",
+                                                            version,
+                                                            GlobalHelper.GetLEVersion()),
                                               String.Format("{0}\r\n" +
                                                             "\r\n" +
                                                             "Click here to open download page.",

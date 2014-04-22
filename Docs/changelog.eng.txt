@@ -1,5 +1,6 @@
 V1.1.1.1:
 Speed up the loading speed of LiveMaker games.
+Improve version management. Uninstall may not needed anymore before upgrade to a new version.
 
 V1.1.1.0:
 Return localized font name (MS Gothic ==ja-JP==> ＭＳ ゴシック) to run LiveMaker-powered games.

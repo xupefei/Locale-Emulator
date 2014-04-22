@@ -33,7 +33,7 @@ namespace LEProc
                 MessageBox.Show(
                                 "\"LEConfig.xml\" not found. \r\n" +
                                 "Please run \"LEGUI.exe\" once to let it generate one for you.",
-                                "Locale Emulator Version " + Application.ProductVersion,
+                                "Locale Emulator Version " + GlobalHelper.GetLEVersion(),
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
             }
@@ -63,7 +63,7 @@ namespace LEProc
                                 "\r\n" +
                                 "\r\n" +
                                 "You can press CTRL+C to copy this message to your clipboard.\r\n",
-                                "Locale Emulator Version " + Application.ProductVersion
+                                "Locale Emulator Version " + GlobalHelper.GetLEVersion()
                     );
 
                 return;
