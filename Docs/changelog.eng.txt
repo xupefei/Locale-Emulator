@@ -1,3 +1,6 @@
+V1.1.1.2:
+Remove duplicate localized font names.
+
 V1.1.1.1:
 Speed up the loading speed of LiveMaker games.
 Improve version management. Uninstall may not needed anymore before upgrade to a new version.
