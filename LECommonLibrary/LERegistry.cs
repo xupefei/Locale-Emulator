@@ -43,7 +43,7 @@ namespace LECommonLibrary
                                                          p.Attribute("Key").Value,
                                                          p.Attribute("Name").Value,
                                                          p.Attribute("Type").Value,
-                                                         p.Element("Data").Value
+                                                         p.Element("Data").Value.Replace("[0x00]","\x00")
                                          )).ToArray();
 
                 return profiles;
