@@ -267,7 +267,7 @@ namespace LEProc
                                                       Convert.ToString(ret, 16).ToUpper(),
                                                       SystemHelper.IsAdministrator()
                                             ),
-                                        "Locale Emulator");
+                                        "Locale Emulator Version " + GlobalHelper.GetLEVersion());
                     }
                     else
                     {
