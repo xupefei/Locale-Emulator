@@ -78,15 +78,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="key.snk" />
-    <None Include="Resources\Gray.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\blue.bmp" />
+    <Content Include="Resources\gray.bmp" />
+    <Content Include="Resources\purple.bmp" />
+    <Content Include="Resources\yellow.bmp" />
     <None Include="Lang\DefaultLanguage.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Resources\Blue.bmp" />
-    <None Include="Resources\Green.bmp" />
-    <Content Include="Resources\Pink.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LECommonLibrary\LECommonLibrary.csproj">

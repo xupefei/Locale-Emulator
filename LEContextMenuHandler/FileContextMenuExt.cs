@@ -39,7 +39,7 @@ namespace LEContextMenuHandler
     {
         // The name of the selected file.
         private readonly IntPtr _menuBmpBlue = IntPtr.Zero;
-        private readonly IntPtr _menuBmpGreen = IntPtr.Zero;
+        private readonly IntPtr _menuBmpYellow = IntPtr.Zero;
         private readonly List<LEMenuItem> menuItems = new List<LEMenuItem>();
         private IntPtr _menuBmpGray = IntPtr.Zero;
         private IntPtr _menuBmpPink = IntPtr.Zero;
@@ -49,14 +49,14 @@ namespace LEContextMenuHandler
         public FileContextMenuExt()
         {
             //Load the bitmap for the menu item.
-            _menuBmpPink = Resource.Pink.GetHbitmap();
-            _menuBmpGray = Resource.Gray.GetHbitmap();
-            _menuBmpBlue = Resource.Blue.GetHbitmap();
-            _menuBmpGreen = Resource.Green.GetHbitmap();
+            _menuBmpPink = Resource.purple.GetHbitmap();
+            _menuBmpGray = Resource.gray.GetHbitmap();
+            _menuBmpBlue = Resource.blue.GetHbitmap();
+            _menuBmpYellow = Resource.yellow.GetHbitmap();
 
             //Load default items.
-            menuItems.Add(new LEMenuItem(I18n.GetString("Submenu"), null, _menuBmpGreen, ""));
-            menuItems.Add(new LEMenuItem(I18n.GetString("RunDefault"), null, _menuBmpGreen, "-run \"%APP%\""));
+            menuItems.Add(new LEMenuItem(I18n.GetString("Submenu"), null, _menuBmpYellow, ""));
+            menuItems.Add(new LEMenuItem(I18n.GetString("RunDefault"), null, _menuBmpYellow, "-run \"%APP%\""));
             menuItems.Add(new LEMenuItem(I18n.GetString("ManageApp"), null, _menuBmpGray, "-manage \"%APP%\""));
             menuItems.Add(new LEMenuItem(I18n.GetString("ManageAll"), null, _menuBmpBlue, "-global"));
 
