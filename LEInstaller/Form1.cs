@@ -30,8 +30,7 @@ namespace LEInstaller
 
         private void buttonInstall_Click(object sender, EventArgs e)
         {
-            if (!AskForKillExplorer())
-                return;
+            KillExplorer();
 
             ReplaceContextMenuHandlerDll();
 
@@ -95,8 +94,7 @@ namespace LEInstaller
 
         private void buttonUninstall_Click(object sender, EventArgs e)
         {
-            if (!AskForKillExplorer())
-                return;
+            KillExplorer();
 
             ReplaceContextMenuHandlerDll();
 
@@ -176,22 +174,8 @@ namespace LEInstaller
             }
         }
 
-        private bool AskForKillExplorer()
+        private void KillExplorer()
         {
-            if (DialogResult.No ==
-                MessageBox.Show(
-                                "You can start to use LE only after restarting explorer.exe.\r\n" +
-                                "\r\n" +
-                                "After that, you will see a new item named \"Locale Emulator\" in \r\n" +
-                                "the context menu of most file types.\r\n" +
-                                "\r\n" +
-                                "Do you want me to help you restarting explorer.exe?\r\n" +
-                                "If your answer is no, you may need to reboot your computer manually.",
-                                "LE Context Menu Installer",
-                                MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Question))
-                return false;
-
             try
             {
                 foreach (Process p in Process.GetProcessesByName("explorer"))
@@ -199,13 +183,13 @@ namespace LEInstaller
                     p.Kill();
                     p.WaitForExit(5000);
                 }
-
-                return true;
             }
-            catch
+            catch (Exception e)
             {
-                return false;
+                MessageBox.Show(e.Message);
+                throw;
             }
+
         }
 
         private void StartExplorer()
