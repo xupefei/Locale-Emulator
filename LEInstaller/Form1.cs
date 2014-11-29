@@ -30,6 +30,13 @@ namespace LEInstaller
 
         private void buttonInstall_Click(object sender, EventArgs e)
         {
+            if (!AskForKillExplorer())
+                return;
+
+            ReplaceContextMenuHandlerDll();
+
+            #region Do register
+
             string exe = ExtractRegAsm();
 
             var psi = new ProcessStartInfo(exe,
@@ -52,11 +59,22 @@ namespace LEInstaller
             string error = p.StandardError.ReadToEnd();
 
             if (output.ToLower().IndexOf("error") != -1 || error.ToLower().IndexOf("error") != -1)
+            {
                 MessageBox.Show(String.Format("==STD_OUT=============\r\n{0}\r\n==STD_ERR=============\r\n{1}",
                                               output,
                                               error));
 
-            AskForKillExplorer();
+                return;
+            }
+
+            #endregion
+
+            StartExplorer();
+
+            MessageBox.Show("Install finished. Right click any executable and enjoy :)",
+                            "LE Context Menu Installer",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
         }
 
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
@@ -77,6 +95,13 @@ namespace LEInstaller
 
         private void buttonUninstall_Click(object sender, EventArgs e)
         {
+            if (!AskForKillExplorer())
+                return;
+
+            ReplaceContextMenuHandlerDll();
+
+            #region Do un-register
+
             string exe = ExtractRegAsm();
 
             var psi = new ProcessStartInfo(exe,
@@ -117,7 +142,14 @@ namespace LEInstaller
                                               output,
                                               error));
 
-            AskForKillExplorer();
+            #endregion
+
+            StartExplorer();
+
+            MessageBox.Show("Uninstall finished. Thanks for using Locale Emulator :)",
+                            "LE Context Menu Installer",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -125,7 +157,26 @@ namespace LEInstaller
             Environment.Exit(0);
         }
 
-        private void AskForKillExplorer()
+        private bool ReplaceContextMenuHandlerDll()
+        {
+            string dllPath = Path.Combine(crtDir, @"LEContextMenuHandler.dll");
+
+            try
+            {
+                File.Delete(dllPath);
+
+                File.WriteAllBytes(dllPath, Resources.LEContextMenuHandler);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                throw;
+            }
+        }
+
+        private bool AskForKillExplorer()
         {
             if (DialogResult.No ==
                 MessageBox.Show(
@@ -139,7 +190,7 @@ namespace LEInstaller
                                 "LE Context Menu Installer",
                                 MessageBoxButtons.YesNo,
                                 MessageBoxIcon.Question))
-                return;
+                return false;
 
             try
             {
@@ -148,13 +199,27 @@ namespace LEInstaller
                     p.Kill();
                     p.WaitForExit(5000);
                 }
+
+                return true;
             }
             catch
             {
+                return false;
             }
+        }
 
-            Process.Start(Environment.SystemDirectory + "\\..\\explorer.exe",
-                          string.Format("/select,{0}", Assembly.GetExecutingAssembly().Location));
+        private void StartExplorer()
+        {
+            try
+            {
+                Process.Start(Environment.SystemDirectory + "\\..\\explorer.exe",
+                              string.Format("/select,{0}", Assembly.GetExecutingAssembly().Location));
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                throw;
+            }
         }
 
         private string ExtractRegAsm()
@@ -211,6 +276,13 @@ namespace LEInstaller
                      IsWow64Process(GetCurrentProcess(), out flag)) && flag);
         }
 
+        private static bool IsInstalled()
+        {
+            RegistryKey key = Registry.ClassesRoot.OpenSubKey(@"\CLSID\{C52B9871-E5E9-41FD-B84D-C5ACADBEC7AE}\");
+
+            return key != null;
+        }
+
         private static bool DoesWin32MethodExist(string moduleName, string methodName)
         {
             IntPtr moduleHandle = GetModuleHandle(moduleName);
@@ -247,6 +319,9 @@ namespace LEInstaller
             }
 
             Text += @" - Version " + GetLEVersion();
+
+            if (IsInstalled())
+                buttonInstall.Text = "Upgrade";
 
             try
             {

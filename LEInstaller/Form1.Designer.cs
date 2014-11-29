@@ -34,6 +34,7 @@
             // 
             // buttonInstall
             // 
+            this.buttonInstall.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonInstall.Location = new System.Drawing.Point(16, 15);
             this.buttonInstall.Margin = new System.Windows.Forms.Padding(4);
             this.buttonInstall.Name = "buttonInstall";
@@ -68,6 +69,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LE Context Menu Installer";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 

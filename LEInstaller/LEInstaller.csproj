@@ -47,7 +47,12 @@
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LECommonLibrary, Version=0.0.0.0, Culture=neutral, PublicKeyToken=a5ce8326c28d7c91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LECommonLibrary\bin\Release\LECommonLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -100,6 +105,12 @@
   <ItemGroup>
     <Content Include="icon.ico" />
     <None Include="Resources\LEContextMenuHandler.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LEContextMenuHandler\LEContextMenuHandler.csproj">
+      <Project>{0041073D-2FA7-4B35-B904-9C606C89C8CD}</Project>
+      <Name>LEContextMenuHandler</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
