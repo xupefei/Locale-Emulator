@@ -32,7 +32,7 @@ namespace LEInstaller
         {
             KillExplorer();
 
-            ReplaceContextMenuHandlerDll();
+            ReplaceDll();
 
             #region Do register
 
@@ -96,7 +96,7 @@ namespace LEInstaller
         {
             KillExplorer();
 
-            ReplaceContextMenuHandlerDll();
+            ReplaceDll();
 
             #region Do un-register
 
@@ -155,15 +155,18 @@ namespace LEInstaller
             Environment.Exit(0);
         }
 
-        private bool ReplaceContextMenuHandlerDll()
+        private bool ReplaceDll()
         {
-            string dllPath = Path.Combine(crtDir, @"LEContextMenuHandler.dll");
+            string dllPath1 = Path.Combine(crtDir, @"LEContextMenuHandler.dll");
+            string dllPath2 = Path.Combine(crtDir, @"LECommonLibrary.dll");
 
             try
             {
-                File.Delete(dllPath);
+                File.Delete(dllPath1);
+                File.Delete(dllPath2);
 
-                File.WriteAllBytes(dllPath, Resources.LEContextMenuHandler);
+                File.WriteAllBytes(dllPath1, Resources.LEContextMenuHandler);
+                File.WriteAllBytes(dllPath2, Resources.LECommonLibrary);
 
                 return true;
             }
@@ -309,7 +312,8 @@ namespace LEInstaller
             try
             {
                 Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                           "LEUpdater.exe"));
+                                           "LEUpdater.exe"),
+                              "schedule");
             }
             catch
             {

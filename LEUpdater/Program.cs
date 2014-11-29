@@ -11,13 +11,18 @@ namespace LEUpdater
     {
         private static readonly NotifyIcon _notifyIcon = new NotifyIcon {Icon = Resources.icon};
 
+        private static bool byForce = false;
+
         private static void Main(string[] args)
         {
+            if (args.Length == 0)
+                byForce = true;
+
             var reg = new LERegistry();
             reg.GetRegistryEntries();
 
             // Check new version every week.
-            if (Int32.Parse(DateTime.Now.ToString("yyyyMMdd")) - reg.Version < 7)
+            if (!byForce && Int32.Parse(DateTime.Now.ToString("yyyyMMdd")) - reg.Version < 7)
             {
                 return;
             }

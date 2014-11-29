@@ -22,7 +22,8 @@ namespace LEProc
             try
             {
                 Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                           "LEUpdater.exe"));
+                                           "LEUpdater.exe"),
+                              "schedule");
             }
             catch
             {

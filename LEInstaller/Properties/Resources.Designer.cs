@@ -73,6 +73,16 @@ namespace LEInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] LECommonLibrary {
+            get {
+                object obj = ResourceManager.GetObject("LECommonLibrary", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] LEContextMenuHandler {
             get {
                 object obj = ResourceManager.GetObject("LEContextMenuHandler", resourceCulture);

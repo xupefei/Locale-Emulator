@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\LECommonLibrary.dll" />
     <None Include="Resources\info.png" />
     <None Include="Resources\LEContextMenuHandler.dll" />
   </ItemGroup>
