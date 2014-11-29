@@ -189,7 +189,6 @@ namespace LEInstaller
                 MessageBox.Show(e.Message);
                 throw;
             }
-
         }
 
         private void StartExplorer()
