@@ -8,6 +8,7 @@ Yet Another System Region and Language Simulator
 ## Downoad ##
 
 Download available at [https://github.com/xupefei/Locale-Emulator/releases](https://github.com/xupefei/Locale-Emulator/releases).
+
 For usage, please read [http://i.watashi.me/archives/locale-emulator.html](http://i.watashi.me/archives/locale-emulator.html).
 
 ## Translate ##
