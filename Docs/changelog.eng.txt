@@ -1,4 +1,10 @@
-﻿V1.3.0.0:
+﻿V1.4.0.1:
+Fix error C0000142 under Win8.1 32bit OS.
+Uninstall is not needed anymore before upgrading.
+New icon set :)
+Add zh-TW UI language.
+
+V1.3.0.0:
 Use new inject mothod, no more crash when using LE after running Dungeon & Fighter(TenProtect) by Tencent.
 Fix crash when running InstallShield setup programs.
 Fix error when running MDI-based applications.
