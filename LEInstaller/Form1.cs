@@ -264,9 +264,9 @@ namespace LEInstaller
 
         private static bool IsInstalled()
         {
-            RegistryKey key = Registry.ClassesRoot.OpenSubKey(@"\CLSID\{C52B9871-E5E9-41FD-B84D-C5ACADBEC7AE}\");
-
-            return key != null;
+            return
+                File.Exists(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                                         "LECommonLibrary.dll"));
         }
 
         private static bool DoesWin32MethodExist(string moduleName, string methodName)
@@ -307,16 +307,17 @@ namespace LEInstaller
             Text += @" - Version " + GetLEVersion();
 
             if (IsInstalled())
+            {
                 buttonInstall.Text = "Upgrade";
-
-            try
-            {
-                Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                           "LEUpdater.exe"),
-                              "schedule");
-            }
-            catch
-            {
+                try
+                {
+                    Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                                               "LEUpdater.exe"),
+                                  "schedule");
+                }
+                catch
+                {
+                }
             }
         }
     }
