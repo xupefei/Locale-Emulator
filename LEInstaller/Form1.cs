@@ -309,15 +309,6 @@ namespace LEInstaller
             if (IsInstalled())
             {
                 buttonInstall.Text = "Upgrade";
-                try
-                {
-                    Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                               "LEUpdater.exe"),
-                                  "schedule");
-                }
-                catch
-                {
-                }
             }
         }
     }
