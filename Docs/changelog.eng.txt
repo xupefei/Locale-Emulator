@@ -1,4 +1,7 @@
-﻿V1.4.0.1:
+﻿V1.4.1.0:
+Add Windows 10 compatibility.
+
+V1.4.0.1:
 Fix error C0000142 under Win8.1 32bit OS.
 Uninstall is not needed anymore before upgrading.
 New icon set :)
