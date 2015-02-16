@@ -1,4 +1,7 @@
-﻿V1.4.1.0:
+﻿V1.4.1.1:
+Fix a error when uninstalling LE.
+
+V1.4.1.0:
 Add Windows 10 compatibility.
 
 V1.4.0.1:
