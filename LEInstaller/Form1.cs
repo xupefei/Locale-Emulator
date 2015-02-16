@@ -32,7 +32,7 @@ namespace LEInstaller
         {
             KillExplorer();
 
-            ReplaceDll();
+            ReplaceDll(true);
 
             #region Do register
 
@@ -96,7 +96,7 @@ namespace LEInstaller
         {
             KillExplorer();
 
-            ReplaceDll();
+            ReplaceDll(false);
 
             #region Do un-register
 
@@ -155,10 +155,16 @@ namespace LEInstaller
             Environment.Exit(0);
         }
 
-        private bool ReplaceDll()
+        private bool ReplaceDll(bool overwrite)
         {
             string dllPath1 = Path.Combine(crtDir, @"LEContextMenuHandler.dll");
             string dllPath2 = Path.Combine(crtDir, @"LECommonLibrary.dll");
+
+            if (!overwrite)
+            {
+                if (File.Exists(dllPath1) || File.Exists(dllPath2))
+                    return true;
+            }
 
             try
             {
