@@ -1,4 +1,5 @@
 ﻿V1.4.1.1:
+Improve Korean translation.
 Fix a error when uninstalling LE.
 
 V1.4.1.0:
