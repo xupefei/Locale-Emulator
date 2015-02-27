@@ -249,26 +249,7 @@ namespace LEProc
                 {
                     if (SystemHelper.IsAdministrator())
                     {
-                        MessageBox.Show(String.Format(
-                                                      "Launch failed.\r\n" +
-                                                      "\r\n" +
-                                                      "Commands: {0}\r\n" +
-                                                      "Error Number: {1}\r\n" +
-                                                      "Administrator: {2}\r\n" +
-                                                      "\r\n" +
-                                                      "If you have any antivirus software running, please turn it off and try again.\r\n"
-                                                      +
-                                                      "If you think this error is related to LE itself, feel free to submit an issue at\r\n"
-                                                      +
-                                                      "https://github.com/xupefei/Locale-Emulator/issues.\r\n" +
-                                                      "\r\n" +
-                                                      "\r\n" +
-                                                      "You can press CTRL+C to copy this message to your clipboard.\r\n",
-                                                      commandLine,
-                                                      Convert.ToString(ret, 16).ToUpper(),
-                                                      SystemHelper.IsAdministrator()
-                                            ),
-                                        "Locale Emulator Version " + GlobalHelper.GetLEVersion());
+                        GlobalHelper.ShowErrorDebugMessageBox(commandLine, ret);
                     }
                     else
                     {
