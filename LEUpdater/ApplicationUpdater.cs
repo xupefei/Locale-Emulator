@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using Amemiya.Net;
@@ -15,14 +14,14 @@ namespace LEUpdater
 
         internal static void CheckApplicationUpdate(string version, NotifyIcon notifyIcon)
         {
-            string url = string.Format(@"http://service.watashi.me/le/check.php?ver={0}&lang={1}",
-                                       version,
-                                       CultureInfo.CurrentUICulture.LCID);
+            var url = string.Format(@"http://service.watashi.me/le/check.php?ver={0}&lang={1}",
+                                    version,
+                                    CultureInfo.CurrentUICulture.LCID);
 
             try
             {
                 var client = new WebClientEx(10 * 1000);
-                MemoryStream stream = client.DownloadDataStream(url);
+                var stream = client.DownloadDataStream(url);
 
                 var xmlContent = new XmlDocument();
                 xmlContent.Load(stream);
@@ -38,16 +37,16 @@ namespace LEUpdater
 
         private static void ProcessUpdate(XmlDocument xmlContent, NotifyIcon notifyIcon)
         {
-            string newVer = xmlContent.SelectSingleNode(@"/VersionInfo/Version/text()").Value;
+            var newVer = xmlContent.SelectSingleNode(@"/VersionInfo/Version/text()").Value;
 
             if (CompareVersion(GlobalHelper.GetLEVersion(), newVer))
             {
                 try
                 {
-                    string version = xmlContent.SelectSingleNode(@"/VersionInfo/Version/text()").Value;
-                    string date = xmlContent.SelectSingleNode(@"/VersionInfo/Date/text()").Value;
+                    var version = xmlContent.SelectSingleNode(@"/VersionInfo/Version/text()").Value;
+                    var date = xmlContent.SelectSingleNode(@"/VersionInfo/Date/text()").Value;
                     url = xmlContent.SelectSingleNode(@"/VersionInfo/Url/text()").Value;
-                    string note = xmlContent.SelectSingleNode(@"/VersionInfo/Note/text()").Value;
+                    var note = xmlContent.SelectSingleNode(@"/VersionInfo/Note/text()").Value;
 
                     notifyIcon.BalloonTipClicked += (sender, e) =>
                                                     {

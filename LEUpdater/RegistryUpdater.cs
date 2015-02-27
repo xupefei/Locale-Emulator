@@ -11,12 +11,12 @@ namespace LEUpdater
     {
         internal static void CheckRegistryUpdate(int version, NotifyIcon notifyIcon)
         {
-            string url = string.Format(@"http://service.watashi.me/le/registry.php?ver={0}&lang={1}",
-                                       version,
-                                       CultureInfo.CurrentUICulture.LCID);
+            var url = string.Format(@"http://service.watashi.me/le/registry.php?ver={0}&lang={1}",
+                                    version,
+                                    CultureInfo.CurrentUICulture.LCID);
 
-            string registryPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                               "LERegistry.xml");
+            var registryPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                                            "LERegistry.xml");
 
             try
             {

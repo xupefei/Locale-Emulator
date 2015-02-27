@@ -20,7 +20,7 @@ namespace LEInstaller
         {
             // We need to remove all ADS first.
             // https://github.com/xupefei/Locale-Emulator/issues/22.
-            foreach (string f in Directory.GetFiles(crtDir, "*", SearchOption.AllDirectories))
+            foreach (var f in Directory.GetFiles(crtDir, "*", SearchOption.AllDirectories))
             {
                 RemoveADS(f);
             }
@@ -36,7 +36,7 @@ namespace LEInstaller
 
             #region Do register
 
-            string exe = ExtractRegAsm();
+            var exe = ExtractRegAsm();
 
             var psi = new ProcessStartInfo(exe,
                                            string.Format("\"{0}\" /codebase",
@@ -47,15 +47,15 @@ namespace LEInstaller
                           RedirectStandardInput = false,
                           RedirectStandardOutput = true,
                           RedirectStandardError = true,
-                          UseShellExecute = false,
+                          UseShellExecute = false
                       };
 
-            Process p = Process.Start(psi);
+            var p = Process.Start(psi);
 
             p.WaitForExit(10000);
 
-            string output = p.StandardOutput.ReadToEnd();
-            string error = p.StandardError.ReadToEnd();
+            var output = p.StandardOutput.ReadToEnd();
+            var error = p.StandardError.ReadToEnd();
 
             if (output.ToLower().IndexOf("error") != -1 || error.ToLower().IndexOf("error") != -1)
             {
@@ -100,7 +100,7 @@ namespace LEInstaller
 
             #region Do un-register
 
-            string exe = ExtractRegAsm();
+            var exe = ExtractRegAsm();
 
             var psi = new ProcessStartInfo(exe,
                                            string.Format("/unregister \"{0}\" /codebase",
@@ -111,15 +111,15 @@ namespace LEInstaller
                           RedirectStandardInput = false,
                           RedirectStandardOutput = true,
                           RedirectStandardError = true,
-                          UseShellExecute = false,
+                          UseShellExecute = false
                       };
 
-            Process p = Process.Start(psi);
+            var p = Process.Start(psi);
 
             p.WaitForExit(5000);
 
             // Clean up CLSID
-            RegistryKey key = Registry.ClassesRoot;
+            var key = Registry.ClassesRoot;
             try
             {
                 key.DeleteSubKeyTree(@"\CLSID\{C52B9871-E5E9-41FD-B84D-C5ACADBEC7AE}\");
@@ -132,8 +132,8 @@ namespace LEInstaller
                 key.Close();
             }
 
-            string output = p.StandardOutput.ReadToEnd();
-            string error = p.StandardError.ReadToEnd();
+            var output = p.StandardOutput.ReadToEnd();
+            var error = p.StandardError.ReadToEnd();
 
             if (output.ToLower().IndexOf("error") != -1 || error.ToLower().IndexOf("error") != -1)
                 MessageBox.Show(String.Format("==STD_OUT=============\r\n{0}\r\n==STD_ERR=============\r\n{1}",
@@ -157,8 +157,8 @@ namespace LEInstaller
 
         private bool ReplaceDll(bool overwrite)
         {
-            string dllPath1 = Path.Combine(crtDir, @"LEContextMenuHandler.dll");
-            string dllPath2 = Path.Combine(crtDir, @"LECommonLibrary.dll");
+            var dllPath1 = Path.Combine(crtDir, @"LEContextMenuHandler.dll");
+            var dllPath2 = Path.Combine(crtDir, @"LECommonLibrary.dll");
 
             if (!overwrite)
             {
@@ -187,7 +187,7 @@ namespace LEInstaller
         {
             try
             {
-                foreach (Process p in Process.GetProcessesByName("explorer"))
+                foreach (var p in Process.GetProcessesByName("explorer"))
                 {
                     p.Kill();
                     p.WaitForExit(5000);
@@ -218,7 +218,7 @@ namespace LEInstaller
         {
             try
             {
-                string tempFile = Path.GetTempFileName();
+                var tempFile = Path.GetTempFileName();
 
                 File.WriteAllBytes(tempFile, Is64BitOS() ? Resources.RegAsm64 : Resources.RegAsm);
 
@@ -238,11 +238,11 @@ namespace LEInstaller
         {
             try
             {
-                string versionPath =
+                var versionPath =
                     Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                                  "LEVersion.xml");
 
-                XDocument doc = XDocument.Load(versionPath);
+                var doc = XDocument.Load(versionPath);
 
                 return doc.Descendants("LEVersion").First().Attribute("Version").Value;
             }
@@ -277,7 +277,7 @@ namespace LEInstaller
 
         private static bool DoesWin32MethodExist(string moduleName, string methodName)
         {
-            IntPtr moduleHandle = GetModuleHandle(moduleName);
+            var moduleHandle = GetModuleHandle(moduleName);
             if (moduleHandle == IntPtr.Zero)
             {
                 return false;

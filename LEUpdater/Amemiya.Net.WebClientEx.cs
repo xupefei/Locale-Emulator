@@ -19,7 +19,7 @@ namespace Amemiya.Net
 
         protected override WebRequest GetWebRequest(Uri address)
         {
-            WebRequest request = base.GetWebRequest(address);
+            var request = base.GetWebRequest(address);
 
             request.Timeout = Timeout;
 
@@ -28,14 +28,14 @@ namespace Amemiya.Net
 
         public MemoryStream DownloadDataStream(string address)
         {
-            byte[] buffer = DownloadData(address);
+            var buffer = DownloadData(address);
 
             return new MemoryStream(buffer);
         }
 
         public MemoryStream DownloadDataStream(Uri address)
         {
-            byte[] buffer = DownloadData(address);
+            var buffer = DownloadData(address);
 
             return new MemoryStream(buffer);
         }

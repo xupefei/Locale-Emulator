@@ -24,7 +24,7 @@ namespace LEProc
                 {"HKEY_CURRENT_USER", 0x80000001},
                 {"HKEY_LOCAL_MACHINE", 0x80000002},
                 {"HKEY_USERS", 0x80000003},
-                {"HKEY_CURRENT_CONFIG", 0x80000005},
+                {"HKEY_CURRENT_CONFIG", 0x80000005}
             };
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace LEProc
                 {"REG_BINARY", 3},
                 {"REG_DWORD", 4},
                 {"REG_MULTI_SZ", 7},
-                {"REG_QWORD", 11},
+                {"REG_QWORD", 11}
             };
 
         private readonly List<byte> _objectData = new List<byte>();
@@ -66,14 +66,14 @@ namespace LEProc
         internal byte[] GetBinaryData()
         {
             // Write amount of REGISTRY_REDIRECTION_ENTRY64s
-            byte[] result = BitConverter.GetBytes(NumberOfRegistryRedirectionEntries);
+            var result = BitConverter.GetBytes(NumberOfRegistryRedirectionEntries);
 
             // Write REGISTRY_REDIRECTION_ENTRY64s
             var entrys =
                 new byte[NumberOfRegistryRedirectionEntries * Marshal.SizeOf(new REGISTRY_REDIRECTION_ENTRY64())];
             entrys.FillWith((byte)0x00);
 
-            for (int i = 0; i < _registryReplacement.Count; i++)
+            for (var i = 0; i < _registryReplacement.Count; i++)
             {
                 entrys.SetRange(ArrayExtensions.StructToBytes(_registryReplacement[i]),
                                 i * Marshal.SizeOf(_registryReplacement[i]));
@@ -105,7 +105,7 @@ namespace LEProc
                                    ValueName = new UNICODE_STRING64(),
                                    DataType = _regTypeFlags[dataType],
                                    Data = 0,
-                                   DataSize = 0,
+                                   DataSize = 0
                                };
 
                 AddStringData(subkey,

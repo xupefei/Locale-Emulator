@@ -10,7 +10,6 @@ namespace LEProc
     {
         private const uint CREATE_NORMAL = 0x00000000;
         private const uint CREATE_SUSPENDED = 0x00000004;
-
         private byte[] _defaultFaceName = new byte[64];
         private LEB _leb;
         private RegistryRedirector _registry = new RegistryRedirector(0);
@@ -188,10 +187,10 @@ namespace LEProc
             if (String.IsNullOrEmpty(ApplicationName))
                 throw new Exception("ApplicationName cannot null.");
 
-            byte[] newLEB = ArrayExtensions.StructToBytes(_leb);
+            var newLEB = ArrayExtensions.StructToBytes(_leb);
             newLEB = newLEB.CombineWith(_registry.GetBinaryData());
 
-            IntPtr locLEB = Marshal.AllocHGlobal(newLEB.Length);
+            var locLEB = Marshal.AllocHGlobal(newLEB.Length);
             Marshal.Copy(newLEB, 0, locLEB, newLEB.Length);
 
             return LeCreateProcess(locLEB,
@@ -209,8 +208,8 @@ namespace LEProc
 
         private static byte[] SetBytes(byte[] bytesInput, IEnumerable<byte> bytesValue)
         {
-            int i = 0;
-            foreach (byte byteChar in bytesValue)
+            var i = 0;
+            foreach (var byteChar in bytesValue)
             {
                 bytesInput[i] = byteChar;
                 i++;

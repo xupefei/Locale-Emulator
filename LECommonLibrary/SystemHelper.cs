@@ -26,7 +26,7 @@ namespace LECommonLibrary
 
         private static bool DoesWin32MethodExist(string moduleName, string methodName)
         {
-            IntPtr moduleHandle = GetModuleHandle(moduleName);
+            var moduleHandle = GetModuleHandle(moduleName);
             if (moduleHandle == IntPtr.Zero)
             {
                 return false;
@@ -36,8 +36,8 @@ namespace LECommonLibrary
 
         public static string RedirectToWow64(string path)
         {
-            string system = Environment.ExpandEnvironmentVariables("%SystemRoot%\\System32\\").ToLower();
-            string systemWow64 = Environment.ExpandEnvironmentVariables("%SystemRoot%\\SysWOW64\\").ToLower();
+            var system = Environment.ExpandEnvironmentVariables("%SystemRoot%\\System32\\").ToLower();
+            var systemWow64 = Environment.ExpandEnvironmentVariables("%SystemRoot%\\SysWOW64\\").ToLower();
 
             path = Environment.ExpandEnvironmentVariables(path).ToLower();
 
@@ -61,7 +61,7 @@ namespace LECommonLibrary
         {
             try
             {
-                string tempGuid = Guid.NewGuid().ToString();
+                var tempGuid = Guid.NewGuid().ToString();
 
                 File.Create(Path.Combine(path, tempGuid)).Close();
                 File.Delete(Path.Combine(path, tempGuid));
@@ -89,7 +89,7 @@ namespace LECommonLibrary
         /// <param name="args"></param>
         public static void RunWithElevatedProcess(string executable, string[] args)
         {
-            string arg = string.Empty;
+            var arg = string.Empty;
             arg = args == null
                       ? String.Empty
                       : args.Aggregate(arg, (current, s) => current + String.Format(" \"{0}\"", s));

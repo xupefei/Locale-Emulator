@@ -40,7 +40,7 @@ namespace LEGUI
             if (cbGlobalProfiles.Items.Count == 0)
                 return;
 
-            LEProfile crt = _profiles[cbGlobalProfiles.SelectedIndex];
+            var crt = _profiles[cbGlobalProfiles.SelectedIndex];
             crt.Location = _cultureInfos[cbLocation.SelectedIndex].Name;
             crt.Timezone = _timezones[cbTimezone.SelectedIndex].Id;
             crt.ShowInMainMenu = cbShowInMainMenu.IsChecked != null && (bool)cbShowInMainMenu.IsChecked;
@@ -64,7 +64,7 @@ namespace LEGUI
                 return;
             }
 
-            LEProfile crt = _profiles[cbGlobalProfiles.SelectedIndex];
+            var crt = _profiles[cbGlobalProfiles.SelectedIndex];
 
             cbTimezone.SelectedIndex = _timezones.FindIndex(tz => tz.Id == crt.Timezone);
             cbLocation.SelectedIndex = _cultureInfos.FindIndex(ci => ci.Name == crt.Location);
@@ -85,7 +85,7 @@ namespace LEGUI
                          WindowStartupLocation = WindowStartupLocation.CenterOwner,
                          Instruction = I18n.GetString("SaveAsInstruction"),
                          OkText = I18n.GetString("Save"),
-                         CancelText = I18n.GetString("Cancel"),
+                         CancelText = I18n.GetString("Cancel")
                      };
 
             if (ib.ShowDialog() == true && !String.IsNullOrEmpty(ib.Text))

@@ -10,8 +10,7 @@ namespace LEUpdater
     internal static class Program
     {
         private static readonly NotifyIcon _notifyIcon = new NotifyIcon {Icon = Resources.icon};
-
-        private static bool byForce = false;
+        private static bool byForce;
 
         private static void Main(string[] args)
         {

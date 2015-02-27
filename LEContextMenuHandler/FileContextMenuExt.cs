@@ -43,7 +43,6 @@ namespace LEContextMenuHandler
         private readonly List<LEMenuItem> menuItems = new List<LEMenuItem>();
         private IntPtr _menuBmpGray = IntPtr.Zero;
         private IntPtr _menuBmpPink = IntPtr.Zero;
-
         private string _selectedFile;
 
         public FileContextMenuExt()
@@ -68,6 +67,115 @@ namespace LEContextMenuHandler
                                                        _menuBmpPink,
                                                        string.Format("-runas \"{0}\" \"%APP%\"", p.Guid))));
         }
+
+        #region IShellExtInit Members
+
+        /// <summary>
+        ///     Initialize the context menu handler.
+        /// </summary>
+        /// <param name="pidlFolder">
+        ///     A pointer to an ITEMIDLIST structure that uniquely identifies a folder.
+        /// </param>
+        /// <param name="pDataObj">
+        ///     A pointer to an IDataObject interface object that can be used to retrieve
+        ///     the objects being acted upon.
+        /// </param>
+        /// <param name="hKeyProgId">
+        ///     The registry key for the file object or folder type.
+        /// </param>
+        public void Initialize(IntPtr pidlFolder, IntPtr pDataObj, IntPtr hKeyProgId)
+        {
+            if (pDataObj == IntPtr.Zero)
+            {
+                throw new ArgumentException();
+            }
+
+            var fe = new FORMATETC
+                     {
+                         cfFormat = (short)CLIPFORMAT.CF_HDROP,
+                         ptd = IntPtr.Zero,
+                         dwAspect = DVASPECT.DVASPECT_CONTENT,
+                         lindex = -1,
+                         tymed = TYMED.TYMED_HGLOBAL
+                     };
+            STGMEDIUM stm;
+
+            // The pDataObj pointer contains the objects being acted upon. In this 
+            // example, we get an HDROP handle for enumerating the selected files 
+            // and folders.
+            var dataObject = (IDataObject)Marshal.GetObjectForIUnknown(pDataObj);
+            dataObject.GetData(ref fe, out stm);
+
+            try
+            {
+                // Get an HDROP handle.
+                var hDrop = stm.unionmember;
+                if (hDrop == IntPtr.Zero)
+                {
+                    throw new ArgumentException();
+                }
+
+                // Determine how many files are involved in this operation.
+                var nFiles = NativeMethods.DragQueryFile(hDrop, UInt32.MaxValue, null, 0);
+
+                // This code sample displays the custom context menu item when only 
+                // one file is selected. 
+                if (nFiles == 1)
+                {
+                    // Get the path of the file.
+                    var fileName = new StringBuilder(260);
+                    if (0 == NativeMethods.DragQueryFile(hDrop,
+                                                         0,
+                                                         fileName,
+                                                         fileName.Capacity))
+                    {
+                        Marshal.ThrowExceptionForHR(WinError.E_FAIL);
+                    }
+
+                    _selectedFile = fileName.ToString();
+
+                    // Check exe binary type
+                    var path = string.Empty;
+                    var ext = Path.GetExtension(_selectedFile).ToLower();
+
+                    if (ext == ".exe")
+                    {
+                        path = _selectedFile;
+                    }
+                    else
+                    {
+                        path = AssociationReader.HaveAssociatedProgram(ext)
+                                   ? AssociationReader.GetAssociatedProgram(ext)[0]
+                                   : string.Empty;
+
+                        if (SystemHelper.Is64BitOS())
+                        {
+                            path = SystemHelper.RedirectToWow64(path);
+                        }
+                    }
+                    // Do not display context menus for 64bit exe.
+                    switch (PEFileReader.GetPEType(path))
+                    {
+                        case PEType.Unknown:
+                        case PEType.X64:
+                            Marshal.ThrowExceptionForHR(WinError.E_FAIL);
+                            break;
+                        case PEType.X32:
+                            break;
+                    }
+                }
+                else
+                {
+                    Marshal.ThrowExceptionForHR(WinError.E_FAIL);
+                }
+            }
+            finally
+            {
+                NativeMethods.ReleaseStgMedium(ref stm);
+            }
+        }
+
+        #endregion
 
         ~FileContextMenuExt()
         {
@@ -100,7 +208,7 @@ namespace LEContextMenuHandler
             var sub = new MENUITEMINFO();
             sub.cbSize = (uint)Marshal.SizeOf(sub);
 
-            MIIM m = MIIM.MIIM_STRING | MIIM.MIIM_FTYPE | MIIM.MIIM_ID | MIIM.MIIM_STATE;
+            var m = MIIM.MIIM_STRING | MIIM.MIIM_FTYPE | MIIM.MIIM_ID | MIIM.MIIM_STATE;
             if (bitmap != IntPtr.Zero)
                 m |= MIIM.MIIM_BITMAP;
             if (subMenu != IntPtr.Zero)
@@ -144,115 +252,6 @@ namespace LEContextMenuHandler
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message); // Log the error
-            }
-        }
-
-        #endregion
-
-        #region IShellExtInit Members
-
-        /// <summary>
-        ///     Initialize the context menu handler.
-        /// </summary>
-        /// <param name="pidlFolder">
-        ///     A pointer to an ITEMIDLIST structure that uniquely identifies a folder.
-        /// </param>
-        /// <param name="pDataObj">
-        ///     A pointer to an IDataObject interface object that can be used to retrieve
-        ///     the objects being acted upon.
-        /// </param>
-        /// <param name="hKeyProgId">
-        ///     The registry key for the file object or folder type.
-        /// </param>
-        public void Initialize(IntPtr pidlFolder, IntPtr pDataObj, IntPtr hKeyProgId)
-        {
-            if (pDataObj == IntPtr.Zero)
-            {
-                throw new ArgumentException();
-            }
-
-            var fe = new FORMATETC
-                     {
-                         cfFormat = (short)CLIPFORMAT.CF_HDROP,
-                         ptd = IntPtr.Zero,
-                         dwAspect = DVASPECT.DVASPECT_CONTENT,
-                         lindex = -1,
-                         tymed = TYMED.TYMED_HGLOBAL
-                     };
-            STGMEDIUM stm;
-
-            // The pDataObj pointer contains the objects being acted upon. In this 
-            // example, we get an HDROP handle for enumerating the selected files 
-            // and folders.
-            var dataObject = (IDataObject)Marshal.GetObjectForIUnknown(pDataObj);
-            dataObject.GetData(ref fe, out stm);
-
-            try
-            {
-                // Get an HDROP handle.
-                IntPtr hDrop = stm.unionmember;
-                if (hDrop == IntPtr.Zero)
-                {
-                    throw new ArgumentException();
-                }
-
-                // Determine how many files are involved in this operation.
-                uint nFiles = NativeMethods.DragQueryFile(hDrop, UInt32.MaxValue, null, 0);
-
-                // This code sample displays the custom context menu item when only 
-                // one file is selected. 
-                if (nFiles == 1)
-                {
-                    // Get the path of the file.
-                    var fileName = new StringBuilder(260);
-                    if (0 == NativeMethods.DragQueryFile(hDrop,
-                                                         0,
-                                                         fileName,
-                                                         fileName.Capacity))
-                    {
-                        Marshal.ThrowExceptionForHR(WinError.E_FAIL);
-                    }
-
-                    _selectedFile = fileName.ToString();
-
-                    // Check exe binary type
-                    string path = string.Empty;
-                    string ext = Path.GetExtension(_selectedFile).ToLower();
-
-                    if (ext == ".exe")
-                    {
-                        path = _selectedFile;
-                    }
-                    else
-                    {
-                        path = AssociationReader.HaveAssociatedProgram(ext)
-                                   ? AssociationReader.GetAssociatedProgram(ext)[0]
-                                   : string.Empty;
-
-                        if (SystemHelper.Is64BitOS())
-                        {
-                            path = SystemHelper.RedirectToWow64(path);
-                        }
-                    }
-                    // Do not display context menus for 64bit exe.
-                    switch (PEFileReader.GetPEType(path))
-                    {
-                        case PEType.Unknown:
-                        case PEType.X64:
-                            Marshal.ThrowExceptionForHR(WinError.E_FAIL);
-                            break;
-                        case PEType.X32:
-                            break;
-                    }
-                }
-                else
-                {
-                    Marshal.ThrowExceptionForHR(WinError.E_FAIL);
-                }
-            }
-            finally
-            {
-                NativeMethods.ReleaseStgMedium(ref stm);
             }
         }
 
@@ -303,8 +302,8 @@ namespace LEContextMenuHandler
                 return Marshal.GetHRForLastWin32Error();
 
             // Register item 0: Submenu
-            IntPtr hSubMenu = NativeMethods.CreatePopupMenu();
-            LEMenuItem item = menuItems[0];
+            var hSubMenu = NativeMethods.CreatePopupMenu();
+            var item = menuItems[0];
             RegisterMenuItem(0, idCmdFirst, item.Text, item.Bitmap, hSubMenu, 1, hMenu);
 
             // Register item 1: RunDefault
@@ -328,7 +327,7 @@ namespace LEContextMenuHandler
 
             //Register user-defined profiles.
             //We should count down to 4.
-            for (int i = menuItems.Count - 1; i > 3; i--)
+            for (var i = menuItems.Count - 1; i > 3; i--)
             {
                 item = menuItems[i];
                 if (item.ShowInMainMenu == true)
@@ -367,7 +366,7 @@ namespace LEContextMenuHandler
         {
             var ici = (CMINVOKECOMMANDINFO)Marshal.PtrToStructure(pici, typeof (CMINVOKECOMMANDINFO));
 
-            LEMenuItem item = menuItems[NativeMethods.LowWord(ici.verb.ToInt32())];
+            var item = menuItems[NativeMethods.LowWord(ici.verb.ToInt32())];
 
             OnVerbDisplayFileName(item.Commands);
         }

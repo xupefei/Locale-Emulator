@@ -8,7 +8,6 @@
         public const int E_INVALIDARG = -2147024809;
         public const int E_OUTOFMEMORY = -2147024882;
         public const int STRSAFE_E_INSUFFICIENT_BUFFER = -2147024774;
-
         public const uint SEVERITY_SUCCESS = 0;
         public const uint SEVERITY_ERROR = 1;
 

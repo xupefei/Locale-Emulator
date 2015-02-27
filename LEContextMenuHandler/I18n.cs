@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -18,12 +17,12 @@ namespace LEContextMenuHandler
 
         internal static string GetString(string key)
         {
-            XDocument dict = LoadDictionary();
+            var dict = LoadDictionary();
             try
             {
-                IEnumerable<XElement> strings = from i in dict.Descendants("Strings").Elements() select i;
+                var strings = from i in dict.Descendants("Strings").Elements() select i;
 
-                string str = (from s in strings where s.Name == key select s.Value).FirstOrDefault();
+                var str = (from s in strings where s.Name == key select s.Value).FirstOrDefault();
 
                 if (String.IsNullOrEmpty(str))
                     return key;
@@ -44,7 +43,7 @@ namespace LEContextMenuHandler
             XDocument dictionary = null;
             try
             {
-                string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
                 path = Path.Combine(path, @"Lang\" + CurrentCultureInfo.Name + ".xml");
 

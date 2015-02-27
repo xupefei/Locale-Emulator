@@ -23,7 +23,7 @@ namespace LEGUI
                     StandaloneFilePath += ".le.config";
             }
 
-            bool isGlobalProfile = String.IsNullOrEmpty(StandaloneFilePath);
+            var isGlobalProfile = String.IsNullOrEmpty(StandaloneFilePath);
 
             LEConfig.CheckGlobalConfigFile(true);
 

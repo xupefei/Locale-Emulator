@@ -19,7 +19,7 @@ namespace LECommonLibrary
         {
             try
             {
-                XDocument doc = XDocument.Load(GlobalVersionPath);
+                var doc = XDocument.Load(GlobalVersionPath);
 
                 return doc.Descendants("LEVersion").First().Attribute("Version").Value;
             }

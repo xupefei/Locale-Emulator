@@ -13,8 +13,8 @@ namespace Amemiya.Extensions
         /// <returns>The binary array</returns>
         public static byte[] StructToBytes(object structObj)
         {
-            int size = Marshal.SizeOf(structObj);
-            IntPtr buffer = Marshal.AllocHGlobal(size);
+            var size = Marshal.SizeOf(structObj);
+            var buffer = Marshal.AllocHGlobal(size);
             try
             {
                 Marshal.StructureToPtr(structObj, buffer, true);
@@ -82,7 +82,7 @@ namespace Amemiya.Extensions
         /// </summary>
         public static void FillWith<T>(this T[] source, T with)
         {
-            for (int i = 0; i < source.Length; i++)
+            for (var i = 0; i < source.Length; i++)
                 source[i] = with;
         }
 
@@ -94,7 +94,7 @@ namespace Amemiya.Extensions
         {
             if (isBackward)
             {
-                for (int index = startAt - arrayToFind.Length; index >= 0; --index)
+                for (var index = startAt - arrayToFind.Length; index >= 0; --index)
                 {
                     if (EqualWith(Slice(source, index, arrayToFind.Length + index), arrayToFind))
                         return index;
@@ -102,7 +102,7 @@ namespace Amemiya.Extensions
                 return -1;
             }
 
-            for (int index = startAt; index <= (source.Length - arrayToFind.Length); ++index)
+            for (var index = startAt; index <= (source.Length - arrayToFind.Length); ++index)
             {
                 if (EqualWith(Slice(source, index, arrayToFind.Length + index), arrayToFind))
                     return index;
@@ -127,10 +127,10 @@ namespace Amemiya.Extensions
             {
                 end = source.Length + end;
             }
-            int len = end - start;
+            var len = end - start;
 
             var res = new T[len];
-            for (int i = 0; i < len; i++)
+            for (var i = 0; i < len; i++)
             {
                 res[i] = source[i + start];
             }

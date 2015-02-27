@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -34,12 +33,12 @@ namespace LECommonLibrary
         {
             try
             {
-                XDocument dict = XDocument.Load(configPath);
+                var dict = XDocument.Load(configPath);
 
-                IEnumerable<XElement> pros = from i in dict.Descendants("LEConfig").Elements("Profiles").Elements()
-                                             select i;
+                var pros = from i in dict.Descendants("LEConfig").Elements("Profiles").Elements()
+                           select i;
 
-                LEProfile[] profiles =
+                var profiles =
                     pros.Select(p => new LEProfile(p.Attribute("Name").Value,
                                                    p.Attribute("Guid").Value,
                                                    bool.Parse(p.Attribute("MainMenu").Value),
@@ -109,7 +108,7 @@ namespace LECommonLibrary
 
         private static string TryGetValue(this XElement element, string name, string defaultValue = null)
         {
-            XElement found = element.Element(name);
+            var found = element.Element(name);
             if (found != null)
             {
                 return found.Value;
@@ -121,7 +120,7 @@ namespace LECommonLibrary
         {
             var baseNode = new XElement("Profiles");
 
-            foreach (LEProfile pro in profiles)
+            foreach (var pro in profiles)
             {
                 baseNode.Add(new XElement("Profile",
                                           new XAttribute("Name", pro.Name),

@@ -6,7 +6,7 @@ namespace LECommonLibrary
     {
         X32,
         X64,
-        Unknown,
+        Unknown
     }
 
     public static class PEFileReader
@@ -27,7 +27,7 @@ namespace LECommonLibrary
 
                 br.BaseStream.Seek(0x3C, SeekOrigin.Begin);
                 br.BaseStream.Seek(br.ReadInt32() + 4, SeekOrigin.Begin);
-                ushort machine = br.ReadUInt16();
+                var machine = br.ReadUInt16();
 
                 br.Close();
 

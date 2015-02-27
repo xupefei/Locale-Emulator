@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -30,15 +29,15 @@ namespace LECommonLibrary
         {
             try
             {
-                XDocument dict = XDocument.Load(configPath);
+                var dict = XDocument.Load(configPath);
 
                 Version =
                     Int32.Parse(dict.Descendants("LERegistry").Elements("Entries").First().Attribute("Version").Value);
 
-                IEnumerable<XElement> pros = from i in dict.Descendants("LERegistry").Elements("Entries").Elements()
-                                             select i;
+                var pros = from i in dict.Descendants("LERegistry").Elements("Entries").Elements()
+                           select i;
 
-                LERegistryEntry[] profiles =
+                var profiles =
                     pros.Select(p => new LERegistryEntry(p.Attribute("Root").Value,
                                                          p.Attribute("Key").Value,
                                                          p.Attribute("Name").Value,

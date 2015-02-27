@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <LERegistry>
   <Entries Version="00000000">
     <Entry Root="HKEY_LOCAL_MACHINE" Key="System\CurrentControlSet\Control\Nls\CodePage" Name="ACP" Type="REG_SZ">
@@ -10,10 +11,11 @@
     <Entry Root="HKEY_LOCAL_MACHINE" Key="System\CurrentControlSet\Control\Nls\Language" Name="Default" Type="REG_SZ">
       <Data>1041</Data>
     </Entry>
-    <Entry Root="HKEY_LOCAL_MACHINE" Key="System\CurrentControlSet\Control\Nls\Language" Name="InstallLanguage" Type="REG_SZ">
+    <Entry Root="HKEY_LOCAL_MACHINE" Key="System\CurrentControlSet\Control\Nls\Language" Name="InstallLanguage"
+           Type="REG_SZ">
       <Data>1041</Data>
     </Entry>
-<!--
+    <!--
     <Entry Root="HKEY_CURRENT_USER" Key="Control Panel\Desktop" Name="PreferredUILanguages" Type="REG_MULTI_SZ">
       <Data>ja-JP[0x00]</Data>
     </Entry>

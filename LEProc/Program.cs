@@ -115,14 +115,14 @@ namespace LEProc
         {
             // We do not check whether the config exists because only when it exists can this method be called.
 
-            LEProfile profile = LEConfig.GetProfiles().First(p => p.Guid == guid);
+            var profile = LEConfig.GetProfiles().First(p => p.Guid == guid);
 
             DoRunWithLEProfile(path, profile);
         }
 
         private static void RunWithIndependentProfile(string path)
         {
-            string conf = path + ".le.config";
+            var conf = path + ".le.config";
 
             if (!File.Exists(conf))
             {
@@ -132,7 +132,7 @@ namespace LEProc
             }
             else
             {
-                LEProfile profile = LEConfig.GetProfiles(conf)[0];
+                var profile = LEConfig.GetProfiles(conf)[0];
                 DoRunWithLEProfile(path, profile);
             }
         }
@@ -164,8 +164,8 @@ namespace LEProc
                         return;
                 }
 
-                string applicationName = string.Empty;
-                string commandLine = string.Empty;
+                var applicationName = string.Empty;
+                var commandLine = string.Empty;
 
                 if (Path.GetExtension(path).ToLower() == ".exe")
                 {
@@ -179,7 +179,7 @@ namespace LEProc
                 }
                 else
                 {
-                    string[] jb = AssociationReader.GetAssociatedProgram(Path.GetExtension(path));
+                    var jb = AssociationReader.GetAssociatedProgram(Path.GetExtension(path));
 
                     if (jb == null)
                         return;
@@ -192,8 +192,8 @@ namespace LEProc
                     commandLine += jb[1].Replace("%1", path).Replace("%*", profile.Parameter);
                 }
 
-                string currentDirectory = Path.GetDirectoryName(path);
-                bool debugMode = profile.RunWithSuspend;
+                var currentDirectory = Path.GetDirectoryName(path);
+                var debugMode = profile.RunWithSuspend;
                 var ansiCodePage = (uint)CultureInfo.GetCultureInfo(profile.Location).TextInfo.ANSICodePage;
                 var oemCodePage = (uint)CultureInfo.GetCultureInfo(profile.Location).TextInfo.OEMCodePage;
                 var localeID = (uint)CultureInfo.GetCultureInfo(profile.Location).TextInfo.LCID;
@@ -201,10 +201,10 @@ namespace LEProc
                                      GetCharsetFromANSICodepage(CultureInfo.GetCultureInfo(profile.Location)
                                                                            .TextInfo.ANSICodePage);
 
-                TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById(profile.Timezone);
+                var tzi = TimeZoneInfo.FindSystemTimeZoneById(profile.Timezone);
                 var timezoneBias = (int)-tzi.BaseUtcOffset.TotalMinutes;
 
-                TimeZoneInfo.AdjustmentRule[] adjustmentRules = tzi.GetAdjustmentRules();
+                var adjustmentRules = tzi.GetAdjustmentRules();
                 TimeZoneInfo.AdjustmentRule adjustmentRule = null;
                 if (adjustmentRules.Length > 0)
                 {
@@ -212,15 +212,15 @@ namespace LEProc
                     adjustmentRule =
                         adjustmentRules.SingleOrDefault(ar => ar.DateStart <= DateTime.Now && DateTime.Now <= ar.DateEnd);
                 }
-                int timezoneDaylightBias = adjustmentRule == null ? 0 : (int)-adjustmentRule.DaylightDelta.TotalMinutes;
+                var timezoneDaylightBias = adjustmentRule == null ? 0 : (int)-adjustmentRule.DaylightDelta.TotalMinutes;
 
-                string timezoneStandardName = tzi.StandardName;
+                var timezoneStandardName = tzi.StandardName;
 
-                string timezoneDaylightName = tzi.DaylightName;
+                var timezoneDaylightName = tzi.DaylightName;
 
-                LERegistryEntry[] registries = profile.RedirectRegistry
-                                                   ? new LERegistry().GetRegistryEntries()
-                                                   : new LERegistryEntry[0];
+                var registries = profile.RedirectRegistry
+                                     ? new LERegistry().GetRegistryEntries()
+                                     : new LERegistryEntry[0];
 
                 var l = new LoaderWrapper
                         {
@@ -236,7 +236,7 @@ namespace LEProc
                             TimezoneStandardName = timezoneStandardName,
                             TimezoneDaylightName = timezoneDaylightName,
                             NumberOfRegistryRedirectionEntries = registries.Length,
-                            DebugMode = debugMode,
+                            DebugMode = debugMode
                         };
 
                 registries.ToList()
@@ -303,7 +303,7 @@ namespace LEProc
             const int MAC_CHARSET = 77;
             const int BALTIC_CHARSET = 186;
 
-            int charset = ANSI_CHARSET;
+            var charset = ANSI_CHARSET;
 
             switch (ansicp)
             {

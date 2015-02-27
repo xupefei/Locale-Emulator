@@ -16,7 +16,7 @@ namespace LEGUI
 
         internal static string GetString(string key)
         {
-            ResourceDictionary dict = LoadDictionary();
+            var dict = LoadDictionary();
             try
             {
                 var s = (string)dict[key];
@@ -66,7 +66,7 @@ namespace LEGUI
 
         internal static void LoadLanguage()
         {
-            ResourceDictionary dict = LoadDictionary();
+            var dict = LoadDictionary();
 
             Application.Current.Resources.MergedDictionaries.Clear();
             Application.Current.Resources.MergedDictionaries.Add(dict);

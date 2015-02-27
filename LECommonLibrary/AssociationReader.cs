@@ -15,19 +15,19 @@ namespace LECommonLibrary
 
         public static string[] GetAssociatedProgram(string ext)
         {
-            string prog = GetAssociatedProgramFromRegistry(ext);
+            var prog = GetAssociatedProgramFromRegistry(ext);
 
             if (prog == null)
                 return null;
 
-            string[] jb = SplitExecutableAndArgument(prog);
+            var jb = SplitExecutableAndArgument(prog);
 
             return jb;
         }
 
         public static string GetAssociatedIcon(string ext)
         {
-            string prog = GetAssociatedIconFromRegistry(ext);
+            var prog = GetAssociatedIconFromRegistry(ext);
 
             if (prog == null)
                 return null;
@@ -50,9 +50,9 @@ namespace LECommonLibrary
 
         private static string[] SplitExecutableAndArgument(string line)
         {
-            string[] ret = line.StartsWith("\"")
-                               ? line.Split(new[] {"\" "}, 2, StringSplitOptions.None)
-                               : line.Split(new[] {' '}, 2, StringSplitOptions.None);
+            var ret = line.StartsWith("\"")
+                          ? line.Split(new[] {"\" "}, 2, StringSplitOptions.None)
+                          : line.Split(new[] {' '}, 2, StringSplitOptions.None);
 
             if (ret.Length == 2)
             {

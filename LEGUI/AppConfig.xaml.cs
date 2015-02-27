@@ -35,10 +35,10 @@ namespace LEGUI
             cbTimezone.SelectedIndex = _timezones.FindIndex(tz => tz.Id == "Tokyo Standard Time");
 
             // Load exists config.
-            LEProfile[] configs = LEConfig.GetProfiles(App.StandaloneFilePath);
+            var configs = LEConfig.GetProfiles(App.StandaloneFilePath);
             if (configs.Length > 0)
             {
-                LEProfile conf = configs[0];
+                var conf = configs[0];
 
                 if (!String.IsNullOrEmpty(conf.Parameter))
                 {
