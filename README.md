@@ -5,11 +5,11 @@ Yet Another System Region and Language Simulator
 
 ![LE interface](http://disk.watashi.me/files/aya/LE.png?20141205)
 
-## Downoad ##
+## Download ##
 
-Download available at [https://github.com/xupefei/Locale-Emulator/releases](https://github.com/xupefei/Locale-Emulator/releases).
+Download available at <https://github.com/xupefei/Locale-Emulator/releases>.
 
-For usage, please read [http://i.watashi.me/archives/locale-emulator.html](http://i.watashi.me/archives/locale-emulator.html) (in English and 中文).
+For usage, please read <http://i.watashi.me/archives/locale-emulator.html> (in English and 中文).
 
 ## Translate ##
 
