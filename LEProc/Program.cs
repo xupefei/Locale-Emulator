@@ -29,6 +29,23 @@ namespace LEProc
             {
             }
 
+            if (!GlobalHelper.CheckCoreDLLs())
+            {
+                MessageBox.Show(
+                                "Some of the core Dlls are missing.\r\n" +
+                                "Please whitelist these Dlls in your antivirus software, then download and re-install LE.\r\n"
+                                +
+                                "\r\n" +
+                                "These Dlls are:\r\n" +
+                                "LoaderDll.dll\r\n" +
+                                "LocaleEmulator.dll",
+                                "Locale Emulator Version " + GlobalHelper.GetLEVersion(),
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+
+                return;
+            }
+
             if (!File.Exists(LEConfig.GlobalConfigPath))
             {
                 MessageBox.Show(

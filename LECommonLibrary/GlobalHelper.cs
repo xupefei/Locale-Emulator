@@ -70,5 +70,14 @@ namespace LECommonLibrary
 
             return result.ToString();
         }
+
+        public static bool CheckCoreDLLs()
+        {
+            string[] dlls = {"LoaderDll.dll", "LocaleEmulator.dll"};
+
+            return
+                dlls.Select(dll => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), dll))
+                    .All(File.Exists);
+        }
     }
 }
