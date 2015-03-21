@@ -54,18 +54,23 @@ namespace LEContextMenuHandler
             _menuBmpYellow = Resource.yellow.GetHbitmap();
 
             //Load default items.
-            menuItems.Add(new LEMenuItem(I18n.GetString("Submenu"), null, _menuBmpYellow, ""));
-            menuItems.Add(new LEMenuItem(I18n.GetString("RunDefault"), null, _menuBmpYellow, "-run \"%APP%\""));
-            menuItems.Add(new LEMenuItem(I18n.GetString("ManageApp"), null, _menuBmpGray, "-manage \"%APP%\""));
-            menuItems.Add(new LEMenuItem(I18n.GetString("ManageAll"), null, _menuBmpBlue, "-global"));
+            menuItems.Add(new LEMenuItem(I18n.GetString("Submenu"), true, null, _menuBmpYellow, ""));
+            menuItems.Add(new LEMenuItem(I18n.GetString("RunDefault"), true, null, _menuBmpYellow, "-run \"%APP%\""));
+            menuItems.Add(new LEMenuItem(I18n.GetString("ManageApp"), true, null, _menuBmpGray, "-manage \"%APP%\""));
+            menuItems.Add(new LEMenuItem(I18n.GetString("ManageAll"), true, null, _menuBmpBlue, "-global"));
 
             //Load global profiles.
             Array.ForEach(LEConfig.GetProfiles(),
                           p =>
                           menuItems.Add(new LEMenuItem(p.Name,
+                                                       true,
                                                        p.ShowInMainMenu,
                                                        _menuBmpPink,
                                                        string.Format("-runas \"{0}\" \"%APP%\"", p.Guid))));
+
+            //Config does not exist
+            if (LEConfig.GetProfiles().Length == 0)
+                menuItems.Add(new LEMenuItem("No profile, please run LEGUI.exe.", false, false, _menuBmpPink, ""));
         }
 
         #region IShellExtInit Members
@@ -200,6 +205,7 @@ namespace LEContextMenuHandler
         private int RegisterMenuItem(uint id,
                                      uint idCmdFirst,
                                      string text,
+                                     bool enabled,
                                      IntPtr bitmap,
                                      IntPtr subMenu,
                                      uint position,
@@ -219,7 +225,7 @@ namespace LEContextMenuHandler
             sub.fType = MFT.MFT_STRING;
             sub.dwTypeData = text;
             sub.hSubMenu = subMenu;
-            sub.fState = MFS.MFS_ENABLED;
+            sub.fState = enabled ? MFS.MFS_ENABLED : MFS.MFS_DISABLED;
             sub.hbmpItem = bitmap;
 
             if (!NativeMethods.InsertMenuItem(registerTo, position, true, ref sub))
@@ -304,11 +310,11 @@ namespace LEContextMenuHandler
             // Register item 0: Submenu
             var hSubMenu = NativeMethods.CreatePopupMenu();
             var item = menuItems[0];
-            RegisterMenuItem(0, idCmdFirst, item.Text, item.Bitmap, hSubMenu, 1, hMenu);
+            RegisterMenuItem(0, idCmdFirst, item.Text, true, item.Bitmap, hSubMenu, 1, hMenu);
 
             // Register item 1: RunDefault
             item = menuItems[1];
-            RegisterMenuItem(1, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 0, hSubMenu);
+            RegisterMenuItem(1, idCmdFirst, item.Text, true, item.Bitmap, IntPtr.Zero, 0, hSubMenu);
 
             // Add a separator.
             sep = new MENUITEMINFO();
@@ -319,11 +325,11 @@ namespace LEContextMenuHandler
 
             // Register item 2 (Submenu->ManageApp).
             item = menuItems[2];
-            RegisterMenuItem(2, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 2, hSubMenu);
+            RegisterMenuItem(2, idCmdFirst, item.Text, true, item.Bitmap, IntPtr.Zero, 2, hSubMenu);
 
             // Register item 3 (Submenu->ManageAll).
             item = menuItems[3];
-            RegisterMenuItem(3, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 3, hSubMenu);
+            RegisterMenuItem(3, idCmdFirst, item.Text, true, item.Bitmap, IntPtr.Zero, 3, hSubMenu);
 
             //Register user-defined profiles.
             //We should count down to 4.
@@ -332,11 +338,11 @@ namespace LEContextMenuHandler
                 item = menuItems[i];
                 if (item.ShowInMainMenu == true)
                 {
-                    RegisterMenuItem((uint)i, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 1, hMenu);
+                    RegisterMenuItem((uint)i, idCmdFirst, item.Text, item.Enabled, item.Bitmap, IntPtr.Zero, 1, hMenu);
                 }
                 else
                 {
-                    RegisterMenuItem((uint)i, idCmdFirst, item.Text, item.Bitmap, IntPtr.Zero, 0, hSubMenu);
+                    RegisterMenuItem((uint)i, idCmdFirst, item.Text, item.Enabled, item.Bitmap, IntPtr.Zero, 0, hSubMenu);
                 }
             }
 
