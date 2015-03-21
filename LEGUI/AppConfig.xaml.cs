@@ -72,26 +72,33 @@ namespace LEGUI
 
         private void CreateShortcut(string path)
         {
-            var shortcut =
-                new WshShell().CreateShortcut(string.Format("{0}\\{1}.lnk",
-                                                            Environment.GetFolderPath(Environment.SpecialFolder
-                                                                                                 .DesktopDirectory),
-                                                            Path.GetFileNameWithoutExtension(path))) as IWshShortcut;
-
-            if (shortcut == null)
+            try
             {
-                MessageBox.Show("Create shortcut error", "LE", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+                var shortcut =
+                    new WshShell().CreateShortcut(string.Format("{0}\\{1}.lnk",
+                                                                Environment.GetFolderPath(Environment.SpecialFolder
+                                                                                                     .DesktopDirectory),
+                                                                Path.GetFileNameWithoutExtension(path))) as IWshShortcut;
 
-            shortcut.TargetPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                               "LEProc.exe");
-            shortcut.Arguments = String.Format("-run \"{0}\"", path);
-            shortcut.WorkingDirectory = Path.GetDirectoryName(path);
-            shortcut.WindowStyle = 1;
-            shortcut.Description = string.Format("Run {0} with Locale Emulator", Path.GetFileName(path));
-            shortcut.IconLocation = AssociationReader.GetAssociatedIcon(Path.GetExtension(path)).Replace("%1", path);
-            shortcut.Save();
+                if (shortcut == null)
+                {
+                    MessageBox.Show("Create shortcut error", "LE", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                shortcut.TargetPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                                                   "LEProc.exe");
+                shortcut.Arguments = String.Format("-run \"{0}\"", path);
+                shortcut.WorkingDirectory = Path.GetDirectoryName(path);
+                shortcut.WindowStyle = 1;
+                shortcut.Description = string.Format("Run {0} with Locale Emulator", Path.GetFileName(path));
+                shortcut.IconLocation = AssociationReader.GetAssociatedIcon(Path.GetExtension(path)).Replace("%1", path);
+                shortcut.Save();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message + "\r\n\r\n" + e.StackTrace);
+            }
         }
 
         private void RunAndShutdown()
