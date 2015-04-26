@@ -38,7 +38,11 @@ namespace LECommonLibrary
                                           "{3}\r\n" +
                                           "If you have any antivirus software running, please turn it off and try again.\r\n"
                                           +
-                                          "If you think this error is related to LE itself, feel free to submit an issue at\r\n"
+                                          "If this window still shows, try go to Safe Mode and drag the application "
+                                          +
+                                          "executable onto LEProc.exe.\r\n"
+                                          +
+                                          "If you have tried all above but none of them works, feel free to submit an issue at\r\n"
                                           +
                                           "https://github.com/xupefei/Locale-Emulator/issues.\r\n" +
                                           "\r\n" +
