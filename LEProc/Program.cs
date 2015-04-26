@@ -84,6 +84,8 @@ namespace LEProc
                                 "Locale Emulator Version " + GlobalHelper.GetLEVersion()
                     );
 
+                GlobalHelper.ShowErrorDebugMessageBox("SYSTEM_REPORT", 0);
+
                 return;
             }
 
