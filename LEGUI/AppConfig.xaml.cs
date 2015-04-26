@@ -5,8 +5,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 using System.Windows;
-using IWshRuntimeLibrary;
 using LECommonLibrary;
 using File = System.IO.File;
 
@@ -74,26 +74,21 @@ namespace LEGUI
         {
             try
             {
-                var shortcut =
-                    new WshShell().CreateShortcut(string.Format("{0}\\{1}.lnk",
-                                                                Environment.GetFolderPath(Environment.SpecialFolder
-                                                                                                     .DesktopDirectory),
-                                                                Path.GetFileNameWithoutExtension(path))) as IWshShortcut;
+                IShellLink link = (IShellLink)new ShellLink();
 
-                if (shortcut == null)
-                {
-                    MessageBox.Show("Create shortcut error", "LE", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                link.SetPath(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                                          "LEProc.exe"));
+                link.SetArguments(String.Format("-run \"{0}\"", path));
+                link.SetIconLocation(AssociationReader.GetAssociatedIcon(Path.GetExtension(path)).Replace("%1", path), 0);
 
-                shortcut.TargetPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                                   "LEProc.exe");
-                shortcut.Arguments = String.Format("-run \"{0}\"", path);
-                shortcut.WorkingDirectory = Path.GetDirectoryName(path);
-                shortcut.WindowStyle = 1;
-                shortcut.Description = string.Format("Run {0} with Locale Emulator", Path.GetFileName(path));
-                shortcut.IconLocation = AssociationReader.GetAssociatedIcon(Path.GetExtension(path)).Replace("%1", path);
-                shortcut.Save();
+                link.SetDescription(string.Format("Run {0} with Locale Emulator", Path.GetFileName(path)));
+                link.SetWorkingDirectory(Path.GetDirectoryName(path));
+
+                IPersistFile file = (IPersistFile)link;
+                file.Save(
+                          Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
+                                       Path.GetFileNameWithoutExtension(path) + ".lnk"),
+                          false);
             }
             catch (Exception e)
             {
