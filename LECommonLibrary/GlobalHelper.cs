@@ -66,9 +66,20 @@ namespace LECommonLibrary
 
             foreach (var dll in dlls)
             {
+                var version = FileVersionInfo.GetVersionInfo(
+                    Path.Combine(
+                        Path.GetPathRoot(Environment.SystemDirectory),
+                        SystemHelper.Is64BitOS() ? @"Windows\SysWOW64\" : @"Windows\System32\",
+                        dll));
+
                 result.Append(dll);
                 result.Append(": ");
-                result.Append(FileVersionInfo.GetVersionInfo(Path.Combine(Environment.SystemDirectory, dll)).FileVersion);
+                result.Append(String.Format(
+                    "{0}.{1}.{2}.{3}",
+                    version.FileMajorPart,
+                    version.FileMinorPart,
+                    version.FileBuildPart,
+                    version.FilePrivatePart));
                 result.Append("\r\n");
             }
 
