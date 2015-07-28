@@ -267,14 +267,7 @@ namespace LEInstaller
             return ((DoesWin32MethodExist("kernel32.dll", "IsWow64Process") &&
                      IsWow64Process(GetCurrentProcess(), out flag)) && flag);
         }
-
-        private static bool IsInstalled()
-        {
-            return
-                File.Exists(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                         "LECommonLibrary.dll"));
-        }
-
+        
         private static bool DoesWin32MethodExist(string moduleName, string methodName)
         {
             var moduleHandle = GetModuleHandle(moduleName);
@@ -308,13 +301,6 @@ namespace LEInstaller
                                 MessageBoxIcon.Error);
 
                 Environment.Exit(0);
-            }
-
-            Text += @" - Version " + GetLEVersion();
-
-            if (IsInstalled())
-            {
-                buttonInstall.Text = "Upgrade";
             }
         }
     }

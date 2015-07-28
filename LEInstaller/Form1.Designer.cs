@@ -44,7 +44,7 @@
             this.buttonInstall.Name = "buttonInstall";
             this.buttonInstall.Size = new System.Drawing.Size(226, 69);
             this.buttonInstall.TabIndex = 0;
-            this.buttonInstall.Text = "Install";
+            this.buttonInstall.Text = "Install / Upgrade";
             this.buttonInstall.UseVisualStyleBackColor = true;
             this.buttonInstall.Click += new System.EventHandler(this.buttonInstall_Click);
             // 
@@ -75,9 +75,8 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(463, 65);
             this.label1.TabIndex = 3;
-            this.label1.Text = "As you click any button above, a restart of Windows File Explorer is required. Th" +
-    "is action will be done automatically by this Installer.\r\nSave your work before c" +
-    "licking any buttons above.";
+            this.label1.Text = "When you clicking any button above, a restart of Windows File Explorer is require" +
+    "d. This action will be done automatically by this Installer. Save your work.";
             // 
             // Form1
             // 
