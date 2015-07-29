@@ -1,4 +1,7 @@
-﻿V2.0.0.0:
+﻿V2.0.0.1:
+Windows 7 compatibility.
+
+V2.0.0.0:
 Windows 10 Build 10240 compatibility.
 Fix a arash when creating shortcut.
 
