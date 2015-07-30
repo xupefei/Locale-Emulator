@@ -1,4 +1,8 @@
-﻿V2.0.0.1:
+﻿V2.0.0.2:
+Fix issue on Windows Single Language edition.
+Fix issue on all OSs that cause application not showing UI.
+
+V2.0.0.1:
 Windows 7 compatibility.
 
 V2.0.0.0:
