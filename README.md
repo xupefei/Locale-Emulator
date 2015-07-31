@@ -3,7 +3,7 @@ Locale Emulator
 
 Yet Another System Region and Language Simulator
 
-![LE interface](http://disk.watashi.me/files/aya/LE.png?20141205)
+![LE interface](http://disk.watashi.me/files/aya/LE.png?20150731)
 
 ## Download ##
 
