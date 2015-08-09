@@ -20,7 +20,7 @@ namespace LEUpdater
             // Check new version every week.
             if (!byForce && Int32.Parse(DateTime.Now.ToString("yyyyMMdd")) - GlobalHelper.GetLastUpdate() < 7)
             {
-                return;
+                Environment.Exit(0);
             }
 
             if (!SystemHelper.CheckPermission(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))

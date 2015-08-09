@@ -50,6 +50,8 @@ namespace LECommonLibrary
                 var doc = XDocument.Load(GlobalVersionPath);
 
                 doc.Descendants("LEVersion").First().Attribute("LastUpdate").Value = date.ToString().PadLeft(8, '0');
+
+                doc.Save(GlobalVersionPath);
             }
             catch
             {

@@ -85,7 +85,7 @@ namespace LEUpdater
         }
 
         /// <summary>
-        ///     If ver2 is bigger than ver1, return true.
+        ///     If newVer is bigger than oldVer, return true.
         /// </summary>
         /// <param name="oldVer"></param>
         /// <param name="newVer"></param>
