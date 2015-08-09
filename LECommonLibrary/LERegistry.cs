@@ -2,38 +2,19 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Xml.Linq;
 
 namespace LECommonLibrary
 {
     public class LERegistry
     {
-        public static string GlobalRegistryPath =
-            Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                         "LERegistry.xml");
-
-        private int _version = -1;
-
-        public int Version
-        {
-            get { return _version; }
-            set { _version = value; }
-        }
-
         public LERegistryEntry[] GetRegistryEntries()
-        {
-            return GetRegistryEntries(GlobalRegistryPath);
-        }
-
-        public LERegistryEntry[] GetRegistryEntries(string configPath)
         {
             try
             {
-                var dict = XDocument.Load(configPath);
-
-                Version =
-                    Int32.Parse(dict.Descendants("LERegistry").Elements("Entries").First().Attribute("Version").Value);
-
+                var dict = XDocument.Load(new MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.LERegistry)));
+                
                 var pros = from i in dict.Descendants("LERegistry").Elements("Entries").Elements()
                            select i;
 

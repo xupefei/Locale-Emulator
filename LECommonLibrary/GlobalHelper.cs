@@ -29,6 +29,20 @@ namespace LECommonLibrary
             }
         }
 
+        public static int GetLastUpdate()
+        {
+            try
+            {
+                var doc = XDocument.Load(GlobalVersionPath);
+
+                return Int32.Parse(doc.Descendants("LEVersion").First().Attribute("LastUpdate").Value);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
         public static void ShowErrorDebugMessageBox(string commandLine, uint errorCode)
         {
             MessageBox.Show(String.Format("Error Number: {0}\r\n" +

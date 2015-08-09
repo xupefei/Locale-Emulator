@@ -17,11 +17,8 @@ namespace LEUpdater
             if (args.Length == 0)
                 byForce = true;
 
-            var reg = new LERegistry();
-            reg.GetRegistryEntries();
-
             // Check new version every week.
-            if (!byForce && Int32.Parse(DateTime.Now.ToString("yyyyMMdd")) - reg.Version < 7)
+            if (!byForce && Int32.Parse(DateTime.Now.ToString("yyyyMMdd")) - GlobalHelper.GetLastUpdate() < 7)
             {
                 return;
             }
@@ -43,7 +40,7 @@ namespace LEUpdater
                 }
             }
 
-            CheckUpdates(GlobalHelper.GetLEVersion(), reg.Version);
+            CheckUpdates(GlobalHelper.GetLEVersion(), GlobalHelper.GetLastUpdate());
         }
 
         private static void CheckUpdates(string appVer, int regVer)
@@ -55,8 +52,7 @@ namespace LEUpdater
                                            _notifyIcon.Visible = false;
                                            Environment.Exit(0);
                                        };
-
-            RegistryUpdater.CheckRegistryUpdate(regVer, _notifyIcon);
+            
             ApplicationUpdater.CheckApplicationUpdate(appVer, _notifyIcon);
 
             Application.Run();
