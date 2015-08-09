@@ -43,6 +43,19 @@ namespace LECommonLibrary
             }
         }
 
+        public static void SetLastUpdate(int date)
+        {
+            try
+            {
+                var doc = XDocument.Load(GlobalVersionPath);
+
+                doc.Descendants("LEVersion").First().Attribute("LastUpdate").Value = date.ToString().PadLeft(8, '0');
+            }
+            catch
+            {
+            }
+        }
+
         public static void ShowErrorDebugMessageBox(string commandLine, uint errorCode)
         {
             MessageBox.Show(String.Format("Error Number: {0}\r\n" +

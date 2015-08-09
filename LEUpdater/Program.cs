@@ -40,10 +40,10 @@ namespace LEUpdater
                 }
             }
 
-            CheckUpdates(GlobalHelper.GetLEVersion(), GlobalHelper.GetLastUpdate());
+            CheckUpdates(GlobalHelper.GetLEVersion());
         }
 
-        private static void CheckUpdates(string appVer, int regVer)
+        private static void CheckUpdates(string appVer)
         {
             _notifyIcon.Visible = true;
 

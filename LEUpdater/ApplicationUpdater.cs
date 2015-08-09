@@ -14,9 +14,7 @@ namespace LEUpdater
 
         internal static void CheckApplicationUpdate(string version, NotifyIcon notifyIcon)
         {
-            var url = string.Format(@"http://service.watashi.me/le/check.php?ver={0}&lang={1}",
-                                    version,
-                                    CultureInfo.CurrentUICulture.LCID);
+            var url = @"http://xupefei.github.io/Locale-Emulator/VersionInfo.xml";
 
             try
             {
@@ -43,6 +41,8 @@ namespace LEUpdater
             {
                 try
                 {
+                    GlobalHelper.SetLastUpdate(Int32.Parse(DateTime.Now.ToString("yyyyMMdd")));
+
                     var version = xmlContent.SelectSingleNode(@"/VersionInfo/Version/text()").Value;
                     var date = xmlContent.SelectSingleNode(@"/VersionInfo/Date/text()").Value;
                     url = xmlContent.SelectSingleNode(@"/VersionInfo/Url/text()").Value;
