@@ -9,7 +9,7 @@ Yet Another System Region and Language Simulator
 
 Download available at <https://github.com/xupefei/Locale-Emulator/releases>.
 
-For usage, please read <http://i.watashi.me/archives/locale-emulator.html> (in English and 中文).
+For usage, please read <http://xupefei.github.io/Locale-Emulator/> (in English and 中文).
 
 ## Translate ##
 
