@@ -33,7 +33,7 @@
     "faq_2_ans": "Tu peux ajouter un élément de confiance dans ton logiciel antivirus, ou tout simplement supprimer tous les fichiers de LE.",
     "faq_3": "Après vérification de logiciel antivirus, Locale Emulator échoue encore.",
     "faq_3_ans": "STP assure d'avoir appliquer toutes les mises en jours dans Windows Update. Si ce problème persiste, considère le rapporter (voir dessous)",
-    "bug_report": "Rapports de bugs? Suggestions? Tu veux contribuer la traduction?",
+    "bug_report": "Rapports de bugs? Suggestions? Tu veux contribuer à la traduction?",
     "bug_report_text": "STP considère ouvrir un issue <a href=\"https://github.com/xupefei/Locale-Emulator/issues\">ici</a>. Tu peux écrire soit en anglais, soit en chinois."
   }
 }
