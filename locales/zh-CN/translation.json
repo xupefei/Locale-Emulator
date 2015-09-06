@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "name": "Locale Emulator",
+    "tag": " 另一个程序转区工具",
+    "view": "查看源代码",
+    "down_github": "从 GitHub 下载",
+    "down_mega": "从 MEGA 下载"
+  },
+  "content": {
+    "intro": "Introduction",
+    "intro_text": "Locale Emulator is a tool similar to MS AppLocale and NTLEA, providing a simulation function that can make an application recognize your OS as a language other than the real one.  It is quite useful when you are trying to play country-specific games.",
+    "install": "Install",
+    "new_install": "For a new installation",
+    "new_install_text_1": "Download the executable from any link above.",
+    "new_install_text_2": "Extract all files into a SAFE folder (because you will NOT be able to move these files after installation.)",
+    "new_install_text_3": "Run LEInstaller.exe and press the \"Install / Upgrade\" button.",
+    "new_install_text_4": "Now you will see \"Locale Emulator\" menu in the context menu when right-clicking on files.",
+    "upgrade": "Upgrading from a previous version",
+    "upgrade_text_1": "Download the executable from any link above.",
+    "upgrade_text_2": "Extract all files into the same folder and overwrite all old files.",
+    "upgrade_text_3": "Run LEInstaller.exe and press \"Install / Upgrade\" button.",
+    "upgrade_text_4": "Now you will see \"Locale Emulator\" menu in the context menu when right-clicking on files.",
+    "requirement": "System Requirement",
+    "requirement_intro_1": "Locale Emulator is compliable with the following OSes, both 32- and 64-bit:",
+    "requirement_text_1": "Windows 7 <strong>with Service Pack 1</strong>",
+    "requirement_text_2": "Windows 8 / 8.1",
+    "requirement_text_3": "Windows 10 Build 10240 (RTM)",
+    "requirement_intro_2": "This tool only supports 32-bit executables running in either 32-bit or 64-bit OS. That is, if you are using 64-bit WinRAR, you will not see the context menu on a .rar file, and will not be able to run WinRAR with LE.",
+    "faq": "Got any problems?",
+    "faq_1": "Google Chrome is blocking the download.",
+    "faq_1_ans": "Please go to the \"Downloads\" page (chrome://downloads/) and select \"Recover file.\"",
+    "faq_2": "My antivirus software reports LocaleEmulator.dll as a virus.",
+    "faq_2_ans": "You can add a trusted item in your antivirus software, or simply remove all files of LE.",
+    "faq_3": "After checking antivirus software, Locale Emulator still fails.",
+    "faq_3_ans": "Please make sure you have installed ALL updates in Windows Update. If the problem presists, please consider to report the issue (See below).",
+    "bug_report": "Bug reports? Suggestions? Want to donate translations?",
+    "bug_report_text": "Please consider to open an issue <a href=\"https://github.com/xupefei/Locale-Emulator/issues\">here</a>. You can write in either English or Chinese language."
+  }
+}
