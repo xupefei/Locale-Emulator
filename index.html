@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="scripts/i18next-1.10.1.min.js"></script>
-        <script>i18n.init({ lng: navigator.language, fallbackLng: 'en' });</script>
+        <script>i18n.init({ lng: navigator.language, fallbackLng: 'en' }, function(err, t) { $("body").i18n(); });</script>
     </head>
     <body>
         <section class="page-header">
