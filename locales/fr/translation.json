@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "name": "Locale Emulator",
+    "tag": " Encore un autre simulateur régional pour Windows moderne",
+    "view": "Voir sur GitHub",
+    "down_github": "Télécharger à partir de GitHub",
+    "down_mega": "Télécharger à partir de MEGA"
+  },
+  "content": {
+    "intro": "Introduction",
+    "intro_text": "Locale Emulator est un outil pareil à MS AppLocale et NTLEA, offrant une fonction de simulation qui peut pousser une application à reconnaître ton système d'exploitation comme dans une langue autre que la réelle. C'est très util quand tu essaie de jouer les jeux spécifiques à certain pays.",
+    "install": "Installation",
+    "new_install": "Pour une novelle installation",
+    "new_install_text_1": "Télécharger l'exécutable à partir de l'un des liens au-dessus.",
+    "new_install_text_2": "Extraiter tous les fichiers dans un dossier sûr (parce que tu ne pourras pas déplacer ces fichiers après l'installation).",
+    "new_install_text_3": "Exécuter LEInstaller.exe and appuyer sur le bouton \"Install / Upgrade\".",
+    "new_install_text_4": "Voilà tu auras le menu \"Locale Emulator\" dans le menu contextuel lorsqu'un clic droit sur fichier.",
+    "upgrade": "Mise à jour depuis une version précédente",
+    "upgrade_text_1": "Télécharger l'exécutable à partir de l'un des liens au-dessus",
+    "upgrade_text_2": "Extraiter tous les fichiers dans le même dossier et remplacer tous les anciens",
+    "upgrade_text_3": "Exécuter LEInstaller.exe and appuyer sur le bouton \"Install / Upgrade\"",
+    "upgrade_text_4": "Voilà tu auras le menu \"Locale Emulator\" dans le menu contextuel lorsqu'un clic droit sur fichier.",
+    "requirement": "Exigences du système",
+    "requirement_intro_1": "Locale Emulator est compatible avec les SE suivants, 32 bits et 64 bits:",
+    "requirement_text_1": "Windows 7 <strong>avec Service Pack 1</strong>",
+    "requirement_text_2": "Windows 8 / 8.1",
+    "requirement_text_3": "Windows 10 Build 10240 (RTM)",
+    "requirement_intro_2": "Cet outil ne supporte que les exécutables 32 bits sur les SE 32 bits ou 64 bits. Autrement dit, si tu utilise WinRAR 64 bits, tu n'auras pas le menu contextuel sur un fichier .rar, et ne pourras pas exécuter WinRAR avec LE.",
+    "faq": "Des problèmes?",
+    "faq_1": "Google Chrome bloque le téléchargement.",
+    "faq_1_ans": "STP te trouve à la page \"Downloads\" (chrome://downloads/) et sélectionne \"récupérer le fichier\"",
+    "faq_2": "Mon logiciel antivirus signale LocaleEmulator.dll comme un virus.",
+    "faq_2_ans": "Tu peux ajouter un élément de confiance dans ton logiciel antivirus, ou tout simplement supprimer tous les fichiers de LE.",
+    "faq_3": "Après vérification de logiciel antivirus, Locale Emulator échoue encore.",
+    "faq_3_ans": "STP assure d'avoir appliquer toutes les mises en jours dans Windows Update. Si ce problème persiste, considère le rapporter (voir dessous)",
+    "bug_report": "Rapports de bugs? Suggestions? Tu veux contribuer à la traduction?",
+    "bug_report_text": "STP considère ouvrir un issue <a href=\"https://github.com/xupefei/Locale-Emulator/issues\">ici</a>. Tu peux écrire soit en anglais, soit en chinois."
+  }
+}
