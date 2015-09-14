@@ -44,6 +44,14 @@ namespace LECommonLibrary
             return path.Replace(system, systemWow64);
         }
 
+        public static void DisableDPIScale()
+        {
+            SetProcessDPIAware();
+        }
+
+        [DllImport("user32.dll")]
+        private static extern bool SetProcessDPIAware();
+
         [DllImport("kernel32.dll")]
         private static extern IntPtr GetCurrentProcess();
 

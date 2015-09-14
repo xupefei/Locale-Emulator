@@ -19,6 +19,8 @@ namespace LEProc
         [STAThread]
         private static void Main(string[] args)
         {
+            SystemHelper.DisableDPIScale();
+
             try
             {
                 Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
