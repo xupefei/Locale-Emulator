@@ -44,6 +44,12 @@ You can also submit an issue if you have some wonderful ideas to improve Locale 
 
 ## License ##
 
+![enter image description here](http://www.gnu.org/graphics/lgplv3-147x51.png)
+
 `LEContextMenuHandler` project use source codes from [Microsoft All-In-One Code Framework](http://blogs.msdn.com/b/onecode/) which is licensed by [Microsoft Public License](http://www.microsoft.com/en-us/openness/licenses.aspx#MPL).
 
 [Flat icon set](commit/eae9fbc27f1a4c85986577202b61742c6287e10a) from [graphicex](http://graphicex.com/icon-and-logo/15983-flat-alphabet-in-9-colors-with-long-shadow-6913875.html).
+
+All other source code files are licensed under [LGPL-3.0](https://opensource.org/licenses/LGPL-3.0).
+
+If you want make any modification on these source codes while keeping new codes not protected by LGPL-3.0, please contact me for a sublicense instead.
