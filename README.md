@@ -29,11 +29,13 @@ After you translated the above files into your language, please either create a 
 
 ## Submit Issue ##
 
+*Note, due to the limited effort, we only accept issues under Windows 10 OS. If you are using another version of Windows, you may fix it by yourself.*
+
 You can submit an issue if any application is not working (but you think should work) with Locale Emulator. Before submitting, please turn-off your antivirus and protection software and try again.
 
 If you decide to submit a ticket, please indicate the following information in the issue:
 
- - Version of your OS (Win7 / 8 / 8.1 etc.) and system type (32 / 64 / 65536bit).
+ - Your system type (32 / 64 / 65536bit).
  - Name and company of the broken application.
  - Error message produced by Locale Emulator, including error number, application path, version of Locale Emulator and UAC information.
  -  Attach a screen capture if the application runs but not running correctly.
