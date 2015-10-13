@@ -13,8 +13,6 @@ namespace LEProc
         private byte[] _defaultFaceName = new byte[64];
         private LEB _leb;
         private RegistryRedirector _registry = new RegistryRedirector(0);
-        private byte[] _timezoneDaylightName = new byte[64];
-        private byte[] _timezoneStandardName = new byte[64];
 
         internal LoaderWrapper()
             : this(null, null, null)
@@ -131,12 +129,12 @@ namespace LEProc
         /// </summary>
         internal string TimezoneStandardName
         {
-            get { return Encoding.Unicode.GetString(_timezoneStandardName).Replace("\x00", ""); }
+            get { return Encoding.Unicode.GetString(_leb.Timezone.StandardName).Replace("\x00", ""); }
             set
             {
                 if (value.Length > 32)
                     throw new Exception("String too long.");
-                _timezoneStandardName = SetBytes(new byte[64], Encoding.Unicode.GetBytes(value));
+                _leb.Timezone.StandardName = SetBytes(new byte[64], Encoding.Unicode.GetBytes(value));
             }
         }
 
@@ -146,12 +144,12 @@ namespace LEProc
         /// </summary>
         internal string TimezoneDaylightName
         {
-            get { return Encoding.Unicode.GetString(_timezoneDaylightName).Replace("\x00", ""); }
+            get { return Encoding.Unicode.GetString(_leb.Timezone.DaylightName).Replace("\x00", ""); }
             set
             {
                 if (value.Length > 32)
                     throw new Exception("String too long.");
-                _timezoneDaylightName = SetBytes(new byte[64], Encoding.Unicode.GetBytes(value));
+                _leb.Timezone.DaylightName = SetBytes(new byte[64], Encoding.Unicode.GetBytes(value));
             }
         }
 
@@ -256,11 +254,17 @@ namespace LEProc
         {
             internal int Bias;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)] internal byte[] StandardName;
-            internal TIME_FIELDS StandardStart;
+            internal TIME_FIELDS StandardDate;
             internal uint StandardBias;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)] internal byte[] DaylightName;
-            internal TIME_FIELDS DaylightStart;
+            internal TIME_FIELDS DaylightDate;
             internal int DaylightBias;
+
+            public override string ToString()
+            {
+                return
+                    $"StandardName={Encoding.Unicode.GetString(StandardName)};DaylightName={Encoding.Unicode.GetString(DaylightName)}";
+            }
         }
 
         [StructLayout(LayoutKind.Sequential)]
