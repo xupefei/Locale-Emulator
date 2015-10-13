@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using Amemiya.Extensions;
+using Microsoft.Win32;
+using Enumerable = System.Linq.Enumerable;
 
 namespace LEProc
 {
@@ -39,14 +41,8 @@ namespace LEProc
                        // As we have abandoned the "default font" parameter,
                        // we decide to put here some empty bytes.
                        DefaultFaceName = new byte[64],
-                       Timezone =
-                       {
-                           Bias = -540,
-                           DaylightBias = 0,
-                           StandardName = SetBytes(new byte[64], Encoding.Unicode.GetBytes("@tzres.dll,-632")),
-                           DaylightName = SetBytes(new byte[64], Encoding.Unicode.GetBytes("@tzres.dll,-631"))
-                       }
                    };
+            Timezone = "Tokyo Standard Time";
         }
 
         /// <summary>
@@ -104,55 +100,37 @@ namespace LEProc
             get { return _leb.DefaultCharset; }
             set { _leb.DefaultCharset = value; }
         }
-
-        /// <summary>
-        ///     Bias of a timezone in minutes. Default value is -540(-60 * 9).
-        /// </summary>
-        internal int TimezoneBias
-        {
-            get { return _leb.Timezone.Bias; }
-            set { _leb.Timezone.Bias = value; }
-        }
-
-        /// <summary>
-        ///     Zero.
-        /// </summary>
-        internal int TimezoneDaylightBias
-        {
-            get { return _leb.Timezone.DaylightBias; }
-            set { _leb.Timezone.DaylightBias = value; }
-        }
-
+        
         /// <summary>
         ///     String that represents a Timezone.
         ///     This can be found in HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones.
         /// </summary>
-        internal string TimezoneStandardName
+        internal string Timezone
         {
-            get { return Encoding.Unicode.GetString(_leb.Timezone.StandardName).Replace("\x00", ""); }
+            get { return _leb.Timezone.GetStandardName(); }
             set
             {
                 if (value.Length > 32)
                     throw new Exception("String too long.");
-                _leb.Timezone.StandardName = SetBytes(new byte[64], Encoding.Unicode.GetBytes(value));
+
+                if (false == Enumerable.Any(TimeZoneInfo.GetSystemTimeZones(), item => item.Id == value))
+                    throw new Exception($"Timezone \"{value}\" not found in your system.");
+
+                var tzi = TimeZoneInfo.FindSystemTimeZoneById(value);
+                _leb.Timezone.SetStandardName(tzi.StandardName);
+                _leb.Timezone.SetDaylightName(tzi.StandardName);
+
+                var tzi2 = ReadTZIFromRegistry(value);
+                _leb.Timezone.Bias = tzi2.Bias;
+                _leb.Timezone.StandardBias = tzi2.StandardBias;
+                _leb.Timezone.DaylightBias = 0;//tzi2.DaylightBias;
+
+                //SYSTEMTIME is not the same with TIME_FIELDS (from RTL)
+                //_leb.Timezone.StandardDate = SYSTEMTIME_To_TIME_FIELDS(tzi2.StandardDate);
+                //_leb.Timezone.DaylightDate = SYSTEMTIME_To_TIME_FIELDS(tzi2.DaylightDate);
             }
         }
-
-        /// <summary>
-        ///     String that represents a Daylight.
-        ///     This can be found in HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones.
-        /// </summary>
-        internal string TimezoneDaylightName
-        {
-            get { return Encoding.Unicode.GetString(_leb.Timezone.DaylightName).Replace("\x00", ""); }
-            set
-            {
-                if (value.Length > 32)
-                    throw new Exception("String too long.");
-                _leb.Timezone.DaylightName = SetBytes(new byte[64], Encoding.Unicode.GetBytes(value));
-            }
-        }
-
+        
         /// <summary>
         ///     Get or set the number of registry redirection entries.
         /// </summary>
@@ -215,6 +193,48 @@ namespace LEProc
             return bytesInput;
         }
 
+        public static T BytesToStruct<T>(byte[] bytes)
+        {
+            int size = Marshal.SizeOf(typeof(T));
+            IntPtr buffer = Marshal.AllocHGlobal(size);
+            try
+            {
+                Marshal.Copy(bytes, 0, buffer, size);
+                return (T)Marshal.PtrToStructure(buffer, typeof(T));
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(buffer);
+            }
+        }
+
+        private TIME_FIELDS SYSTEMTIME_To_TIME_FIELDS(_SYSTEMTIME st)
+        {
+            return new TIME_FIELDS
+            {
+                Year = st.wYear,
+                Month = st.wMonth,
+                Day = st.wDay,
+                Hour = st.wHour,
+                Minute = st.wMinute,
+                Second = st.wSecond,
+                Milliseconds = st.wMilliseconds,
+                Weekday = st.wDayOfWeek
+            };
+        }
+
+        private _REG_TZI_FORMAT ReadTZIFromRegistry(string id)
+        {
+            byte[] tzi =
+                (byte[])
+                    Registry.GetValue(
+                        $"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Time Zones\\{id}",
+                        "TZI",
+                        null);
+
+            return BytesToStruct<_REG_TZI_FORMAT>(tzi);
+        }
+
         [DllImport("LoaderDll.dll", CharSet = CharSet.Unicode)]
         public static extern uint LeCreateProcess(IntPtr leb,
                                                   [MarshalAs(UnmanagedType.LPWStr), In] string applicationName,
@@ -255,7 +275,7 @@ namespace LEProc
             internal int Bias;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)] internal byte[] StandardName;
             internal TIME_FIELDS StandardDate;
-            internal uint StandardBias;
+            internal int StandardBias;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)] internal byte[] DaylightName;
             internal TIME_FIELDS DaylightDate;
             internal int DaylightBias;
@@ -263,8 +283,50 @@ namespace LEProc
             public override string ToString()
             {
                 return
-                    $"StandardName={Encoding.Unicode.GetString(StandardName)};DaylightName={Encoding.Unicode.GetString(DaylightName)}";
+                    $"StandardName={Encoding.Unicode.GetString(StandardName)}";
             }
+
+            public string GetStandardName()
+            {
+                return Encoding.Unicode.GetString(StandardName).Replace("\x00", "");
+            }
+
+            public void SetStandardName(string name)
+            {
+                StandardName = SetBytes(new byte[64], Encoding.Unicode.GetBytes(name));
+            }
+
+            public string GetDaylightName()
+            {
+                return Encoding.Unicode.GetString(DaylightName).Replace("\x00", "");
+            }
+
+            public void SetDaylightName(string name)
+            {
+                DaylightName = SetBytes(new byte[64], Encoding.Unicode.GetBytes(name));
+            }
+        }
+
+        private struct _REG_TZI_FORMAT
+        {
+            internal int Bias;
+            internal int StandardBias;
+            internal int DaylightBias;
+            internal _SYSTEMTIME StandardDate;
+            internal _SYSTEMTIME DaylightDate;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct _SYSTEMTIME
+        {
+            internal ushort wYear;
+            internal ushort wMonth;
+            internal ushort wDayOfWeek;
+            internal ushort wDay;
+            internal ushort wHour;
+            internal ushort wMinute;
+            internal ushort wSecond;
+            internal ushort wMilliseconds;
         }
 
         [StructLayout(LayoutKind.Sequential)]

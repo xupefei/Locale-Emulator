@@ -222,23 +222,6 @@ namespace LEProc
                                      GetCharsetFromANSICodepage(CultureInfo.GetCultureInfo(profile.Location)
                                                                            .TextInfo.ANSICodePage);
 
-                var tzi = TimeZoneInfo.FindSystemTimeZoneById(profile.Timezone);
-                var timezoneBias = (int)-tzi.BaseUtcOffset.TotalMinutes;
-
-                var adjustmentRules = tzi.GetAdjustmentRules();
-                TimeZoneInfo.AdjustmentRule adjustmentRule = null;
-                if (adjustmentRules.Length > 0)
-                {
-                    // Find the single record that encompasses today's date. If none exists, sets adjustmentRule to null.
-                    adjustmentRule =
-                        adjustmentRules.SingleOrDefault(ar => ar.DateStart <= DateTime.Now && DateTime.Now <= ar.DateEnd);
-                }
-                var timezoneDaylightBias = adjustmentRule == null ? 0 : (int)-adjustmentRule.DaylightDelta.TotalMinutes;
-
-                var timezoneStandardName = tzi.StandardName;
-
-                var timezoneDaylightName = tzi.DaylightName;
-
                 var registries = profile.RedirectRegistry
                                      ? new LERegistry().GetRegistryEntries()
                                      : new LERegistryEntry[0];
@@ -252,10 +235,7 @@ namespace LEProc
                             OemCodePage = oemCodePage,
                             LocaleID = localeID,
                             DefaultCharset = defaultCharset,
-                            TimezoneBias = timezoneBias,
-                            TimezoneDaylightBias = timezoneDaylightBias,
-                            TimezoneStandardName = timezoneStandardName,
-                            TimezoneDaylightName = timezoneDaylightName,
+                            Timezone=profile.Timezone,
                             NumberOfRegistryRedirectionEntries = registries.Length,
                             DebugMode = debugMode
                         };
