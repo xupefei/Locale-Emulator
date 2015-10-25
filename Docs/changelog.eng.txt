@@ -1,4 +1,8 @@
-﻿V2.0.1.0:
+﻿V2.1.0.0:
+Disable automatic DPI scaling on LEProc.
+Speedup startup speed for LiveMaker games by 1000%.
+
+V2.0.1.0:
 Move update info to GitHub Pages.
 
 V2.0.0.2:
