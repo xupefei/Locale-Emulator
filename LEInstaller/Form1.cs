@@ -178,8 +178,8 @@ namespace LEInstaller
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
-                throw;
+                MessageBox.Show(e.Message + "\r\nPlease try install/uninstall again.");
+                return false;
             }
         }
 
