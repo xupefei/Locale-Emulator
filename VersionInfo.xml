@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <VersionInfo>
-  <Version>2.0.1.0</Version>
-  <Date>2015-08-09</Date>
+  <Version>2.1.0.0</Version>
+  <Date>2015-10-25</Date>
   <Url>http://xupefei.github.io/Locale-Emulator/</Url>
-  <Note>Windows 10 Build 10240 compatibility.</Note>
+  <Note>Startup speed of LiveMaker games is now 10 times less.</Note>
 </VersionInfo>
