@@ -302,6 +302,21 @@ namespace LEInstaller
 
                 Environment.Exit(0);
             }
+
+            if (!File.Exists(Path.Combine(Environment.SystemDirectory + @"\..\Fonts\msgothic.ttc")))
+            {
+                if (MessageBox.Show(
+                                    "Japanese font \"MS Gothic\" (\"ＭＳ ゴシック\") font is not found on\r\n" +
+                                    "your system. If you use LE on Japanese applications, you may consider \r\n" +
+                                    "installing \"Japanese Supplemental Fonts\" package.\r\n" +
+                                    "\r\n" +
+                                    "Do you want to read the installation guide?",
+                                    "Font missing warning",
+                                    MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    Process.Start("http://www.tenforums.com/tutorials/7565-optional-features-manage-windows-10-a.html");
+                }
+            }
         }
     }
 }
