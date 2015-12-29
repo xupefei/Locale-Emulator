@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LECommonLibrary
+﻿namespace LECommonLibrary
 {
     public struct LEProfile
     {
@@ -23,7 +21,7 @@ namespace LECommonLibrary
                 "ja-JP",
                 System.Guid.NewGuid().ToString(),
                 false,
-                String.Empty,
+                string.Empty,
                 "ja-JP",
                 "Tokyo Standard Time",
                 false,

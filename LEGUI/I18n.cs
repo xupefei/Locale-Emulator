@@ -21,7 +21,7 @@ namespace LEGUI
             {
                 var s = (string)dict[key];
 
-                if (String.IsNullOrEmpty(s))
+                if (string.IsNullOrEmpty(s))
                     return key;
 
                 return s;

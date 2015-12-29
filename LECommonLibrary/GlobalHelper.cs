@@ -35,7 +35,7 @@ namespace LECommonLibrary
             {
                 var doc = XDocument.Load(GlobalVersionPath);
 
-                return Int32.Parse(doc.Descendants("LEVersion").First().Attribute("LastUpdate").Value);
+                return int.Parse(doc.Descendants("LEVersion").First().Attribute("LastUpdate").Value);
             }
             catch
             {
@@ -60,30 +60,17 @@ namespace LECommonLibrary
 
         public static void ShowErrorDebugMessageBox(string commandLine, uint errorCode)
         {
-            MessageBox.Show(String.Format("Error Number: {0}\r\n" +
-                                          "Commands: {1}\r\n" +
-                                          "\r\n" +
-                                          "{2}\r\n" +
-                                          "{3}\r\n" +
-                                          "If you have any antivirus software running, please turn it off and try again.\r\n"
-                                          +
-                                          "If this window still shows, try go to Safe Mode and drag the application "
-                                          +
-                                          "executable onto LEProc.exe.\r\n"
-                                          +
-                                          "If you have tried all above but none of them works, feel free to submit an issue at\r\n"
-                                          +
-                                          "https://github.com/xupefei/Locale-Emulator/issues.\r\n" +
-                                          "\r\n" +
-                                          "\r\n" +
-                                          "You can press CTRL+C to copy this message to your clipboard.\r\n",
-                                          Convert.ToString(errorCode, 16).ToUpper(),
-                                          commandLine,
-                                          String.Format("{0} {1}",
-                                                        Environment.OSVersion,
-                                                        SystemHelper.Is64BitOS() ? "x64" : "x86"),
-                                          GenerateSystemDllVersionList()
-                                ),
+            MessageBox.Show(
+                            $"Error Number: {Convert.ToString(errorCode, 16).ToUpper()}\r\n"
+                            + $"Commands: {commandLine}\r\n" + "\r\n"
+                            + $"{string.Format($"{Environment.OSVersion} {(SystemHelper.Is64BitOS() ? "x64" : "x86")}", Environment.OSVersion, SystemHelper.Is64BitOS() ? "x64" : "x86")}\r\n"
+                            + $"{GenerateSystemDllVersionList()}\r\n"
+                            + "If you have any antivirus software running, please turn it off and try again.\r\n"
+                            + "If this window still shows, try go to Safe Mode and drag the application "
+                            + "executable onto LEProc.exe.\r\n"
+                            + "If you have tried all above but none of them works, feel free to submit an issue at\r\n"
+                            + "https://github.com/xupefei/Locale-Emulator/issues.\r\n" + "\r\n" + "\r\n"
+                            + "You can press CTRL+C to copy this message to your clipboard.\r\n",
                             "Locale Emulator Version " + GetLEVersion());
         }
 
@@ -96,19 +83,17 @@ namespace LECommonLibrary
             foreach (var dll in dlls)
             {
                 var version = FileVersionInfo.GetVersionInfo(
-                    Path.Combine(
-                        Path.GetPathRoot(Environment.SystemDirectory),
-                        SystemHelper.Is64BitOS() ? @"Windows\SysWOW64\" : @"Windows\System32\",
-                        dll));
+                                                             Path.Combine(
+                                                                          Path.GetPathRoot(Environment.SystemDirectory),
+                                                                          SystemHelper.Is64BitOS()
+                                                                              ? @"Windows\SysWOW64\"
+                                                                              : @"Windows\System32\",
+                                                                          dll));
 
                 result.Append(dll);
                 result.Append(": ");
-                result.Append(String.Format(
-                    "{0}.{1}.{2}.{3}",
-                    version.FileMajorPart,
-                    version.FileMinorPart,
-                    version.FileBuildPart,
-                    version.FilePrivatePart));
+                result.Append(
+                              $"{version.FileMajorPart}.{version.FileMinorPart}.{version.FileBuildPart}.{version.FilePrivatePart}");
                 result.Append("\r\n");
             }
 

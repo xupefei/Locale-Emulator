@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -24,7 +23,7 @@ namespace LEContextMenuHandler
 
                 var str = (from s in strings where s.Name == key select s.Value).FirstOrDefault();
 
-                if (String.IsNullOrEmpty(str))
+                if (string.IsNullOrEmpty(str))
                     return key;
 
                 return str;

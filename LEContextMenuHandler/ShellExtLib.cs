@@ -113,9 +113,7 @@ namespace LEContextMenuHandler
             }
 
             // Create the key HKCR\<File Type>\shellex\ContextMenuHandlers\{<CLSID>}.
-            var keyName = string.Format(@"{0}\shellex\ContextMenuHandlers\{1}",
-                                        fileType,
-                                        clsid.ToString("B"));
+            var keyName = $@"{fileType}\shellex\ContextMenuHandlers\{clsid.ToString("B")}";
             using (var key = Registry.ClassesRoot.CreateSubKey(keyName))
             {
                 // Set the default value of the key.
@@ -168,9 +166,7 @@ namespace LEContextMenuHandler
             }
 
             // Remove the key HKCR\<File Type>\shellex\ContextMenuHandlers\{<CLSID>}.
-            var keyName = string.Format(@"{0}\shellex\ContextMenuHandlers\{1}",
-                                        fileType,
-                                        clsid.ToString("B"));
+            var keyName = $@"{fileType}\shellex\ContextMenuHandlers\{clsid.ToString("B")}";
             Registry.ClassesRoot.DeleteSubKeyTree(keyName);
         }
     }

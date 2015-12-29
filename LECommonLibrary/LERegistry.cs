@@ -1,9 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
+using LECommonLibrary.Properties;
 
 namespace LECommonLibrary
 {
@@ -13,8 +12,8 @@ namespace LECommonLibrary
         {
             try
             {
-                var dict = XDocument.Load(new MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.LERegistry)));
-                
+                var dict = XDocument.Load(new MemoryStream(Encoding.UTF8.GetBytes(Resources.LERegistry)));
+
                 var pros = from i in dict.Descendants("LERegistry").Elements("Entries").Elements()
                            select i;
 

@@ -104,7 +104,7 @@ namespace LEProc
                     case "-manage": //-manage %APP%
                         Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                                                    "LEGUI.exe"),
-                                      String.Format("\"{0}.le.config\"", args[1]));
+                                      $"\"{args[1]}.le.config\"");
                         break;
 
                     case "-global": //-global
@@ -149,7 +149,7 @@ namespace LEProc
             {
                 Process.Start(
                               Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEGUI.exe"),
-                              String.Format("\"{0}.le.config\"", path));
+                              $"\"{path}.le.config\"");
             }
             else
             {
@@ -193,11 +193,11 @@ namespace LEProc
                     applicationName = path;
 
                     commandLine = path.StartsWith("\"")
-                                      ? string.Format("{0} ", path)
-                                      : String.Format("\"{0}\" ", path);
+                                      ? $"{path} "
+                                      : $"\"{path}\" ";
 
                     // use arguments in le.config, prior to command line arguments
-                    commandLine += String.IsNullOrEmpty(profile.Parameter) && Args.Skip(argumentsStart).Any()
+                    commandLine += string.IsNullOrEmpty(profile.Parameter) && Args.Skip(argumentsStart).Any()
                                        ? Args.Skip(argumentsStart).Aggregate((a, b) => $"{a} {b}")
                                        : profile.Parameter;
                 }
@@ -211,8 +211,8 @@ namespace LEProc
                     applicationName = jb[0];
 
                     commandLine = jb[0].StartsWith("\"")
-                                      ? string.Format("{0} ", jb[0])
-                                      : String.Format("\"{0}\" ", jb[0]);
+                                      ? $"{jb[0]} "
+                                      : $"\"{jb[0]}\" ";
                     commandLine += jb[1].Replace("%1", path).Replace("%*", profile.Parameter);
                 }
 
@@ -238,7 +238,7 @@ namespace LEProc
                             OemCodePage = oemCodePage,
                             LocaleID = localeID,
                             DefaultCharset = defaultCharset,
-                            Timezone=profile.Timezone,
+                            Timezone = profile.Timezone,
                             NumberOfRegistryRedirectionEntries = registries.Length,
                             DebugMode = debugMode
                         };

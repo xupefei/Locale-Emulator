@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using Amemiya.Extensions;
 using Microsoft.Win32;
-using Enumerable = System.Linq.Enumerable;
 
 namespace LEProc
 {
@@ -40,7 +40,7 @@ namespace LEProc
                        DefaultCharset = 128,
                        // As we have abandoned the "default font" parameter,
                        // we decide to put here some empty bytes.
-                       DefaultFaceName = new byte[64],
+                       DefaultFaceName = new byte[64]
                    };
             Timezone = "Tokyo Standard Time";
         }
@@ -100,7 +100,7 @@ namespace LEProc
             get { return _leb.DefaultCharset; }
             set { _leb.DefaultCharset = value; }
         }
-        
+
         /// <summary>
         ///     String that represents a Timezone.
         ///     This can be found in HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Time Zones.
@@ -123,14 +123,14 @@ namespace LEProc
                 var tzi2 = ReadTZIFromRegistry(value);
                 _leb.Timezone.Bias = tzi2.Bias;
                 _leb.Timezone.StandardBias = tzi2.StandardBias;
-                _leb.Timezone.DaylightBias = 0;//tzi2.DaylightBias;
+                _leb.Timezone.DaylightBias = 0; //tzi2.DaylightBias;
 
                 //SYSTEMTIME is not the same with TIME_FIELDS (from RTL)
                 //_leb.Timezone.StandardDate = SYSTEMTIME_To_TIME_FIELDS(tzi2.StandardDate);
                 //_leb.Timezone.DaylightDate = SYSTEMTIME_To_TIME_FIELDS(tzi2.DaylightDate);
             }
         }
-        
+
         /// <summary>
         ///     Get or set the number of registry redirection entries.
         /// </summary>
@@ -160,7 +160,7 @@ namespace LEProc
         /// <returns>Error number</returns>
         internal uint Start()
         {
-            if (String.IsNullOrEmpty(ApplicationName))
+            if (string.IsNullOrEmpty(ApplicationName))
                 throw new Exception("ApplicationName cannot null.");
 
             var newLEB = ArrayExtensions.StructToBytes(_leb);
@@ -195,12 +195,12 @@ namespace LEProc
 
         public static T BytesToStruct<T>(byte[] bytes)
         {
-            int size = Marshal.SizeOf(typeof(T));
-            IntPtr buffer = Marshal.AllocHGlobal(size);
+            var size = Marshal.SizeOf(typeof (T));
+            var buffer = Marshal.AllocHGlobal(size);
             try
             {
                 Marshal.Copy(bytes, 0, buffer, size);
-                return (T)Marshal.PtrToStructure(buffer, typeof(T));
+                return (T)Marshal.PtrToStructure(buffer, typeof (T));
             }
             finally
             {
@@ -211,26 +211,26 @@ namespace LEProc
         private TIME_FIELDS SYSTEMTIME_To_TIME_FIELDS(_SYSTEMTIME st)
         {
             return new TIME_FIELDS
-            {
-                Year = st.wYear,
-                Month = st.wMonth,
-                Day = st.wDay,
-                Hour = st.wHour,
-                Minute = st.wMinute,
-                Second = st.wSecond,
-                Milliseconds = st.wMilliseconds,
-                Weekday = st.wDayOfWeek
-            };
+                   {
+                       Year = st.wYear,
+                       Month = st.wMonth,
+                       Day = st.wDay,
+                       Hour = st.wHour,
+                       Minute = st.wMinute,
+                       Second = st.wSecond,
+                       Milliseconds = st.wMilliseconds,
+                       Weekday = st.wDayOfWeek
+                   };
         }
 
         private _REG_TZI_FORMAT ReadTZIFromRegistry(string id)
         {
-            byte[] tzi =
+            var tzi =
                 (byte[])
-                    Registry.GetValue(
-                        $"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Time Zones\\{id}",
-                        "TZI",
-                        null);
+                Registry.GetValue(
+                                  $"HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Time Zones\\{id}",
+                                  "TZI",
+                                  null);
 
             return BytesToStruct<_REG_TZI_FORMAT>(tzi);
         }

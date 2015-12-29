@@ -23,7 +23,7 @@ namespace LEGUI
                     StandaloneFilePath += ".le.config";
             }
 
-            var isGlobalProfile = String.IsNullOrEmpty(StandaloneFilePath);
+            var isGlobalProfile = string.IsNullOrEmpty(StandaloneFilePath);
 
             LEConfig.CheckGlobalConfigFile(true);
 
@@ -38,18 +38,16 @@ namespace LEGUI
                     // We can do nothing now.
                     if (isGlobalProfile)
                         MessageBox.Show(
-                                        string.Format("Home directory is not writable. \r\n" +
-                                                      "Please move LE to another location and try again.\r\n" +
-                                                      "Home directory: {0}",
-                                                      Path.GetDirectoryName(LEConfig.GlobalConfigPath)),
+                                        "Home directory is not writable. \r\n"
+                                        + "Please move LE to another location and try again.\r\n"
+                                        + $"Home directory: {Path.GetDirectoryName(LEConfig.GlobalConfigPath)}",
                                         "Locale Emulator",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Error);
                     else
-                        MessageBox.Show(string.Format("The directory is not writable.\r\n" +
-                                                      "Please use global profile instead.\r\n" +
-                                                      "Current Directory: {0}",
-                                                      Path.GetDirectoryName(StandaloneFilePath)),
+                        MessageBox.Show(
+                                        "The directory is not writable.\r\n" + "Please use global profile instead.\r\n"
+                                        + $"Current Directory: {Path.GetDirectoryName(StandaloneFilePath)}",
                                         "Locale Emulator",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Error);

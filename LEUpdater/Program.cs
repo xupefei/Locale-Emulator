@@ -18,7 +18,7 @@ namespace LEUpdater
                 byForce = true;
 
             // Check new version every week.
-            if (!byForce && Int32.Parse(DateTime.Now.ToString("yyyyMMdd")) - GlobalHelper.GetLastUpdate() < 7)
+            if (!byForce && int.Parse(DateTime.Now.ToString("yyyyMMdd")) - GlobalHelper.GetLastUpdate() < 7)
             {
                 Environment.Exit(0);
             }
@@ -52,7 +52,7 @@ namespace LEUpdater
                                            _notifyIcon.Visible = false;
                                            Environment.Exit(0);
                                        };
-            
+
             ApplicationUpdater.CheckApplicationUpdate(appVer, _notifyIcon);
 
             Application.Run();

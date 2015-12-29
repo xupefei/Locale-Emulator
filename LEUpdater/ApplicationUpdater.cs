@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.Windows.Forms;
 using System.Xml;
 using Amemiya.Net;
@@ -41,7 +40,7 @@ namespace LEUpdater
             {
                 try
                 {
-                    GlobalHelper.SetLastUpdate(Int32.Parse(DateTime.Now.ToString("yyyyMMdd")));
+                    GlobalHelper.SetLastUpdate(int.Parse(DateTime.Now.ToString("yyyyMMdd")));
 
                     var version = xmlContent.SelectSingleNode(@"/VersionInfo/Version/text()").Value;
                     var date = xmlContent.SelectSingleNode(@"/VersionInfo/Date/text()").Value;
@@ -62,13 +61,8 @@ namespace LEUpdater
                                                    };
 
                     notifyIcon.ShowBalloonTip(0,
-                                              String.Format("New Version {0} Available (Current: {1})",
-                                                            version,
-                                                            GlobalHelper.GetLEVersion()),
-                                              String.Format("{0}\r\n" +
-                                                            "\r\n" +
-                                                            "Click here to open download page.",
-                                                            note),
+                                              $"New Version {version} Available (Current: {GlobalHelper.GetLEVersion()})",
+                                              $"{note}\r\n" + "\r\n" + "Click here to open download page.",
                                               ToolTipIcon.Info);
                 }
                 catch (Exception)

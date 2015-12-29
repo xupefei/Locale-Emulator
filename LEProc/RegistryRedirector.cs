@@ -165,13 +165,13 @@ namespace LEProc
                     break;
 
                 case "REG_DWORD":
-                    length = sizeof (UInt32);
-                    _objectData.AddRange(BitConverter.GetBytes(UInt32.Parse(value)));
+                    length = sizeof (uint);
+                    _objectData.AddRange(BitConverter.GetBytes(uint.Parse(value)));
                     break;
 
                 case "REG_QWORD":
-                    length = sizeof (UInt64);
-                    _objectData.AddRange(BitConverter.GetBytes(UInt64.Parse(value)));
+                    length = sizeof (ulong);
+                    _objectData.AddRange(BitConverter.GetBytes(ulong.Parse(value)));
                     break;
 
                 case "REG_BINARY":
@@ -189,7 +189,7 @@ namespace LEProc
             internal UNICODE_STRING64 SubKey;
             internal UNICODE_STRING64 ValueName;
             internal uint DataType;
-            internal Int64 Data;
+            internal long Data;
             internal ulong DataSize;
         }
 
@@ -205,7 +205,7 @@ namespace LEProc
         {
             internal ushort Length;
             internal ushort MaximumLength;
-            internal Int64 Buffer;
+            internal long Buffer;
         }
     }
 }

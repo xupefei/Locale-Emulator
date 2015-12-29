@@ -37,13 +37,13 @@ namespace LECommonLibrary
 
         private static string GetAssociatedIconFromRegistry(string ext)
         {
-            var d = (string)Registry.GetValue(string.Format("HKEY_CLASSES_ROOT\\{0}", ext), null, null);
+            var d = (string)Registry.GetValue($"HKEY_CLASSES_ROOT\\{ext}", null, null);
 
             if (string.IsNullOrEmpty(d))
                 return null;
 
             var prog =
-                (string)Registry.GetValue(String.Format("HKEY_CLASSES_ROOT\\{0}\\DefaultIcon", d), null, null);
+                (string)Registry.GetValue($"HKEY_CLASSES_ROOT\\{d}\\DefaultIcon", null, null);
 
             return prog;
         }
@@ -64,13 +64,13 @@ namespace LECommonLibrary
 
         private static string GetAssociatedProgramFromRegistry(string ext)
         {
-            var d = (string)Registry.GetValue(string.Format("HKEY_CLASSES_ROOT\\{0}", ext), null, null);
+            var d = (string)Registry.GetValue($"HKEY_CLASSES_ROOT\\{ext}", null, null);
 
             if (string.IsNullOrEmpty(d))
                 return null;
 
             var prog =
-                (string)Registry.GetValue(String.Format("HKEY_CLASSES_ROOT\\{0}\\Shell\\Open\\Command", d), null, null);
+                (string)Registry.GetValue($"HKEY_CLASSES_ROOT\\{d}\\Shell\\Open\\Command", null, null);
 
             return prog;
         }

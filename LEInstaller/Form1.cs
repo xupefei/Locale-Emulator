@@ -39,8 +39,7 @@ namespace LEInstaller
             var exe = ExtractRegAsm();
 
             var psi = new ProcessStartInfo(exe,
-                                           string.Format("\"{0}\" /codebase",
-                                                         Path.Combine(crtDir, "LEContextMenuHandler.dll")))
+                                           $"\"{Path.Combine(crtDir, "LEContextMenuHandler.dll")}\" /codebase")
                       {
                           CreateNoWindow = true,
                           WindowStyle = ProcessWindowStyle.Hidden,
@@ -59,9 +58,7 @@ namespace LEInstaller
 
             if (output.ToLower().IndexOf("error") != -1 || error.ToLower().IndexOf("error") != -1)
             {
-                MessageBox.Show(String.Format("==STD_OUT=============\r\n{0}\r\n==STD_ERR=============\r\n{1}",
-                                              output,
-                                              error));
+                MessageBox.Show($"==STD_OUT=============\r\n{output}\r\n==STD_ERR=============\r\n{error}");
 
                 return;
             }
@@ -103,8 +100,7 @@ namespace LEInstaller
             var exe = ExtractRegAsm();
 
             var psi = new ProcessStartInfo(exe,
-                                           string.Format("/unregister \"{0}\" /codebase",
-                                                         Path.Combine(crtDir, "LEContextMenuHandler.dll")))
+                                           $"/unregister \"{Path.Combine(crtDir, "LEContextMenuHandler.dll")}\" /codebase")
                       {
                           CreateNoWindow = true,
                           WindowStyle = ProcessWindowStyle.Hidden,
@@ -136,9 +132,7 @@ namespace LEInstaller
             var error = p.StandardError.ReadToEnd();
 
             if (output.ToLower().IndexOf("error") != -1 || error.ToLower().IndexOf("error") != -1)
-                MessageBox.Show(String.Format("==STD_OUT=============\r\n{0}\r\n==STD_ERR=============\r\n{1}",
-                                              output,
-                                              error));
+                MessageBox.Show($"==STD_OUT=============\r\n{output}\r\n==STD_ERR=============\r\n{error}");
 
             #endregion
 
@@ -205,7 +199,7 @@ namespace LEInstaller
             try
             {
                 Process.Start(Environment.SystemDirectory + "\\..\\explorer.exe",
-                              string.Format("/select,{0}", Assembly.GetExecutingAssembly().Location));
+                              $"/select,{Assembly.GetExecutingAssembly().Location}");
             }
             catch (Exception e)
             {
@@ -264,10 +258,10 @@ namespace LEInstaller
             // Detect whether the current process is a 32-bit process 
             // running on a 64-bit system.
             bool flag;
-            return ((DoesWin32MethodExist("kernel32.dll", "IsWow64Process") &&
-                     IsWow64Process(GetCurrentProcess(), out flag)) && flag);
+            return DoesWin32MethodExist("kernel32.dll", "IsWow64Process") &&
+                   IsWow64Process(GetCurrentProcess(), out flag) && flag;
         }
-        
+
         private static bool DoesWin32MethodExist(string moduleName, string methodName)
         {
             var moduleHandle = GetModuleHandle(moduleName);
@@ -275,7 +269,7 @@ namespace LEInstaller
             {
                 return false;
             }
-            return (GetProcAddress(moduleHandle, methodName) != IntPtr.Zero);
+            return GetProcAddress(moduleHandle, methodName) != IntPtr.Zero;
         }
 
         [DllImport("kernel32.dll")]

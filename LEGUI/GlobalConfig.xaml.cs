@@ -88,7 +88,7 @@ namespace LEGUI
                          CancelText = I18n.GetString("Cancel")
                      };
 
-            if (ib.ShowDialog() == true && !String.IsNullOrEmpty(ib.Text))
+            if (ib.ShowDialog() == true && !string.IsNullOrEmpty(ib.Text))
             {
                 SaveProfileAs(ib.Text);
 
@@ -103,7 +103,7 @@ namespace LEGUI
             var pro = new LEProfile(name,
                                     Guid.NewGuid().ToString(),
                                     cbShowInMainMenu.IsChecked != null && (bool)cbShowInMainMenu.IsChecked,
-                                    String.Empty,
+                                    string.Empty,
                                     _cultureInfos[cbLocation.SelectedIndex].Name,
                                     _timezones[cbTimezone.SelectedIndex].Id,
                                     cbStartAsAdmin.IsChecked != null && (bool)cbStartAsAdmin.IsChecked,

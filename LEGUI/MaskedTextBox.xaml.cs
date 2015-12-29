@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace LEGUI
@@ -23,7 +22,7 @@ namespace LEGUI
             {
                 _maskText = value;
 
-                if (String.IsNullOrEmpty(base.Text))
+                if (string.IsNullOrEmpty(base.Text))
                 {
                     base.Text = MaskText;
                     FontStyle = FontStyles.Italic;
@@ -58,7 +57,7 @@ namespace LEGUI
 
         protected override void OnLostFocus(RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(Text))
+            if (string.IsNullOrEmpty(Text))
             {
                 base.Text = MaskText;
                 FontStyle = FontStyles.Italic;

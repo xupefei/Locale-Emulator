@@ -20,8 +20,8 @@ namespace LECommonLibrary
             // Detect whether the current process is a 32-bit process 
             // running on a 64-bit system.
             bool flag;
-            return ((DoesWin32MethodExist("kernel32.dll", "IsWow64Process") &&
-                     IsWow64Process(GetCurrentProcess(), out flag)) && flag);
+            return DoesWin32MethodExist("kernel32.dll", "IsWow64Process") &&
+                   IsWow64Process(GetCurrentProcess(), out flag) && flag;
         }
 
         private static bool DoesWin32MethodExist(string moduleName, string methodName)
@@ -31,7 +31,7 @@ namespace LECommonLibrary
             {
                 return false;
             }
-            return (GetProcAddress(moduleHandle, methodName) != IntPtr.Zero);
+            return GetProcAddress(moduleHandle, methodName) != IntPtr.Zero;
         }
 
         public static string RedirectToWow64(string path)
@@ -99,8 +99,8 @@ namespace LECommonLibrary
         {
             var arg = string.Empty;
             arg = args == null
-                      ? String.Empty
-                      : args.Aggregate(arg, (current, s) => current + String.Format(" \"{0}\"", s));
+                      ? string.Empty
+                      : args.Aggregate(arg, (current, s) => current + $" \"{s}\"");
 
             var shExecInfo = new SHELLEXECUTEINFO();
 
@@ -117,12 +117,8 @@ namespace LECommonLibrary
 
             if (ShellExecuteEx(ref shExecInfo) == false)
             {
-                throw new Exception(string.Format(
-                                                  "Error when run with elevated LE.\r\n" +
-                                                  "Executable: {0}\r\n" +
-                                                  "Arguments: {1}",
-                                                  executable,
-                                                  arg));
+                throw new Exception("Error when run with elevated LE.\r\n" + $"Executable: {executable}\r\n"
+                                    + $"Arguments: {arg}");
             }
         }
 

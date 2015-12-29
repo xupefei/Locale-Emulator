@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Runtime.InteropServices.ComTypes;
 using System.Windows;
 using LECommonLibrary;
-using File = System.IO.File;
 
 namespace LEGUI
 {
@@ -40,7 +39,7 @@ namespace LEGUI
             {
                 var conf = configs[0];
 
-                if (!String.IsNullOrEmpty(conf.Parameter))
+                if (!string.IsNullOrEmpty(conf.Parameter))
                 {
                     tbAppParameter.FontStyle = FontStyles.Normal;
                     tbAppParameter.Text = conf.Parameter;
@@ -74,17 +73,17 @@ namespace LEGUI
         {
             try
             {
-                IShellLink link = (IShellLink)new ShellLink();
+                var link = (IShellLink)new ShellLink();
 
                 link.SetPath(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                                           "LEProc.exe"));
-                link.SetArguments(String.Format("-run \"{0}\"", path));
+                link.SetArguments($"-run \"{path}\"");
                 link.SetIconLocation(AssociationReader.GetAssociatedIcon(Path.GetExtension(path)).Replace("%1", path), 0);
 
-                link.SetDescription(string.Format("Run {0} with Locale Emulator", Path.GetFileName(path)));
+                link.SetDescription($"Run {Path.GetFileName(path)} with Locale Emulator");
                 link.SetWorkingDirectory(Path.GetDirectoryName(path));
 
-                IPersistFile file = (IPersistFile)link;
+                var file = (IPersistFile)link;
                 file.Save(
                           Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
                                        Path.GetFileNameWithoutExtension(path) + ".lnk"),
@@ -100,7 +99,7 @@ namespace LEGUI
         {
             //Run the application.
             Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEProc.exe"),
-                          string.Format("-run \"{0}\"", App.StandaloneFilePath.Replace(".le.config", "")));
+                          $"-run \"{App.StandaloneFilePath.Replace(".le.config", "")}\"");
 
             Application.Current.Shutdown();
         }

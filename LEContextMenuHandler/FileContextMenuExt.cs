@@ -66,7 +66,7 @@ namespace LEContextMenuHandler
                                                        true,
                                                        p.ShowInMainMenu,
                                                        _menuBmpPink,
-                                                       string.Format("-runas \"{0}\" \"%APP%\"", p.Guid))));
+                                                       $"-runas \"{p.Guid}\" \"%APP%\"")));
 
             //Config does not exist
             if (LEConfig.GetProfiles().Length == 0)
@@ -121,7 +121,7 @@ namespace LEContextMenuHandler
                 }
 
                 // Determine how many files are involved in this operation.
-                var nFiles = NativeMethods.DragQueryFile(hDrop, UInt32.MaxValue, null, 0);
+                var nFiles = NativeMethods.DragQueryFile(hDrop, uint.MaxValue, null, 0);
 
                 // This code sample displays the custom context menu item when only 
                 // one file is selected. 

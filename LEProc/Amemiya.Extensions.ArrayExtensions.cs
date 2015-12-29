@@ -102,7 +102,7 @@ namespace Amemiya.Extensions
                 return -1;
             }
 
-            for (var index = startAt; index <= (source.Length - arrayToFind.Length); ++index)
+            for (var index = startAt; index <= source.Length - arrayToFind.Length; ++index)
             {
                 if (EqualWith(Slice(source, index, arrayToFind.Length + index), arrayToFind))
                     return index;
