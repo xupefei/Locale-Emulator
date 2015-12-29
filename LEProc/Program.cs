@@ -129,7 +129,7 @@ namespace LEProc
 
         private static void RunWithDefaultProfile(string path)
         {
-            DoRunWithLEProfile(path, new LEProfile(true));
+            DoRunWithLEProfile(path, 1, new LEProfile(true));
         }
 
         private static void RunWithGlobalProfile(string guid, string path)
@@ -138,7 +138,7 @@ namespace LEProc
 
             var profile = LEConfig.GetProfiles().First(p => p.Guid == guid);
 
-            DoRunWithLEProfile(path, profile);
+            DoRunWithLEProfile(path, 3, profile);
         }
 
         private static void RunWithIndependentProfile(string path)
@@ -154,11 +154,11 @@ namespace LEProc
             else
             {
                 var profile = LEConfig.GetProfiles(conf)[0];
-                DoRunWithLEProfile(path, profile);
+                DoRunWithLEProfile(path, 2, profile);
             }
         }
 
-        private static void DoRunWithLEProfile(string path, LEProfile profile)
+        private static void DoRunWithLEProfile(string path, int argumentsStart, LEProfile profile)
         {
             try
             {
@@ -196,7 +196,10 @@ namespace LEProc
                                       ? string.Format("{0} ", path)
                                       : String.Format("\"{0}\" ", path);
 
-                    commandLine += profile.Parameter;
+                    // use arguments in le.config, prior to command line arguments
+                    commandLine += String.IsNullOrEmpty(profile.Parameter) && Args.Skip(argumentsStart).Any()
+                                       ? Args.Skip(argumentsStart).Aggregate((a, b) => $"{a} {b}")
+                                       : profile.Parameter;
                 }
                 else
                 {
