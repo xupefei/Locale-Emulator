@@ -1,4 +1,10 @@
-﻿V2.1.0.0:
+﻿V2.1.1.0:
+Add Italian translation (thanks to @JamesMaloney.)
+Check MS Gothic (ＭＳ ゴシック) font when starts.
+LEProc.exe now accept arguments: LEProc.exe your_app.exe "arg1" "arg2". You can also add arguments in desktop shortcuts.
+Fuck 2djgame.txt.
+
+V2.1.0.0:
 Disable automatic DPI scaling on LEProc.
 Speedup startup speed for LiveMaker games by 1000%.
 

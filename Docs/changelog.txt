@@ -1,4 +1,10 @@
-﻿V2.1.0.0:
+﻿V2.1.1.0:
+添加意大利语翻译（感谢 @JamesMaloney）。
+运行之前检查 MS Gothic （ＭＳ ゴシック）字体。
+LEProc.exe 接受附加参数。用法：LEProc.exe your_app.exe "arg1" "arg2"。你也可以把参数添加到桌面快捷方式里面。
+怒草 2djgame.txt。
+
+V2.1.0.0:
 禁止对 LEProc 的 DPI 缩放。
 加快 LiveMaker 游戏启动速度 1000%。
 
