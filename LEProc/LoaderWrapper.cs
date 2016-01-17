@@ -14,7 +14,7 @@ namespace LEProc
         private const uint CREATE_SUSPENDED = 0x00000004;
         private byte[] _defaultFaceName = new byte[64];
         private LEB _leb;
-        private RegistryRedirector _registry = new RegistryRedirector(0);
+        private LERegistryRedirector _registry = new LERegistryRedirector(0);
 
         internal LoaderWrapper()
             : this(null, null, null)
@@ -137,7 +137,7 @@ namespace LEProc
         internal int NumberOfRegistryRedirectionEntries
         {
             get { return _registry.NumberOfRegistryRedirectionEntries; }
-            set { _registry = new RegistryRedirector(value); }
+            set { _registry = new LERegistryRedirector(value); }
         }
 
         internal bool AddRegistryRedirectEntry(

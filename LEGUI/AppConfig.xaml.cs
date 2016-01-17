@@ -49,6 +49,7 @@ namespace LEGUI
 
                 cbStartAsAdmin.IsChecked = conf.RunAsAdmin;
                 cbRedirectRegistry.IsChecked = conf.RedirectRegistry;
+                cbIsAdvancedRedirection.IsChecked = conf.IsAdvancedRedirection;
                 cbStartAsSuspend.IsChecked = conf.RunWithSuspend;
             }
         }
@@ -63,6 +64,7 @@ namespace LEGUI
                                     _timezones[cbTimezone.SelectedIndex].Id,
                                     cbStartAsAdmin.IsChecked != null && (bool)cbStartAsAdmin.IsChecked,
                                     cbRedirectRegistry.IsChecked != null && (bool)cbRedirectRegistry.IsChecked,
+                                    cbIsAdvancedRedirection.IsChecked != null && (bool)cbIsAdvancedRedirection.IsChecked,
                                     cbStartAsSuspend.IsChecked != null && (bool)cbStartAsSuspend.IsChecked
                 );
 

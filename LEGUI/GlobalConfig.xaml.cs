@@ -47,6 +47,8 @@ namespace LEGUI
 
             crt.RunAsAdmin = cbStartAsAdmin.IsChecked != null && (bool)cbStartAsAdmin.IsChecked;
             crt.RedirectRegistry = cbRedirectRegistry.IsChecked != null && (bool)cbRedirectRegistry.IsChecked;
+            crt.IsAdvancedRedirection = cbIsAdvancedRedirection.IsChecked != null
+                                        && (bool)cbIsAdvancedRedirection.IsChecked;
             crt.RunWithSuspend = cbStartAsSuspend.IsChecked != null && (bool)cbStartAsSuspend.IsChecked;
 
             _profiles[cbGlobalProfiles.SelectedIndex] = crt;
@@ -72,6 +74,7 @@ namespace LEGUI
             cbShowInMainMenu.IsChecked = crt.ShowInMainMenu;
             cbStartAsAdmin.IsChecked = crt.RunAsAdmin;
             cbRedirectRegistry.IsChecked = crt.RedirectRegistry;
+            cbIsAdvancedRedirection.IsChecked = crt.IsAdvancedRedirection;
             cbStartAsSuspend.IsChecked = crt.RunWithSuspend;
         }
 
@@ -108,6 +111,7 @@ namespace LEGUI
                                     _timezones[cbTimezone.SelectedIndex].Id,
                                     cbStartAsAdmin.IsChecked != null && (bool)cbStartAsAdmin.IsChecked,
                                     cbRedirectRegistry.IsChecked != null && (bool)cbRedirectRegistry.IsChecked,
+                                    cbIsAdvancedRedirection.IsChecked != null && (bool)cbIsAdvancedRedirection.IsChecked,
                                     cbStartAsSuspend.IsChecked != null && (bool)cbStartAsSuspend.IsChecked);
 
             _profiles.Add(pro);

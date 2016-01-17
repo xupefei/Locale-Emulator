@@ -3,6 +3,7 @@
     public struct LEProfile
     {
         public string Guid;
+        public bool IsAdvancedRedirection;
         public string Location;
         public string Name;
         public string Parameter;
@@ -26,6 +27,7 @@
                 "Tokyo Standard Time",
                 false,
                 true,
+                false,
                 false)
         {
         }
@@ -41,6 +43,7 @@
                          string timezone,
                          bool runAsAdmin,
                          bool redirectRegistry,
+                         bool isAdvancedRedirection,
                          bool runWithSuspend)
         {
             Name = name;
@@ -51,6 +54,7 @@
             Timezone = timezone;
             RunAsAdmin = runAsAdmin;
             RedirectRegistry = redirectRegistry;
+            IsAdvancedRedirection = isAdvancedRedirection;
             RunWithSuspend = runWithSuspend;
         }
     }

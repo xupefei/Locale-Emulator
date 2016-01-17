@@ -226,8 +226,8 @@ namespace LEProc
                                                                            .TextInfo.ANSICodePage);
 
                 var registries = profile.RedirectRegistry
-                                     ? new LERegistry().GetRegistryEntries()
-                                     : new LERegistryEntry[0];
+                                     ? new RegistryEntriesLoader().GetRegistryEntries(profile.IsAdvancedRedirection)
+                                     : null;
 
                 var l = new LoaderWrapper
                         {
@@ -239,14 +239,18 @@ namespace LEProc
                             LocaleID = localeID,
                             DefaultCharset = defaultCharset,
                             Timezone = profile.Timezone,
-                            NumberOfRegistryRedirectionEntries = registries.Length,
+                            NumberOfRegistryRedirectionEntries = registries?.Length ?? 0,
                             DebugMode = debugMode
                         };
 
-                registries.ToList()
-                          .ForEach(
-                                   item =>
-                                   l.AddRegistryRedirectEntry(item.Root, item.Key, item.Name, item.Type, item.Data));
+                registries?.ToList()
+                           .ForEach(
+                                    item =>
+                                    l.AddRegistryRedirectEntry(item.Root,
+                                                               item.Key,
+                                                               item.Name,
+                                                               item.Type,
+                                                               item.GetValue(CultureInfo.GetCultureInfo(profile.Location))));
 
                 uint ret;
                 if ((ret = l.Start()) != 0)

@@ -12,7 +12,7 @@ using Amemiya.Extensions;
 
 namespace LEProc
 {
-    internal class RegistryRedirector
+    internal class LERegistryRedirector
     {
         /// <summary>
         ///     Registry Root flags
@@ -48,7 +48,7 @@ namespace LEProc
         ///     Initialize
         /// </summary>
         /// <param name="count">Sum of registry entries</param>
-        internal RegistryRedirector(int count)
+        internal LERegistryRedirector(int count)
         {
             NumberOfRegistryRedirectionEntries = count;
 

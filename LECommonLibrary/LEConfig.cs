@@ -47,6 +47,7 @@ namespace LECommonLibrary
                                                    p.Element("Timezone").Value,
                                                    bool.Parse(p.TryGetValue("RunAsAdmin", "false")),
                                                    bool.Parse(p.TryGetValue("RedirectRegistry", "true")),
+                                                   bool.Parse(p.TryGetValue("IsAdvancedRedirection", "false")),
                                                    bool.Parse(p.TryGetValue("RunWithSuspend", "false"))
                                          )
                         ).ToArray();
@@ -89,6 +90,7 @@ namespace LECommonLibrary
                                                     "Tokyo Standard Time",
                                                     false,
                                                     true,
+                                                    false,
                                                     false
                                           ),
                                       new LEProfile("Run in Japanese (Admin)",
@@ -99,6 +101,7 @@ namespace LECommonLibrary
                                                     "Tokyo Standard Time",
                                                     true,
                                                     true,
+                                                    false,
                                                     false
                                           )
                                   };
@@ -131,6 +134,7 @@ namespace LECommonLibrary
                                           new XElement("Timezone", pro.Timezone),
                                           new XElement("RunAsAdmin", pro.RunAsAdmin),
                                           new XElement("RedirectRegistry", pro.RedirectRegistry),
+                                          new XElement("IsAdvancedRedirection", pro.IsAdvancedRedirection),
                                           new XElement("RunWithSuspend", pro.RunWithSuspend)
                                  )
                     );

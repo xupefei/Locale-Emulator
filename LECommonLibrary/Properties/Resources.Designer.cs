@@ -59,25 +59,5 @@ namespace LECommonLibrary.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///&lt;LERegistry&gt;
-        ///  &lt;Entries&gt;
-        ///    &lt;Entry Root=&quot;HKEY_LOCAL_MACHINE&quot; Key=&quot;System\CurrentControlSet\Control\Nls\CodePage&quot; Name=&quot;ACP&quot; Type=&quot;REG_SZ&quot;&gt;
-        ///      &lt;Data&gt;932&lt;/Data&gt;
-        ///    &lt;/Entry&gt;
-        ///    &lt;Entry Root=&quot;HKEY_LOCAL_MACHINE&quot; Key=&quot;System\CurrentControlSet\Control\Nls\CodePage&quot; Name=&quot;OEMCP&quot; Type=&quot;REG_SZ&quot;&gt;
-        ///      &lt;Data&gt;932&lt;/Data&gt;
-        ///    &lt;/Entry&gt;
-        ///    &lt;Entry Root=&quot;HKEY_LOCAL_MACHINE&quot; Key=&quot;System\CurrentControlSet\Control\Nls\Language&quot; Name=&quot;Default&quot; Type=&quot;REG_SZ&quot;&gt;
-        ///      &lt;Data&gt;1041&lt;/Data&gt;
-        ///  [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string LERegistry {
-            get {
-                return ResourceManager.GetString("LERegistry", resourceCulture);
-            }
-        }
     }
 }
