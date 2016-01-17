@@ -16,7 +16,8 @@
     <system:String x:Key="Timezone">시간대</system:String>
     <system:String x:Key="DebugOptions">고급사용자 옵션</system:String>
     <system:String x:Key="AsAdmin">관리자 권한으로 실행</system:String>
-    <system:String x:Key="RedirectRegistry">레지스트리 리다이렉션을 적용</system:String>
+    <system:String x:Key="RedirectRegistry">단조 레지스트리</system:String>
+    <system:String x:Key="IsAdvancedRedirection">위조 시스템 UI 언어</system:String>
     <system:String x:Key="WithCREATESUSPENDED">CREATE__SUSPENDED로 프로세스를 실행</system:String>
     <system:String x:Key="Miscellaneous">기타</system:String>
     <system:String x:Key="ShowInMainMenu">메인 메뉴에 이 프로필을 보이기</system:String>

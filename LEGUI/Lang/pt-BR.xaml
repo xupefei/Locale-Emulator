@@ -16,7 +16,8 @@
     <system:String x:Key="Timezone">Fuso horário</system:String>
     <system:String x:Key="DebugOptions">Advanced Options</system:String>
     <system:String x:Key="AsAdmin">Executar como administrador</system:String>
-    <system:String x:Key="RedirectRegistry">Aplicar redirecionamento do registro</system:String>
+    <system:String x:Key="RedirectRegistry">Registro falso</system:String>
+    <system:String x:Key="IsAdvancedRedirection">Interface em falso</system:String>
     <system:String x:Key="WithCREATESUSPENDED">Criar processo com CREATE__SUSPENDED</system:String>
     <system:String x:Key="Miscellaneous">Miscelânea</system:String>
     <system:String x:Key="ShowInMainMenu">Exibir este perfil no menu principal</system:String>

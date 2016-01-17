@@ -16,7 +16,8 @@
     <system:String x:Key="Timezone">Временная зона</system:String>
     <system:String x:Key="DebugOptions">Дополнительные настройки</system:String>
     <system:String x:Key="AsAdmin">Запуск от имени администратора</system:String>
-    <system:String x:Key="RedirectRegistry">Включить переадресацию реестра</system:String>
+    <system:String x:Key="RedirectRegistry">Поддельные реестра</system:String>
+    <system:String x:Key="IsAdvancedRedirection">Поддельные язык интерфейса</system:String>
     <system:String x:Key="WithCREATESUSPENDED">Создать процесс с CREATE__SUSPENDED</system:String>
     <system:String x:Key="Miscellaneous">Разное</system:String>
     <system:String x:Key="ShowInMainMenu">Показать этот профиль в главном меню</system:String>
