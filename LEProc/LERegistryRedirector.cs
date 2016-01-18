@@ -66,7 +66,7 @@ namespace LEProc
         internal byte[] GetBinaryData()
         {
             // Write amount of REGISTRY_REDIRECTION_ENTRY64s
-            var result = BitConverter.GetBytes(NumberOfRegistryRedirectionEntries);
+            var result = BitConverter.GetBytes((ulong)NumberOfRegistryRedirectionEntries);
 
             // Write REGISTRY_REDIRECTION_ENTRY64s
             var entrys =
@@ -153,7 +153,8 @@ namespace LEProc
         {
             offset = Marshal.SizeOf(new LoaderWrapper.LEB())
                      + NumberOfRegistryRedirectionEntries * Marshal.SizeOf(new REGISTRY_REDIRECTION_ENTRY64())
-                     + _objectData.Count + sizeof (int);
+                     + _objectData.Count 
+                     + sizeof (ulong) /*Size of NumberOfRegistryRedirectionEntries*/;
 
             switch (type)
             {

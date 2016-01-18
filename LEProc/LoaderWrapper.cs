@@ -38,6 +38,7 @@ namespace LEProc
                        OemCodePage = 932,
                        LocaleID = 0x411,
                        DefaultCharset = 128,
+                       HookUILanguageAPI = 0,
                        // As we have abandoned the "default font" parameter,
                        // we decide to put here some empty bytes.
                        DefaultFaceName = new byte[64]
@@ -99,6 +100,15 @@ namespace LEProc
         {
             get { return _leb.DefaultCharset; }
             set { _leb.DefaultCharset = value; }
+        }
+
+        /// <summary>
+        ///     Should we hook UI-related API? Default value is 0.
+        /// </summary>
+        internal uint HookUILanguageAPI
+        {
+            get { return _leb.HookUILanguageAPI; }
+            set { _leb.HookUILanguageAPI = value; }
         }
 
         /// <summary>
@@ -255,6 +265,7 @@ namespace LEProc
             internal uint OemCodePage;
             internal uint LocaleID;
             internal uint DefaultCharset;
+            internal uint HookUILanguageAPI;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 64)] internal byte[] DefaultFaceName;
             internal RTL_TIME_ZONE_INFORMATION Timezone;
         }

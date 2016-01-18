@@ -217,7 +217,6 @@ namespace LEProc
                 }
 
                 var currentDirectory = Path.GetDirectoryName(path);
-                var debugMode = profile.RunWithSuspend;
                 var ansiCodePage = (uint)CultureInfo.GetCultureInfo(profile.Location).TextInfo.ANSICodePage;
                 var oemCodePage = (uint)CultureInfo.GetCultureInfo(profile.Location).TextInfo.OEMCodePage;
                 var localeID = (uint)CultureInfo.GetCultureInfo(profile.Location).TextInfo.LCID;
@@ -238,10 +237,11 @@ namespace LEProc
                             OemCodePage = oemCodePage,
                             LocaleID = localeID,
                             DefaultCharset = defaultCharset,
+                            HookUILanguageAPI = profile.IsAdvancedRedirection ? (uint)1 : 0,
                             Timezone = profile.Timezone,
                             NumberOfRegistryRedirectionEntries = registries?.Length ?? 0,
-                            DebugMode = debugMode
-                        };
+                            DebugMode = profile.RunWithSuspend
+                };
 
                 registries?.ToList()
                            .ForEach(
