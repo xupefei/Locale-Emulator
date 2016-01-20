@@ -42,12 +42,15 @@ namespace LEContextMenuHandler
             XDocument dictionary = null;
             try
             {
-                var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                var langDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Lang\");
 
-                path = Path.Combine(path, @"Lang\" + CurrentCultureInfo.Name + ".xml");
+                var firstLangPath = Path.Combine(langDir,CurrentCultureInfo.Name + ".xml");
+                var fallbackLangPath = Path.Combine(langDir,
+                                                    $@"{(CurrentCultureInfo.Name.Contains("-")
+                                                             ? CurrentCultureInfo.Name.Split('-')[0]
+                                                             : CurrentCultureInfo.Name)}.xml");
 
-                dictionary =
-                    XDocument.Load(path);
+                dictionary = XDocument.Load(File.Exists(firstLangPath) ? firstLangPath : fallbackLangPath);
             }
             catch
             {

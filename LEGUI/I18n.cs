@@ -10,7 +10,7 @@ namespace LEGUI
     internal class I18n
     {
         internal static readonly CultureInfo CurrentCultureInfo = CultureInfo.CurrentUICulture;
-        //internal static readonly CultureInfo CurrentCultureInfo = CultureInfo.GetCultureInfo("fr-FR");
+        //internal static readonly CultureInfo CurrentCultureInfo = CultureInfo.GetCultureInfo("zh-CN");
 
         private static ResourceDictionary cacheDictionary;
 
@@ -40,13 +40,24 @@ namespace LEGUI
             ResourceDictionary dictionary = null;
             try
             {
-                Application.Current.Resources.MergedDictionaries
-                           .Insert(0,
-                                   XamlReader.Load(
-                                                   new FileStream(
-                                                       Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
-                                                       + @"\Lang\" + CurrentCultureInfo.Name + ".xaml",
-                                                       FileMode.Open)) as ResourceDictionary);
+                var langDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Lang\");
+
+                var firstLangPath = Path.Combine(langDir, CurrentCultureInfo.Name + ".xaml");
+                var fallbackLangPath = Path.Combine(langDir,
+                                                    $@"{(CurrentCultureInfo.Name.Contains("-")
+                                                             ? CurrentCultureInfo.Name.Split('-')[0]
+                                                             : CurrentCultureInfo.Name)}.xaml");
+
+                if (File.Exists(firstLangPath))
+                    Application.Current.Resources.MergedDictionaries
+                               .Insert(0,
+                                       XamlReader.Load(new FileStream(firstLangPath, FileMode.Open))
+                                       as ResourceDictionary);
+                else
+                    Application.Current.Resources.MergedDictionaries
+                               .Insert(0,
+                                       XamlReader.Load(new FileStream(fallbackLangPath, FileMode.Open))
+                                       as ResourceDictionary);
             }
             catch
             {
