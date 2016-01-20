@@ -44,9 +44,7 @@ namespace LEGUI
 
                 var firstLangPath = Path.Combine(langDir, CurrentCultureInfo.Name + ".xaml");
                 var fallbackLangPath = Path.Combine(langDir,
-                                                    $@"{(CurrentCultureInfo.Name.Contains("-")
-                                                             ? CurrentCultureInfo.Name.Split('-')[0]
-                                                             : CurrentCultureInfo.Name)}.xaml");
+                                                    $@"{CurrentCultureInfo.TwoLetterISOLanguageName}.xaml");
 
                 if (File.Exists(firstLangPath))
                     Application.Current.Resources.MergedDictionaries

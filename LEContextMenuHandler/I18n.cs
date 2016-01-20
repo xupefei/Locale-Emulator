@@ -46,9 +46,7 @@ namespace LEContextMenuHandler
 
                 var firstLangPath = Path.Combine(langDir,CurrentCultureInfo.Name + ".xml");
                 var fallbackLangPath = Path.Combine(langDir,
-                                                    $@"{(CurrentCultureInfo.Name.Contains("-")
-                                                             ? CurrentCultureInfo.Name.Split('-')[0]
-                                                             : CurrentCultureInfo.Name)}.xml");
+                                                    $@"{CurrentCultureInfo.TwoLetterISOLanguageName}.xml");
 
                 dictionary = XDocument.Load(File.Exists(firstLangPath) ? firstLangPath : fallbackLangPath);
             }
