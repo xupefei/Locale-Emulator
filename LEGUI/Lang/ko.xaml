@@ -6,7 +6,7 @@
     <system:String x:Key="Save">저장</system:String>
     <system:String x:Key="Shortcut">바로가기 생성</system:String>
     <system:String x:Key="Cancel">취소</system:String>
-    <system:String x:Key="SaveAs">다른이름으로 저장</system:String>
+    <system:String x:Key="SaveAs">새 프로필로 저장</system:String>
     <system:String x:Key="SaveAsInstruction">새 프로필 이름:</system:String>
     <system:String x:Key="Delete">삭제</system:String>
     <system:String x:Key="ConfirmDel">이 프로필을 정말로 삭제 하시겠습니까?</system:String>
