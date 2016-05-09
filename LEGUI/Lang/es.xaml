@@ -6,7 +6,7 @@
     <system:String x:Key="Save">Guardar</system:String>
     <system:String x:Key="Shortcut">Crear acceso directo</system:String>
     <system:String x:Key="Cancel">Cancelar</system:String>
-    <system:String x:Key="SaveAs">Guardar como...</system:String>
+    <system:String x:Key="SaveAs">Guardar como ...</system:String>
     <system:String x:Key="SaveAsInstruction">Nombre del nuevo perfil:</system:String>
     <system:String x:Key="Delete">Eliminar</system:String>
     <system:String x:Key="ConfirmDel">¿Está seguro de que quiere eliminar este perfil?</system:String>

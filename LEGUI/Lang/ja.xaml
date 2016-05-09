@@ -6,7 +6,7 @@
     <system:String x:Key="Save">保存</system:String>
     <system:String x:Key="Shortcut">ショットカット</system:String>
     <system:String x:Key="Cancel">キャンセル</system:String>
-    <system:String x:Key="SaveAs">名前を付けて保存</system:String>
+    <system:String x:Key="SaveAs">名前を付けて保存 ...</system:String>
     <system:String x:Key="SaveAsInstruction">新しいプロファイルの名前を設定</system:String>
     <system:String x:Key="Delete">削除</system:String>
     <system:String x:Key="ConfirmDel">プロファイルを削除しますか？</system:String>

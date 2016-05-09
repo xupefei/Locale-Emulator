@@ -6,10 +6,10 @@
     <system:String x:Key="Save">Enregistrer</system:String>
     <system:String x:Key="Shortcut">Créer un raccourci</system:String>
     <system:String x:Key="Cancel">Annuler</system:String>
-    <system:String x:Key="SaveAs">Enregistrer sous...</system:String>
-    <system:String x:Key="SaveAsInstruction">Nom du nouveau profil :</system:String>
+    <system:String x:Key="SaveAs">Enregistrer sous ...</system:String>
+    <system:String x:Key="SaveAsInstruction">Nom du nouveau profil:</system:String>
     <system:String x:Key="Delete">Supprimer</system:String>
-    <system:String x:Key="ConfirmDel">Voulez-vous vraiment supprimer ce profil ?</system:String>
+    <system:String x:Key="ConfirmDel">Voulez-vous vraiment supprimer ce profil?</system:String>
     <system:String x:Key="Location">Localisation</system:String>
     <system:String x:Key="LocationSettings">Paramètres de localisation</system:String>
     <system:String x:Key="TimezoneSettings">Paramètres du fuseau horaire</system:String>

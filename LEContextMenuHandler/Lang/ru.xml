@@ -2,7 +2,7 @@
 
 <Strings>
   <RunDefault>Запустить с профилем приложения</RunDefault>
-  <Submenu>Эмулятор локали</Submenu>
+  <Submenu>Locale Emulator</Submenu>
   <ManageApp>Изменить профиль приложения</ManageApp>
   <ManageAll>Изменить общий список профилей</ManageAll>
 </Strings>
