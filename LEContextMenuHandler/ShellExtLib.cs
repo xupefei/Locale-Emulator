@@ -97,7 +97,7 @@ namespace LEContextMenuHandler
             // is linked.
             if (fileType.StartsWith("."))
             {
-                using (var key = Registry.ClassesRoot.OpenSubKey(fileType))
+                using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Classes\" + fileType))
                 {
                     if (key != null)
                     {
@@ -113,8 +113,8 @@ namespace LEContextMenuHandler
             }
 
             // Create the key HKCR\<File Type>\shellex\ContextMenuHandlers\{<CLSID>}.
-            var keyName = $@"{fileType}\shellex\ContextMenuHandlers\{clsid.ToString("B")}";
-            using (var key = Registry.ClassesRoot.CreateSubKey(keyName))
+            var keyName = $@"Software\Classes\{fileType}\shellex\ContextMenuHandlers\{clsid.ToString("B")}";
+            using (var key = Registry.CurrentUser.CreateSubKey(keyName))
             {
                 // Set the default value of the key.
                 if (key != null && !string.IsNullOrEmpty(friendlyName))
@@ -150,7 +150,7 @@ namespace LEContextMenuHandler
             // is linked.
             if (fileType.StartsWith("."))
             {
-                using (var key = Registry.ClassesRoot.OpenSubKey(fileType))
+                using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Classes\" + fileType))
                 {
                     if (key != null)
                     {
@@ -166,8 +166,8 @@ namespace LEContextMenuHandler
             }
 
             // Remove the key HKCR\<File Type>\shellex\ContextMenuHandlers\{<CLSID>}.
-            var keyName = $@"{fileType}\shellex\ContextMenuHandlers\{clsid.ToString("B")}";
-            Registry.ClassesRoot.DeleteSubKeyTree(keyName);
+            var keyName = $@"Software\Classes\{fileType}\shellex\ContextMenuHandlers\{clsid.ToString("B")}";
+            Registry.CurrentUser.DeleteSubKeyTree(keyName);
         }
     }
 
