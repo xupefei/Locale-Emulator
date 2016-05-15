@@ -173,4 +173,9 @@
         Lnq/TEMN4NQ6L0VY59QcAXPTeMF5YHbuAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>When you clicking any button above, a restart of Windows File Explorer is required. This action will be done automatically by this Installer. SAVE YOUR WORK.
+
+NOTE: Starting from this version, LEInstaller no longer requires admin privilege. If you have one of previous version installed, please uninstall it before installing this version.</value>
+  </data>
 </root>

@@ -52,8 +52,8 @@ namespace LEContextMenuHandler
             //Load the bitmap for the menu item.
             _menuBmpPink = is4K ? Resource.purple_200.GetHbitmap() : Resource.purple.GetHbitmap();
             _menuBmpGray = is4K ? Resource.gray_200.GetHbitmap() : Resource.gray.GetHbitmap();
-            _menuBmpBlue = is4K ? Resource.gray_200.GetHbitmap() : Resource.blue.GetHbitmap();
-            _menuBmpYellow = is4K ? Resource.gray_200.GetHbitmap() : Resource.yellow.GetHbitmap();
+            _menuBmpBlue = is4K ? Resource.blue_200.GetHbitmap() : Resource.blue.GetHbitmap();
+            _menuBmpYellow = is4K ? Resource.yellow_200.GetHbitmap() : Resource.yellow.GetHbitmap();
 
             //Load default items.
             menuItems.Add(new LEMenuItem(I18n.GetString("Submenu"), true, null, _menuBmpYellow, ""));

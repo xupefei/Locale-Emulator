@@ -39,10 +39,10 @@
             // buttonInstall
             // 
             this.buttonInstall.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonInstall.Location = new System.Drawing.Point(13, 15);
-            this.buttonInstall.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonInstall.Location = new System.Drawing.Point(20, 23);
+            this.buttonInstall.Margin = new System.Windows.Forms.Padding(6);
             this.buttonInstall.Name = "buttonInstall";
-            this.buttonInstall.Size = new System.Drawing.Size(226, 69);
+            this.buttonInstall.Size = new System.Drawing.Size(339, 108);
             this.buttonInstall.TabIndex = 0;
             this.buttonInstall.Text = "Install / Upgrade";
             this.buttonInstall.UseVisualStyleBackColor = true;
@@ -50,10 +50,10 @@
             // 
             // buttonUninstall
             // 
-            this.buttonUninstall.Location = new System.Drawing.Point(275, 15);
-            this.buttonUninstall.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonUninstall.Location = new System.Drawing.Point(412, 23);
+            this.buttonUninstall.Margin = new System.Windows.Forms.Padding(6);
             this.buttonUninstall.Name = "buttonUninstall";
-            this.buttonUninstall.Size = new System.Drawing.Size(226, 69);
+            this.buttonUninstall.Size = new System.Drawing.Size(339, 108);
             this.buttonUninstall.TabIndex = 1;
             this.buttonUninstall.Text = "Uninstall";
             this.buttonUninstall.UseVisualStyleBackColor = true;
@@ -62,33 +62,34 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(16, 106);
+            this.pictureBox1.Location = new System.Drawing.Point(24, 166);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.Size = new System.Drawing.Size(24, 25);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(39, 100);
+            this.label1.Location = new System.Drawing.Point(58, 156);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(463, 65);
+            this.label1.Size = new System.Drawing.Size(694, 191);
             this.label1.TabIndex = 3;
-            this.label1.Text = "When you clicking any button above, a restart of Windows File Explorer is require" +
-    "d. This action will be done automatically by this Installer. Save your work.";
+            this.label1.Text = resources.GetString("label1.Text");
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(514, 174);
+            this.ClientSize = new System.Drawing.Size(771, 356);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.buttonUninstall);
             this.Controls.Add(this.buttonInstall);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
