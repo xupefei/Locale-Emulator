@@ -110,14 +110,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LoaderDll.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="LocaleEmulator.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\LECommonLibrary\LECommonLibrary.csproj">
       <Project>{c4def32b-8fbb-41b6-80dc-c60339402323}</Project>
       <Name>LECommonLibrary</Name>
