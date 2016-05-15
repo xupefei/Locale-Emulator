@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -44,10 +45,30 @@ namespace LECommonLibrary
             return path.Replace(system, systemWow64);
         }
 
+        public static bool Is4KDisplay()
+        {
+            Graphics g = Graphics.FromHwnd(IntPtr.Zero);
+            IntPtr desktop = g.GetHdc();
+
+            // 10 = VERTRES
+            // 90 = LOGPIXELSY
+            // 117 = DESKTOPVERTRES
+            int logicDpi = GetDeviceCaps(desktop, 10);
+            int logY = GetDeviceCaps(desktop, 90);
+            int realDpi = GetDeviceCaps(desktop, 117);
+
+            g.ReleaseHdc();
+
+            return (realDpi/logicDpi == 2) || (logY/96 == 2);
+        }
+
         public static void DisableDPIScale()
         {
             SetProcessDPIAware();
         }
+
+        [DllImport("gdi32.dll")]
+        public static extern int GetDeviceCaps(IntPtr hDC, int nIndex);
 
         [DllImport("user32.dll")]
         private static extern bool SetProcessDPIAware();

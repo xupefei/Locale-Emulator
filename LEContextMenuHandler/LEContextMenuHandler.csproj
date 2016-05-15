@@ -80,9 +80,13 @@
     <None Include="key.snk" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Blue%40200.bmp" />
     <Content Include="Resources\blue.bmp" />
+    <None Include="Resources\Gray%40200.bmp" />
     <Content Include="Resources\gray.bmp" />
+    <None Include="Resources\purple%40200.bmp" />
     <Content Include="Resources\purple.bmp" />
+    <None Include="Resources\yellow%40200.bmp" />
     <Content Include="Resources\yellow.bmp" />
     <None Include="Lang\DefaultLanguage.xml">
       <SubType>Designer</SubType>

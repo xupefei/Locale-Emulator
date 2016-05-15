@@ -47,11 +47,13 @@ namespace LEContextMenuHandler
 
         public FileContextMenuExt()
         {
+            var is4K = SystemHelper.Is4KDisplay();
+
             //Load the bitmap for the menu item.
-            _menuBmpPink = Resource.purple.GetHbitmap();
-            _menuBmpGray = Resource.gray.GetHbitmap();
-            _menuBmpBlue = Resource.blue.GetHbitmap();
-            _menuBmpYellow = Resource.yellow.GetHbitmap();
+            _menuBmpPink = is4K ? Resource.purple_200.GetHbitmap() : Resource.purple.GetHbitmap();
+            _menuBmpGray = is4K ? Resource.gray_200.GetHbitmap() : Resource.gray.GetHbitmap();
+            _menuBmpBlue = is4K ? Resource.gray_200.GetHbitmap() : Resource.blue.GetHbitmap();
+            _menuBmpYellow = is4K ? Resource.gray_200.GetHbitmap() : Resource.yellow.GetHbitmap();
 
             //Load default items.
             menuItems.Add(new LEMenuItem(I18n.GetString("Submenu"), true, null, _menuBmpYellow, ""));
