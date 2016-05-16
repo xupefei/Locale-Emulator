@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
-using LECommonLibrary;
 
-namespace LEProc.RegistryEntries.HKCR.Control_Panel.International
+namespace LEProc.RegistryEntries.HKCU.Control_Panel.International
 {
     class Locale : IRegistryEntry
     {

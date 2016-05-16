@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
-using LECommonLibrary;
 
-namespace LEProc.RegistryEntries.HKCR.Control_Panel.Desktop
+namespace LEProc.RegistryEntries.HKCU.Control_Panel.Desktop
 {
     class PreferredUILanguages : IRegistryEntry
     {
