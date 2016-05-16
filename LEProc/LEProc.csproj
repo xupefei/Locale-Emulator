@@ -78,10 +78,10 @@
     <Compile Include="LoaderWrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistryEntries\HKCR\Control Panel\Desktop\MuiCached\MachinePreferredUILanguages.cs" />
-    <Compile Include="RegistryEntries\HKCR\Control Panel\Desktop\PreferredUILanguages.cs" />
-    <Compile Include="RegistryEntries\HKCR\Control Panel\International\Locale.cs" />
-    <Compile Include="RegistryEntries\HKCR\Control Panel\International\LocaleName.cs" />
+    <Compile Include="RegistryEntries\HKCU\Control Panel\Desktop\MuiCached\MachinePreferredUILanguages.cs" />
+    <Compile Include="RegistryEntries\HKCU\Control Panel\Desktop\PreferredUILanguages.cs" />
+    <Compile Include="RegistryEntries\HKCU\Control Panel\International\Locale.cs" />
+    <Compile Include="RegistryEntries\HKCU\Control Panel\International\LocaleName.cs" />
     <Compile Include="RegistryEntries\HKLM\System\CurrentControlSet\Control\Nls\Codepage\OEMCP.cs" />
     <Compile Include="RegistryEntries\HKLM\System\CurrentControlSet\Control\Nls\Codepage\ACP.cs" />
     <Compile Include="RegistryEntries\HKLM\System\CurrentControlSet\Control\Nls\Language\InstallLanguage.cs" />
