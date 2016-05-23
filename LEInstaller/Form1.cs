@@ -43,9 +43,9 @@ namespace LEInstaller
             IndicateBusy(true);
 
             MessageBox.Show("Install finished. Right click any executable and enjoy :)",
-                            "LE Context Menu Installer",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                "LE Context Menu Installer",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
@@ -89,13 +89,13 @@ namespace LEInstaller
             }*/
 
             StartExplorer();
-            
+
             IndicateBusy(true);
 
             MessageBox.Show("Uninstall finished. Thanks for using Locale Emulator :)",
-                            "LE Context Menu Installer",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                "LE Context Menu Installer",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -128,7 +128,8 @@ namespace LEInstaller
                 OverrideHKCR();
 
                 var rs = new RegistrationServices();
-                rs.RegisterAssembly(Assembly.LoadFrom(Path.Combine(crtDir, @"LEContextMenuHandler.dll")), AssemblyRegistrationFlags.SetCodeBase);
+                rs.RegisterAssembly(Assembly.LoadFrom(Path.Combine(crtDir, @"LEContextMenuHandler.dll")),
+                    AssemblyRegistrationFlags.SetCodeBase);
 
                 OverrideHKCR(true);
             }
@@ -159,12 +160,12 @@ namespace LEInstaller
         {
             UIntPtr HKEY_CLASSES_ROOT = Is64BitOS() ? new UIntPtr(0xFFFFFFFF80000000) : new UIntPtr(0x80000000);
             UIntPtr HKEY_CURRENT_USER = Is64BitOS() ? new UIntPtr(0xFFFFFFFF80000001) : new UIntPtr(0x80000001);
-            
+
             // 0xF003F = KEY_ALL_ACCESS
             UIntPtr key = UIntPtr.Zero;
 
             RegOpenKeyEx(HKEY_CURRENT_USER, @"Software\Classes", 0, 0xF003F, out key);
-            RegOverridePredefKey(HKEY_CLASSES_ROOT, restore?UIntPtr.Zero:key);
+            RegOverridePredefKey(HKEY_CLASSES_ROOT, restore ? UIntPtr.Zero : key);
         }
 
         private bool ReplaceDll(bool overwrite)
@@ -179,7 +180,7 @@ namespace LEInstaller
                 if (!File.Exists(dllPath2))
                     File.WriteAllBytes(dllPath1, Resources.LECommonLibrary);
 
-                    return true;
+                return true;
             }
 
             try
@@ -207,14 +208,18 @@ namespace LEInstaller
             {
                 var ptr = FindWindow("Shell_TrayWnd", null);
 
-                PostMessage(ptr, WM_USER + 436, (IntPtr)0, (IntPtr)0);
+                PostMessage(ptr, WM_USER + 436, (IntPtr) 0, (IntPtr) 0);
 
-                // wait until exit
+                int totalWaitTime = 0;
+
                 while (ptr.ToInt32() != 0)
                 {
-                    Thread.Sleep(1000);
+                    if (totalWaitTime > 10000)
+                        throw new TimeoutException(
+                            "Restarting explorer.exe failed. Please perform a restart manually.");
 
-                    ptr = FindWindow("Shell_TrayWnd", null);
+                    Thread.Sleep(1000);
+                    totalWaitTime += 1000;
                 }
             }
             catch (Exception e)
@@ -244,7 +249,7 @@ namespace LEInstaller
                 throw;
             }
         }
-        
+
         // We should not use the LECommonLibrary.
         private static string GetLEVersion()
         {
@@ -252,7 +257,7 @@ namespace LEInstaller
             {
                 var versionPath =
                     Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                 "LEVersion.xml");
+                        "LEVersion.xml");
 
                 var doc = XDocument.Load(versionPath);
 
@@ -304,7 +309,8 @@ namespace LEInstaller
         private static extern bool IsWow64Process(UIntPtr hProcess, out bool wow64Process);
 
         [DllImport("advapi32.dll", CharSet = CharSet.Unicode)]
-        private static extern int RegOpenKeyEx(UIntPtr hKey, string subKey, int ulOptions, uint samDesired, out UIntPtr hkResult);
+        private static extern int RegOpenKeyEx(UIntPtr hKey, string subKey, int ulOptions, uint samDesired,
+            out UIntPtr hkResult);
 
         [DllImport("advapi32.dll", SetLastError = true)]
         private static extern int RegOverridePredefKey(UIntPtr hKey, UIntPtr hNewKey);
@@ -323,9 +329,9 @@ namespace LEInstaller
             if (Environment.OSVersion.Version.CompareTo(new Version(6, 0)) <= 0)
             {
                 MessageBox.Show("Sorry, Locale Emulator is only for Windows 7, 8/8.1 and 10.",
-                                "OS Outdated",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                    "OS Outdated",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
 
                 Environment.Exit(0);
             }
@@ -333,18 +339,18 @@ namespace LEInstaller
             if (!File.Exists(Path.Combine(Environment.SystemDirectory + @"\..\Fonts\msgothic.ttc")))
             {
                 if (MessageBox.Show(
-                                    "Japanese font \"MS Gothic\" (\"ＭＳ ゴシック\") font is not found on\r\n" +
-                                    "your system. If you use LE on Japanese applications, you may consider \r\n" +
-                                    "installing \"Japanese Supplemental Fonts\" package.\r\n" +
-                                    "\r\n" +
-                                    "Do you want to read the installation guide?",
-                                    "Font missing warning",
-                                    MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    "Japanese font \"MS Gothic\" (\"ＭＳ ゴシック\") font is not found on\r\n" +
+                    "your system. If you use LE on Japanese applications, you may consider \r\n" +
+                    "installing \"Japanese Supplemental Fonts\" package.\r\n" +
+                    "\r\n" +
+                    "Do you want to read the installation guide?",
+                    "Font missing warning",
+                    MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     Process.Start("http://www.tenforums.com/tutorials/7565-optional-features-manage-windows-10-a.html");
                 }
             }
-            
+
             Text += " - V" + GetLEVersion();
         }
     }
