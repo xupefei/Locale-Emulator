@@ -64,6 +64,8 @@ namespace LEUpdater
                                               $"New Version {version} Available (Current: {GlobalHelper.GetLEVersion()})",
                                               $"{note}\r\n" + "\r\n" + "Click here to open download page.",
                                               ToolTipIcon.Info);
+
+                    notifyIcon.Text = $"New Version {version} Available.";
                 }
                 catch (Exception)
                 {
