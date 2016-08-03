@@ -24,8 +24,8 @@ namespace LEProc
             try
             {
                 Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                           "LEUpdater.exe"),
-                              "schedule");
+                    "LEUpdater.exe"),
+                    "schedule");
             }
             catch
             {
@@ -34,16 +34,16 @@ namespace LEProc
             if (!GlobalHelper.CheckCoreDLLs())
             {
                 MessageBox.Show(
-                                "Some of the core Dlls are missing.\r\n" +
-                                "Please whitelist these Dlls in your antivirus software, then download and re-install LE.\r\n"
-                                +
-                                "\r\n" +
-                                "These Dlls are:\r\n" +
-                                "LoaderDll.dll\r\n" +
-                                "LocaleEmulator.dll",
-                                "Locale Emulator Version " + GlobalHelper.GetLEVersion(),
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                    "Some of the core Dlls are missing.\r\n" +
+                    "Please whitelist these Dlls in your antivirus software, then download and re-install LE.\r\n"
+                    +
+                    "\r\n" +
+                    "These Dlls are:\r\n" +
+                    "LoaderDll.dll\r\n" +
+                    "LocaleEmulator.dll",
+                    "Locale Emulator Version " + GlobalHelper.GetLEVersion(),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
 
                 return;
             }
@@ -51,39 +51,39 @@ namespace LEProc
             if (!File.Exists(LEConfig.GlobalConfigPath))
             {
                 MessageBox.Show(
-                                "\"LEConfig.xml\" not found. \r\n" +
-                                "Please run \"LEGUI.exe\" once to let it generate one for you.",
-                                "Locale Emulator Version " + GlobalHelper.GetLEVersion(),
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
+                    "\"LEConfig.xml\" not found. \r\n" +
+                    "Please run \"LEGUI.exe\" once to let it generate one for you.",
+                    "Locale Emulator Version " + GlobalHelper.GetLEVersion(),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
 
             if (args.Length == 0)
             {
                 MessageBox.Show(
-                                "Welcome to Locale Emulator command line tool.\r\n" +
-                                "\r\n" +
-                                "Usage: LEProc.exe\r\n" +
-                                "\t<APP_PATH>\t\t\t--(1)\r\n" +
-                                "\t-run <APP_PATH>\t\t\t--(2)\r\n" +
-                                "\t-manage <APP_PATH>\t\t--(3)\r\n" +
-                                "\t-global\t\t\t\t--(4)\r\n" +
-                                "\t-runas <PROFILE_GUID> <APP_PATH>\t--(5)\r\n" +
-                                "\r\n" +
-                                "(1): Run an application with a build-in profile(as Japanese).\r\n" +
-                                "(2): Run an application with it's own profile.\r\n" +
-                                "(3): Modify the profile of one application.\r\n" +
-                                "(4): Open Global Profile Manager.\r\n" +
-                                "(5): Run an application with a global profile of specific Guid.\r\n" +
-                                "\r\n" +
-                                "\r\n" +
-                                "Have a suggestion? Want to report a bug? You're welcome! \r\n" +
-                                "Go to https://github.com/xupefei/Locale-Emulator/issues,\r\n" +
-                                "or send a message to https://google.com/+PaddyXu.\r\n" +
-                                "\r\n" +
-                                "\r\n" +
-                                "You can press CTRL+C to copy this message to your clipboard.\r\n",
-                                "Locale Emulator Version " + GlobalHelper.GetLEVersion()
+                    "Welcome to Locale Emulator command line tool.\r\n" +
+                    "\r\n" +
+                    "Usage: LEProc.exe\r\n" +
+                    "\t[-run] path [args]\r\n" +
+                    "\t-runas guid path [args]\r\n" +
+                    "\t-manage path\r\n" +
+                    "\t-global\r\n" +
+                    "\r\n" +
+                    "path\tFull path of the target application.\r\n" +
+                    "guid\tGuid of the target profile (in LEConfig.xml).\r\n" +
+                    "args\tAdditional arguments will be passed to the application.\r\n" +
+                    "-run\tRun an application with it's own profile.\r\n" +
+                    "-runas\tRun an application with a global profile of specific Guid.\r\n" +
+                    "-manage\tModify the profile of one application.\r\n" +
+                    "-global\tOpen Global Profile Manager.\r\n" +
+                    "\r\n" +
+                    "\r\n" +
+                    "Have a suggestion? Want to report a bug? You're welcome! \r\n" +
+                    "Go to https://github.com/xupefei/Locale-Emulator/issues.\r\n" +
+                    "\r\n" +
+                    "\r\n" +
+                    "You can press CTRL+C to copy this message to your clipboard.\r\n",
+                    "Locale Emulator Version " + GlobalHelper.GetLEVersion()
                     );
 
                 GlobalHelper.ShowErrorDebugMessageBox("SYSTEM_REPORT", 0);
@@ -95,30 +95,33 @@ namespace LEProc
             {
                 Args = args;
 
-                switch (args[0])
+                switch (Args[0])
                 {
                     case "-run": //-run %APP%
-                        RunWithIndependentProfile(args[1]);
+                        RunWithIndependentProfile(Args[1]);
                         break;
 
                     case "-manage": //-manage %APP%
                         Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                                   "LEGUI.exe"),
-                                      $"\"{args[1]}.le.config\"");
+                            "LEGUI.exe"),
+                            $"\"{Args[1]}.le.config\"");
                         break;
 
                     case "-global": //-global
                         Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                                                   "LEGUI.exe"));
+                            "LEGUI.exe"));
                         break;
 
                     case "-runas": //-runas %GUID% %APP%
-                        RunWithGlobalProfile(args[1], args[2]);
+                        RunWithGlobalProfile(Args[1], Args[2]);
                         break;
 
-                    default: // Run with default profile
-                        if (File.Exists(args[0]))
-                            RunWithDefaultProfile(args[0]);
+                    default: // Still run as "-run"
+                        if (File.Exists(Args[0]))
+                        {
+                            Args = new[] {"-run"}.Concat(Args).ToArray();
+                            RunWithIndependentProfile(Args[1]);
+                        }
                         break;
                 }
             }
@@ -148,8 +151,8 @@ namespace LEProc
             if (!File.Exists(conf))
             {
                 Process.Start(
-                              Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEGUI.exe"),
-                              $"\"{path}.le.config\"");
+                    Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "LEGUI.exe"),
+                    $"\"{path}.le.config\"");
             }
             else
             {
@@ -173,14 +176,14 @@ namespace LEProc
                 {
                     if (DialogResult.No ==
                         MessageBox.Show(
-                                        "You are running a exectuable with CREATE_SUSPENDED flag.\r\n" +
-                                        "\r\n" +
-                                        "The exectuable will be executed after you click the \"Yes\" button, " +
-                                        "but as a background process which has no notifications at all." +
-                                        "You can attach it by using OllyDbg, or stop it with Task Manager.\r\n",
-                                        "Locale Emulator Debug Mode Warning",
-                                        MessageBoxButtons.YesNo,
-                                        MessageBoxIcon.Information
+                            "You are running a exectuable with CREATE_SUSPENDED flag.\r\n" +
+                            "\r\n" +
+                            "The exectuable will be executed after you click the \"Yes\" button, " +
+                            "but as a background process which has no notifications at all." +
+                            "You can attach it by using OllyDbg, or stop it with Task Manager.\r\n",
+                            "Locale Emulator Debug Mode Warning",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Information
                             ))
                         return;
                 }
@@ -193,13 +196,13 @@ namespace LEProc
                     applicationName = path;
 
                     commandLine = path.StartsWith("\"")
-                                      ? $"{path} "
-                                      : $"\"{path}\" ";
+                        ? $"{path} "
+                        : $"\"{path}\" ";
 
                     // use arguments in le.config, prior to command line arguments
                     commandLine += string.IsNullOrEmpty(profile.Parameter) && Args.Skip(argumentsStart).Any()
-                                       ? Args.Skip(argumentsStart).Aggregate((a, b) => $"{a} {b}")
-                                       : profile.Parameter;
+                        ? Args.Skip(argumentsStart).Aggregate((a, b) => $"{a} {b}")
+                        : profile.Parameter;
                 }
                 else
                 {
@@ -211,46 +214,46 @@ namespace LEProc
                     applicationName = jb[0];
 
                     commandLine = jb[0].StartsWith("\"")
-                                      ? $"{jb[0]} "
-                                      : $"\"{jb[0]}\" ";
+                        ? $"{jb[0]} "
+                        : $"\"{jb[0]}\" ";
                     commandLine += jb[1].Replace("%1", path).Replace("%*", profile.Parameter);
                 }
 
                 var currentDirectory = Path.GetDirectoryName(path);
-                var ansiCodePage = (uint)CultureInfo.GetCultureInfo(profile.Location).TextInfo.ANSICodePage;
-                var oemCodePage = (uint)CultureInfo.GetCultureInfo(profile.Location).TextInfo.OEMCodePage;
-                var localeID = (uint)CultureInfo.GetCultureInfo(profile.Location).TextInfo.LCID;
+                var ansiCodePage = (uint) CultureInfo.GetCultureInfo(profile.Location).TextInfo.ANSICodePage;
+                var oemCodePage = (uint) CultureInfo.GetCultureInfo(profile.Location).TextInfo.OEMCodePage;
+                var localeID = (uint) CultureInfo.GetCultureInfo(profile.Location).TextInfo.LCID;
                 var defaultCharset = (uint)
-                                     GetCharsetFromANSICodepage(CultureInfo.GetCultureInfo(profile.Location)
-                                                                           .TextInfo.ANSICodePage);
+                    GetCharsetFromANSICodepage(CultureInfo.GetCultureInfo(profile.Location)
+                        .TextInfo.ANSICodePage);
 
                 var registries = profile.RedirectRegistry
-                                     ? new RegistryEntriesLoader().GetRegistryEntries(profile.IsAdvancedRedirection)
-                                     : null;
+                    ? new RegistryEntriesLoader().GetRegistryEntries(profile.IsAdvancedRedirection)
+                    : null;
 
                 var l = new LoaderWrapper
-                        {
-                            ApplicationName = applicationName,
-                            CommandLine = commandLine,
-                            CurrentDirectory = currentDirectory,
-                            AnsiCodePage = ansiCodePage,
-                            OemCodePage = oemCodePage,
-                            LocaleID = localeID,
-                            DefaultCharset = defaultCharset,
-                            HookUILanguageAPI = profile.IsAdvancedRedirection ? (uint)1 : 0,
-                            Timezone = profile.Timezone,
-                            NumberOfRegistryRedirectionEntries = registries?.Length ?? 0,
-                            DebugMode = profile.RunWithSuspend
+                {
+                    ApplicationName = applicationName,
+                    CommandLine = commandLine,
+                    CurrentDirectory = currentDirectory,
+                    AnsiCodePage = ansiCodePage,
+                    OemCodePage = oemCodePage,
+                    LocaleID = localeID,
+                    DefaultCharset = defaultCharset,
+                    HookUILanguageAPI = profile.IsAdvancedRedirection ? (uint) 1 : 0,
+                    Timezone = profile.Timezone,
+                    NumberOfRegistryRedirectionEntries = registries?.Length ?? 0,
+                    DebugMode = profile.RunWithSuspend
                 };
 
                 registries?.ToList()
-                           .ForEach(
-                                    item =>
-                                    l.AddRegistryRedirectEntry(item.Root,
-                                                               item.Key,
-                                                               item.Name,
-                                                               item.Type,
-                                                               item.GetValue(CultureInfo.GetCultureInfo(profile.Location))));
+                    .ForEach(
+                        item =>
+                            l.AddRegistryRedirectEntry(item.Root,
+                                item.Key,
+                                item.Name,
+                                item.Type,
+                                item.GetValue(CultureInfo.GetCultureInfo(profile.Location))));
 
                 uint ret;
                 if ((ret = l.Start()) != 0)
@@ -276,12 +279,12 @@ namespace LEProc
             try
             {
                 SystemHelper.RunWithElevatedProcess(
-                                                    Path.Combine(
-                                                                 Path.GetDirectoryName(
-                                                                                       Assembly.GetExecutingAssembly()
-                                                                                               .Location),
-                                                                 "LEProc.exe"),
-                                                    Args);
+                    Path.Combine(
+                        Path.GetDirectoryName(
+                            Assembly.GetExecutingAssembly()
+                                .Location),
+                        "LEProc.exe"),
+                    Args);
             }
             catch (Exception)
             {
