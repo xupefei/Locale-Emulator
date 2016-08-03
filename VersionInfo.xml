@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <VersionInfo>
-  <Version>2.1.1.0</Version>
-  <Date>2016-01-15</Date>
+  <Version>2.2.1.0</Version>
+  <Date>2016-08-03</Date>
   <Url>http://xupefei.github.io/Locale-Emulator/</Url>
-  <Note>Minor improvments; Fuck 2djgame.txt.</Note>
+  <Note>Support new Windows OS.</Note>
 </VersionInfo>
