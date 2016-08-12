@@ -132,11 +132,15 @@ namespace LEProc
 
         private static void RunWithDefaultProfile(string path)
         {
+            path = SystemHelper.EnsureAbsolutePath(path);
+
             DoRunWithLEProfile(path, 1, new LEProfile(true));
         }
 
         private static void RunWithGlobalProfile(string guid, string path)
         {
+            path = SystemHelper.EnsureAbsolutePath(path);
+
             // We do not check whether the config exists because only when it exists can this method be called.
 
             var profile = LEConfig.GetProfiles().First(p => p.Guid == guid);
@@ -146,6 +150,8 @@ namespace LEProc
 
         private static void RunWithIndependentProfile(string path)
         {
+            path = SystemHelper.EnsureAbsolutePath(path);
+
             var conf = path + ".le.config";
 
             if (!File.Exists(conf))
@@ -161,7 +167,7 @@ namespace LEProc
             }
         }
 
-        private static void DoRunWithLEProfile(string path, int argumentsStart, LEProfile profile)
+        private static void DoRunWithLEProfile(string absPath, int argumentsStart, LEProfile profile)
         {
             try
             {
@@ -191,13 +197,13 @@ namespace LEProc
                 var applicationName = string.Empty;
                 var commandLine = string.Empty;
 
-                if (Path.GetExtension(path).ToLower() == ".exe")
+                if (Path.GetExtension(absPath).ToLower() == ".exe")
                 {
-                    applicationName = path;
+                    applicationName = absPath;
 
-                    commandLine = path.StartsWith("\"")
-                        ? $"{path} "
-                        : $"\"{path}\" ";
+                    commandLine = absPath.StartsWith("\"")
+                        ? $"{absPath} "
+                        : $"\"{absPath}\" ";
 
                     // use arguments in le.config, prior to command line arguments
                     commandLine += string.IsNullOrEmpty(profile.Parameter) && Args.Skip(argumentsStart).Any()
@@ -206,7 +212,7 @@ namespace LEProc
                 }
                 else
                 {
-                    var jb = AssociationReader.GetAssociatedProgram(Path.GetExtension(path));
+                    var jb = AssociationReader.GetAssociatedProgram(Path.GetExtension(absPath));
 
                     if (jb == null)
                         return;
@@ -216,10 +222,10 @@ namespace LEProc
                     commandLine = jb[0].StartsWith("\"")
                         ? $"{jb[0]} "
                         : $"\"{jb[0]}\" ";
-                    commandLine += jb[1].Replace("%1", path).Replace("%*", profile.Parameter);
+                    commandLine += jb[1].Replace("%1", absPath).Replace("%*", profile.Parameter);
                 }
 
-                var currentDirectory = Path.GetDirectoryName(path);
+                var currentDirectory = Path.GetDirectoryName(absPath);
                 var ansiCodePage = (uint) CultureInfo.GetCultureInfo(profile.Location).TextInfo.ANSICodePage;
                 var oemCodePage = (uint) CultureInfo.GetCultureInfo(profile.Location).TextInfo.OEMCodePage;
                 var localeID = (uint) CultureInfo.GetCultureInfo(profile.Location).TextInfo.LCID;

@@ -45,6 +45,11 @@ namespace LECommonLibrary
             return path.Replace(system, systemWow64);
         }
 
+        public static string EnsureAbsolutePath(string path)
+        {
+            return Path.IsPathRooted(path) ? path : Path.GetFullPath(path);
+        }
+
         public static bool Is4KDisplay()
         {
             Graphics g = Graphics.FromHwnd(IntPtr.Zero);

@@ -16,7 +16,7 @@ namespace LEGUI
         {
             if (e.Args.Length != 0)
             {
-                StandaloneFilePath = e.Args[0];
+                StandaloneFilePath = SystemHelper.EnsureAbsolutePath(e.Args[0]);
 
                 // This happens when user is trying to drop a exe onto LEGUI.
                 if (!StandaloneFilePath.EndsWith(".le.config", true, null))
