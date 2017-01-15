@@ -10,15 +10,14 @@ namespace LEUpdater
     internal static class Program
     {
         private static readonly NotifyIcon _notifyIcon = new NotifyIcon {Icon = Resources.icon};
-        private static bool byForce;
+        private static bool auto;
 
         private static void Main(string[] args)
         {
-            if (args.Length == 0)
-                byForce = true;
+            auto = args.Length != 0;
 
             // Check new version every week.
-            if (!byForce && int.Parse(DateTime.Now.ToString("yyyyMMdd")) - GlobalHelper.GetLastUpdate() < 7)
+            if (auto && int.Parse(DateTime.Now.ToString("yyyyMMdd")) - GlobalHelper.GetLastUpdate() < 7)
             {
                 Environment.Exit(0);
             }

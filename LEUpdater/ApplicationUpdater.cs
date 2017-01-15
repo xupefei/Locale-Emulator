@@ -35,13 +35,14 @@ namespace LEUpdater
         private static void ProcessUpdate(XmlDocument xmlContent, NotifyIcon notifyIcon)
         {
             var newVer = xmlContent.SelectSingleNode(@"/VersionInfo/Version/text()").Value;
-
-            if (CompareVersion(GlobalHelper.GetLEVersion(), newVer))
+            var crtVer = GlobalHelper.GetLEVersion();
+            
+            GlobalHelper.SetLastUpdate(int.Parse(DateTime.Now.ToString("yyyyMMdd")));
+            
+            if (CompareVersion(crtVer, newVer))
             {
                 try
                 {
-                    GlobalHelper.SetLastUpdate(int.Parse(DateTime.Now.ToString("yyyyMMdd")));
-
                     var version = xmlContent.SelectSingleNode(@"/VersionInfo/Version/text()").Value;
                     var date = xmlContent.SelectSingleNode(@"/VersionInfo/Date/text()").Value;
                     url = xmlContent.SelectSingleNode(@"/VersionInfo/Url/text()").Value;
