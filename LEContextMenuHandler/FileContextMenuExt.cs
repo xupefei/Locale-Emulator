@@ -240,27 +240,11 @@ namespace LEContextMenuHandler
         [ComRegisterFunction]
         public static void Register(Type t)
         {
-            try
-            {
-                ShellExtReg.RegisterShellExtContextMenuHandler(t.GUID, "*", "LocaleEmulator.LEContextMenuHandler Class");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message); // Log the error
-            }
         }
 
         [ComUnregisterFunction]
         public static void Unregister(Type t)
         {
-            try
-            {
-                ShellExtReg.UnregisterShellExtContextMenuHandler(t.GUID, "*");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message); // Log the error
-            }
         }
 
         #endregion

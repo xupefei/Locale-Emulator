@@ -71,6 +71,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShellExtensionManager.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -99,7 +100,6 @@
   <ItemGroup>
     <Content Include="icon.ico" />
     <None Include="Resources\LECommonLibrary.dll" />
-    <None Include="Resources\info.png" />
     <None Include="Resources\LEContextMenuHandler.dll" />
   </ItemGroup>
   <ItemGroup>

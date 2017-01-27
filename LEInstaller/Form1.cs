@@ -9,6 +9,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using LEInstaller.Properties;
+using System.Security.Principal;
 
 namespace LEInstaller
 {
@@ -21,38 +22,79 @@ namespace LEInstaller
             // We need to remove all ADS first.
             // https://github.com/xupefei/Locale-Emulator/issues/22.
             foreach (var f in Directory.GetFiles(crtDir, "*", SearchOption.AllDirectories))
-            {
                 RemoveADS(f);
-            }
+
+            DisableDPIScale();
 
             InitializeComponent();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if (Environment.OSVersion.Version.CompareTo(new Version(6, 0)) <= 0)
+            {
+                MessageBox.Show("Sorry, Locale Emulator is only for Windows 7, 8/8.1 and 10.",
+                    "OS Outdated",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                Environment.Exit(0);
+            }
+
+            Text += " - V" + GetLEVersion();
+
+            DeleteOldFiles();
+            ReplaceDll();
+
+            AddShieldToButton(buttonInstallAllUsers);
+            AddShieldToButton(buttonUninstallAllUsers);
+
+            buttonUninstall.Enabled = ShellExtensionManager.IsInstalled(false);
+            buttonUninstallAllUsers.Enabled = ShellExtensionManager.IsInstalled(true);
+        }
+
         private void buttonInstall_Click(object sender, EventArgs e)
         {
-            IndicateBusy();
+            DoRegister(false);
 
-            KillExplorer();
-
-            ReplaceDll(true);
-
-            DoRegister();
-
-            StartExplorer();
-
-            IndicateBusy(true);
+            NotifyShell();
 
             MessageBox.Show("Install finished. Right click any executable and enjoy :)",
                 "LE Context Menu Installer",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
+
+            buttonUninstall.Enabled = true;
         }
 
-        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-        private static extern int DeleteFile(string name);
+        private void buttonInstallAllUsers_Click(object sender, EventArgs e)
+        {
+            if (!IsAdministrator())
+            {
+                MessageBox.Show("Please run this application as administrator and try again.",
+                    "LE Context Menu Installer",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern void SetLastError(int errorCode);
+                return;
+            }
+
+            DoRegister(true);
+
+            NotifyShell();
+
+            MessageBox.Show("Install finished. Right click any executable and enjoy :)",
+                "LE Context Menu Installer",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+
+            buttonUninstallAllUsers.Enabled = true;
+        }
+
+        public static void DisableDPIScale()
+        {
+            SetProcessDPIAware();
+        }
 
         private void RemoveADS(string s)
         {
@@ -66,36 +108,40 @@ namespace LEInstaller
 
         private void buttonUninstall_Click(object sender, EventArgs e)
         {
-            IndicateBusy();
+            DoUnRegister(false);
 
-            KillExplorer();
-
-            ReplaceDll(false);
-
-            DoUnRegister();
-
-            // Clean up CLSID
-            /*var key = Registry.ClassesRoot;
-            try
-            {
-                key.DeleteSubKeyTree(@"\CLSID\{C52B9871-E5E9-41FD-B84D-C5ACADBEC7AE}\");
-            }
-            catch
-            {
-            }
-            finally
-            {
-                key.Close();
-            }*/
-
-            StartExplorer();
-
-            IndicateBusy(true);
+            NotifyShell();
 
             MessageBox.Show("Uninstall finished. Thanks for using Locale Emulator :)",
                 "LE Context Menu Installer",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
+
+            buttonUninstall.Enabled = false;
+        }
+
+        private void buttonUninstallAllUsers_Click(object sender, EventArgs e)
+        {
+            if (!IsAdministrator())
+            {
+                MessageBox.Show("Please run this application as administrator and try again.",
+                    "LE Context Menu Installer",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
+            DoUnRegister(true);
+
+            NotifyShell();
+
+            MessageBox.Show("Uninstall finished. Thanks for using Locale Emulator :)",
+                "LE Context Menu Installer",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+
+            buttonUninstallAllUsers.Enabled = false;
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -103,35 +149,21 @@ namespace LEInstaller
             Environment.Exit(0);
         }
 
-        private void IndicateBusy(bool finish = false)
-        {
-            if (!finish)
-            {
-                Cursor.Current = Cursors.WaitCursor;
-
-                buttonInstall.Enabled = false;
-                buttonUninstall.Enabled = false;
-            }
-            else
-            {
-                Cursor.Current = Cursors.Default;
-
-                buttonInstall.Enabled = true;
-                buttonUninstall.Enabled = true;
-            }
-        }
-
-        private void DoRegister()
+        private void DoRegister(bool allUsers)
         {
             try
             {
-                OverrideHKCR();
+                if (!allUsers)
+                    OverrideHKCR();
 
                 var rs = new RegistrationServices();
                 rs.RegisterAssembly(Assembly.LoadFrom(Path.Combine(crtDir, @"LEContextMenuHandler.dll")),
                     AssemblyRegistrationFlags.SetCodeBase);
 
-                OverrideHKCR(true);
+                ShellExtensionManager.RegisterShellExtContextMenuHandler(allUsers);
+
+                if (!allUsers)
+                    OverrideHKCR(true);
             }
             catch (Exception e)
             {
@@ -139,16 +171,20 @@ namespace LEInstaller
             }
         }
 
-        private void DoUnRegister()
+        private void DoUnRegister(bool allUsers)
         {
             try
             {
-                OverrideHKCR();
+                if (!allUsers)
+                    OverrideHKCR();
 
                 var rs = new RegistrationServices();
                 rs.UnregisterAssembly(Assembly.LoadFrom(Path.Combine(crtDir, @"LEContextMenuHandler.dll")));
 
-                OverrideHKCR(true);
+                ShellExtensionManager.UnregisterShellExtContextMenuHandler(allUsers);
+
+                if (!allUsers)
+                    OverrideHKCR(true);
             }
             catch (Exception e)
             {
@@ -168,26 +204,48 @@ namespace LEInstaller
             RegOverridePredefKey(HKEY_CLASSES_ROOT, restore ? UIntPtr.Zero : key);
         }
 
-        private bool ReplaceDll(bool overwrite)
+        private void DeleteOldFiles()
+        {
+            foreach (var file in Directory.EnumerateFiles(crtDir, "*.installer.bak"))
+            {
+                try
+                {
+                    File.Delete(file);
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+
+        private bool ReplaceDll()
         {
             var dllPath1 = Path.Combine(crtDir, @"LEContextMenuHandler.dll");
             var dllPath2 = Path.Combine(crtDir, @"LECommonLibrary.dll");
 
-            if (!overwrite)
-            {
-                if (!File.Exists(dllPath1))
-                    File.WriteAllBytes(dllPath1, Resources.LEContextMenuHandler);
-                if (!File.Exists(dllPath2))
-                    File.WriteAllBytes(dllPath1, Resources.LECommonLibrary);
-
-                return true;
-            }
-
+            // try delete old files. If failed, rename them
             try
             {
                 File.Delete(dllPath1);
                 File.Delete(dllPath2);
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    File.Move(dllPath1, $"{Guid.NewGuid()}.installer.bak");
+                    File.Move(dllPath2, $"{Guid.NewGuid()}.installer.bak");
+                }
+                catch (Exception ee)
+                {
+                    MessageBox.Show(ee.Message + "\r\nPlease try rebooting your PC.");
+                    return false;
+                }
+            }
 
+            // Write new files
+            try
+            {
                 File.WriteAllBytes(dllPath1, Resources.LEContextMenuHandler);
                 File.WriteAllBytes(dllPath2, Resources.LECommonLibrary);
 
@@ -200,57 +258,21 @@ namespace LEInstaller
             }
         }
 
-        private void KillExplorer()
+        private void NotifyShell()
         {
-            const int WM_USER = 0x0400;
+            const uint SHCNE_ASSOCCHANGED = 0x08000000;
+            const ushort SHCNF_IDLIST = 0x0000;
 
-            try
-            {
-                var ptr = FindWindow("Shell_TrayWnd", null);
-
-                if (ptr.ToInt64() == 0)
-                    throw new Exception("Restarting explorer.exe failed. Please perform a restart manually.");
-
-                PostMessage(ptr, WM_USER + 436, (IntPtr) 0, (IntPtr) 0);
-
-                int totalWaitTime = 0;
-
-                while (FindWindow("Shell_TrayWnd", null).ToInt64() == ptr.ToInt64()) // old process still alive
-                {
-                    if (totalWaitTime > 10000)
-                        throw new TimeoutException(
-                            "Restarting explorer.exe failed. Please perform a restart manually.");
-
-                    Thread.Sleep(1000);
-                    totalWaitTime += 1000;
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
+            SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
         }
 
-        private void StartExplorer()
+        static internal void AddShieldToButton(Button b)
         {
-            try
-            {
-                Process process = new Process
-                {
-                    StartInfo =
-                    {
-                        FileName = Environment.GetFolderPath(Environment.SpecialFolder.Windows) + "\\explorer.exe",
-                        UseShellExecute = true
-                    }
-                };
+            const uint BCM_FIRST = 0x1600; //Normal button
+            const uint BCM_SETSHIELD = (BCM_FIRST + 0x000C); //Elevated button
 
-                process.Start();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                throw;
-            }
+            b.FlatStyle = FlatStyle.System;
+            SendMessage(b.Handle, BCM_SETSHIELD, 0, 0xFFFFFFFF);
         }
 
         // We should not use the LECommonLibrary.
@@ -270,6 +292,13 @@ namespace LEInstaller
             {
                 return "0.0.0.0";
             }
+        }
+
+        public static bool IsAdministrator()
+        {
+            var wp = new WindowsPrincipal(WindowsIdentity.GetCurrent());
+
+            return wp.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
         private static bool Is64BitOS()
@@ -298,7 +327,16 @@ namespace LEInstaller
             return GetProcAddress(moduleHandle, methodName) != UIntPtr.Zero;
         }
 
-        [DllImport("kernel32.dll")]
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        private static extern int DeleteFile(string name);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern void SetLastError(int errorCode);
+
+        [DllImport("shell32.dll", SetLastError = true)]
+        private static extern void SHChangeNotify(uint wEventId, ushort uFlags, IntPtr dwItem1, IntPtr dwItem2);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
         private static extern UIntPtr GetCurrentProcess();
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
@@ -327,34 +365,10 @@ namespace LEInstaller
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            if (Environment.OSVersion.Version.CompareTo(new Version(6, 0)) <= 0)
-            {
-                MessageBox.Show("Sorry, Locale Emulator is only for Windows 7, 8/8.1 and 10.",
-                    "OS Outdated",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern UInt32 SendMessage(IntPtr hWnd, UInt32 msg, UInt32 wParam, UInt32 lParam);
 
-                Environment.Exit(0);
-            }
-
-            if (!File.Exists(Path.Combine(Environment.SystemDirectory + @"\..\Fonts\msgothic.ttc")))
-            {
-                if (MessageBox.Show(
-                    "Japanese font \"MS Gothic\" (\"ＭＳ ゴシック\") font is not found on\r\n" +
-                    "your system. If you use LE on Japanese applications, you may consider \r\n" +
-                    "installing \"Japanese Supplemental Fonts\" package.\r\n" +
-                    "\r\n" +
-                    "Do you want to read the installation guide?",
-                    "Font missing warning",
-                    MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    Process.Start("http://www.tenforums.com/tutorials/7565-optional-features-manage-windows-10-a.html");
-                }
-            }
-
-            Text += " - V" + GetLEVersion();
-        }
+        [DllImport("user32.dll")]
+        private static extern bool SetProcessDPIAware();
     }
 }
