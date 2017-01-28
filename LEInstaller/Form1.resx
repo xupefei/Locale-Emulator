@@ -121,7 +121,7 @@
     <value>Welcome to Locale Emulator.
 
 Begin by selecting either installation mode below.
- * For currect user: Register context menu for currect user only.
+ * For current user: Register context menu for current user only.
  * For all users: Register context menu for all users on this PC. This installation requires administrator privilege.
 </value>
   </data>
