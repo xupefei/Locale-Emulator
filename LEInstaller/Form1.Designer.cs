@@ -42,7 +42,7 @@
             // 
             // buttonInstall
             // 
-            this.buttonInstall.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonInstall.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
             this.buttonInstall.Location = new System.Drawing.Point(30, 33);
             this.buttonInstall.Margin = new System.Windows.Forms.Padding(6);
             this.buttonInstall.Name = "buttonInstall";
@@ -54,6 +54,7 @@
             // 
             // buttonUninstall
             // 
+            this.buttonUninstall.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
             this.buttonUninstall.Location = new System.Drawing.Point(371, 33);
             this.buttonUninstall.Margin = new System.Windows.Forms.Padding(6);
             this.buttonUninstall.Name = "buttonUninstall";
@@ -65,6 +66,7 @@
             // 
             // buttonUninstallAllUsers
             // 
+            this.buttonUninstallAllUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
             this.buttonUninstallAllUsers.Location = new System.Drawing.Point(371, 33);
             this.buttonUninstallAllUsers.Margin = new System.Windows.Forms.Padding(6);
             this.buttonUninstallAllUsers.Name = "buttonUninstallAllUsers";
@@ -76,7 +78,7 @@
             // 
             // buttonInstallAllUsers
             // 
-            this.buttonInstallAllUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonInstallAllUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
             this.buttonInstallAllUsers.Location = new System.Drawing.Point(30, 33);
             this.buttonInstallAllUsers.Margin = new System.Windows.Forms.Padding(6);
             this.buttonInstallAllUsers.Name = "buttonInstallAllUsers";
@@ -88,6 +90,7 @@
             // 
             // label1
             // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
             this.label1.Location = new System.Drawing.Point(15, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(726, 184);
@@ -98,6 +101,7 @@
             // 
             this.groupBox1.Controls.Add(this.buttonInstall);
             this.groupBox1.Controls.Add(this.buttonUninstall);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
             this.groupBox1.Location = new System.Drawing.Point(12, 206);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(729, 100);
@@ -109,6 +113,7 @@
             // 
             this.groupBox2.Controls.Add(this.buttonInstallAllUsers);
             this.groupBox2.Controls.Add(this.buttonUninstallAllUsers);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F);
             this.groupBox2.Location = new System.Drawing.Point(12, 330);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(729, 100);
