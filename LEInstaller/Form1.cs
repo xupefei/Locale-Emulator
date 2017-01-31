@@ -43,6 +43,9 @@ namespace LEInstaller
 
             Text += " - V" + GetLEVersion();
 
+            if (IsAdministrator())
+                Text += " (Administrator)";
+
             DeleteOldFiles();
             ReplaceDll();
 
