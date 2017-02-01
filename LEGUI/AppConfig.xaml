@@ -1,7 +1,7 @@
 ﻿<Window x:Class="LEGUI.AppConfig"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:legui="clr-namespace:LEGUI"
-        Title="LEGUI - APP" Height="315.811" Width="330.4"
+        Title="LEGUI - " Height="315.811" Width="330.4"
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid TextElement.FontFamily="{DynamicResource UIFont}">
         <Grid x:Name="mainGrid">

@@ -23,6 +23,8 @@ namespace LEGUI
         {
             InitializeComponent();
 
+            Title += Path.GetFileName(App.StandaloneFilePath).Replace(".le.config", "");
+
             // Region.
             _cultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures).OrderBy(i => i.DisplayName).ToList();
             cbLocation.ItemsSource = _cultureInfos.Select(c => c.DisplayName);
