@@ -24,7 +24,7 @@ namespace LEProc
             try
             {
                 Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                    "LEUpdater.exe"),
+                        "LEUpdater.exe"),
                     "schedule");
             }
             catch
@@ -64,7 +64,8 @@ namespace LEProc
                     "Welcome to Locale Emulator command line tool.\r\n" +
                     "\r\n" +
                     "Usage: LEProc.exe\r\n" +
-                    "\t[-run] path [args]\r\n" +
+                    "\tpath\r\n" +
+                    "\t-run path [args]\r\n" +
                     "\t-runas guid path [args]\r\n" +
                     "\t-manage path\r\n" +
                     "\t-global\r\n" +
@@ -72,6 +73,11 @@ namespace LEProc
                     "path\tFull path of the target application.\r\n" +
                     "guid\tGuid of the target profile (in LEConfig.xml).\r\n" +
                     "args\tAdditional arguments will be passed to the application.\r\n" +
+                    "\r\n" +
+                    "path\tRun an application with \r\n" +
+                    "\t\t(i) its own profile (if any) or \r\n" +
+                    "\t\t(ii) first global profile (if any) or \r\n" +
+                    "\t\t(iii) default ja-JP profile.\r\n" +
                     "-run\tRun an application with it's own profile.\r\n" +
                     "-runas\tRun an application with a global profile of specific Guid.\r\n" +
                     "-manage\tModify the profile of one application.\r\n" +
@@ -84,7 +90,7 @@ namespace LEProc
                     "\r\n" +
                     "You can press CTRL+C to copy this message to your clipboard.\r\n",
                     "Locale Emulator Version " + GlobalHelper.GetLEVersion()
-                    );
+                );
 
                 GlobalHelper.ShowErrorDebugMessageBox("SYSTEM_REPORT", 0);
 
@@ -103,7 +109,7 @@ namespace LEProc
 
                     case "-manage": //-manage %APP%
                         Process.Start(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                            "LEGUI.exe"),
+                                "LEGUI.exe"),
                             $"\"{Args[1]}.le.config\"");
                         break;
 
@@ -116,11 +122,10 @@ namespace LEProc
                         RunWithGlobalProfile(Args[1], Args[2]);
                         break;
 
-                    default: // Still run as "-run"
+                    default:
                         if (File.Exists(Args[0]))
                         {
-                            Args = new[] {"-run"}.Concat(Args).ToArray();
-                            RunWithIndependentProfile(Args[1]);
+                            RunWithDefaultProfile(Args[0]);
                         }
                         break;
                 }
@@ -134,7 +139,17 @@ namespace LEProc
         {
             path = SystemHelper.EnsureAbsolutePath(path);
 
-            DoRunWithLEProfile(path, 1, new LEProfile(true));
+            var conf = path + ".le.config";
+
+            var appProfile = LEConfig.GetProfiles(conf);
+            var globalProfiles = LEConfig.GetProfiles();
+
+            // app profile > first global profile > new profile(ja-JP)
+            var profile = appProfile.Any()
+                ? appProfile.First()
+                : globalProfiles.Any() ? globalProfiles.First() : new LEProfile(true);
+
+            DoRunWithLEProfile(path, 1, profile);
         }
 
         private static void RunWithGlobalProfile(string guid, string path)
