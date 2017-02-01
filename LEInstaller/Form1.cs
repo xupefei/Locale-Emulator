@@ -44,7 +44,11 @@ namespace LEInstaller
             Text += " - V" + GetLEVersion();
 
             if (IsAdministrator())
+            {
                 Text += " (Administrator)";
+
+                buttonInstall.Enabled = false;
+            }
 
             DeleteOldFiles();
             ReplaceDll();
