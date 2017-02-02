@@ -12,6 +12,14 @@ namespace LEGUI
     {
         internal static string StandaloneFilePath = string.Empty;
 
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            AppDomain.CurrentDomain.UnhandledException +=
+                (sender, args) => MessageBox.Show(((Exception) args.ExceptionObject).Message);
+
+            base.OnStartup(e);
+        }
+
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             if (e.Args.Length != 0)
