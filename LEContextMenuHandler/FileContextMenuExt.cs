@@ -61,6 +61,9 @@ namespace LEContextMenuHandler
             menuItems.Add(new LEMenuItem(I18n.GetString("ManageApp"), true, null, _menuBmpGray, "-manage \"%APP%\""));
             menuItems.Add(new LEMenuItem(I18n.GetString("ManageAll"), true, null, _menuBmpBlue, "-global"));
 
+            //If global config does not exist, create a new one.
+            LEConfig.CheckGlobalConfigFile(true);
+
             //Load global profiles.
             Array.ForEach(LEConfig.GetProfiles(),
                           p =>
@@ -69,10 +72,6 @@ namespace LEContextMenuHandler
                                                        p.ShowInMainMenu,
                                                        _menuBmpPink,
                                                        $"-runas \"{p.Guid}\" \"%APP%\"")));
-
-            //Config does not exist
-            if (LEConfig.GetProfiles().Length == 0)
-                menuItems.Add(new LEMenuItem("No profile, please run LEGUI.exe.", false, false, _menuBmpPink, ""));
         }
 
         #region IShellExtInit Members

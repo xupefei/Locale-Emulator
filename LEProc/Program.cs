@@ -47,16 +47,9 @@ namespace LEProc
 
                 return;
             }
-
-            if (!File.Exists(LEConfig.GlobalConfigPath))
-            {
-                MessageBox.Show(
-                    "\"LEConfig.xml\" not found. \r\n" +
-                    "Please run \"LEGUI.exe\" once to let it generate one for you.",
-                    "Locale Emulator Version " + GlobalHelper.GetLEVersion(),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-            }
+            
+            //If global config does not exist, create a new one.
+            LEConfig.CheckGlobalConfigFile(true);
 
             if (args.Length == 0)
             {
