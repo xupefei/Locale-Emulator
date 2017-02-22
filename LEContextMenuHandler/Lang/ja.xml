@@ -2,7 +2,7 @@
 
 <Strings>
   <RunDefault>プロファイルで実行</RunDefault>
-  <Submenu>ロケールエミュレータ</Submenu>
+  <Submenu>Locale Emulator</Submenu>
   <ManageApp>プロファイルを変更</ManageApp>
   <ManageAll>汎用性プロファイルリストを編集</ManageAll>
 </Strings>

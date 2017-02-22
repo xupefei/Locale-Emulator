@@ -6,7 +6,7 @@
     <system:String x:Key="Save">Įrašyti</system:String>
     <system:String x:Key="Shortcut">Kurti nuorodą</system:String>
     <system:String x:Key="Cancel">Atšaukti</system:String>
-    <system:String x:Key="SaveAs">Įrašyti kaip…</system:String>
+    <system:String x:Key="SaveAs">Įrašyti kaip ...</system:String>
     <system:String x:Key="SaveAsInstruction">Naujojo profilio pavadinimas:</system:String>
     <system:String x:Key="Delete">Naikinti</system:String>
     <system:String x:Key="ConfirmDel">Ar tikrai norite naikinti šį profilį?</system:String>

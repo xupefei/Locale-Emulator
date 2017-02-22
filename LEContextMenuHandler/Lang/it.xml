@@ -2,7 +2,7 @@
 
 <Strings>
   <RunDefault>Avvia con Profilo dell'Applicazione</RunDefault>
-  <Submenu>Emulatore Locale</Submenu>
+  <Submenu>Locale Emulator</Submenu>
   <ManageApp>Modifica Profili dell'Applicazione</ManageApp>
   <ManageAll>Modifica Lista Profili Globali</ManageAll>
 </Strings>
