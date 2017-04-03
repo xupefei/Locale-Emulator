@@ -24,7 +24,7 @@
     "requirement_intro_1": "Locale Emulator est compatible avec les SE suivants, 32 bits et 64 bits:",
     "requirement_text_1": "Windows 7 <strong>avec Service Pack 1</strong>",
     "requirement_text_2": "Windows 8 / 8.1",
-    "requirement_text_3": "Windows 10 Build 10240 (RTM)",
+    "requirement_text_3": "Windows 10",
     "requirement_intro_2": "Due to my limited HDD space, effort and bandwidth, any issue related to Windows 7 will be ignored, until any core change that cause ALL applications stop working on it.<br />Cet outil ne supporte que les exécutables 32 bits sur les SE 32 bits ou 64 bits. Autrement dit, si tu utilise WinRAR 64 bits, tu n'auras pas le menu contextuel sur un fichier .rar, et ne pourras pas exécuter WinRAR avec LE.",
     "faq": "Des problèmes?",
     "faq_1": "Google Chrome bloque le téléchargement.",
