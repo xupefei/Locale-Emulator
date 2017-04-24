@@ -23,7 +23,7 @@ After you translated the above files into your language, please either create a 
 ## Build ##
 
  1. Clone the repo using Git.
- 2. Install Microsoft Visual Studio 2012 / 2013.
+ 2. Install Microsoft Visual Studio 2015 / 2017.
  3. Open `LocaleEmulator.sln`.
  4. Perform Build action.
 
