@@ -66,7 +66,9 @@ namespace LEInstaller
 
             NotifyShell();
 
-            MessageBox.Show("Install finished. Right click any executable and enjoy :)",
+            MessageBox.Show("Install finished. Right click any executable and enjoy :)\r\n" +
+                            "\r\n" +
+                            "PS: A reboot (or restart of \"explorer.exe\") is required if you are upgrading from an old version.",
                 "LE Context Menu Installer",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -90,7 +92,9 @@ namespace LEInstaller
 
             NotifyShell();
 
-            MessageBox.Show("Install finished. Right click any executable and enjoy :)",
+            MessageBox.Show("Install finished. Right click any executable and enjoy :)\r\n" +
+                            "\r\n" +
+                            "PS: A reboot (or restart of \"explorer.exe\") is required if you are upgrading from an old version.",
                 "LE Context Menu Installer",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
