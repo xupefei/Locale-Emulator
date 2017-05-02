@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace LEProc
 {
-    public class RegistryEntriesLoader
+    public static class RegistryEntriesLoader
     {
         private static readonly RegistryEntry[] entries;
         private static readonly RegistryEntry[] entriesIncludingAdvanced;
@@ -16,19 +16,19 @@ namespace LEProc
         {
             entries = new[]
             {
-                new RegistryEntry("HKEY_LOCAL_MACHINE", @"System\CurrentControlSet\Control\Nls\CodePage", "InstallLanguage", "REG_SZ", culture => culture.TextInfo.LCID.ToString() ),
+                new RegistryEntry("HKEY_LOCAL_MACHINE", @"System\CurrentControlSet\Control\Nls\CodePage", "InstallLanguage", "REG_SZ", culture => culture.TextInfo.LCID.ToString()),
                 new RegistryEntry("HKEY_LOCAL_MACHINE", @"System\CurrentControlSet\Control\Nls\CodePage", "Default", "REG_SZ", culture => culture.TextInfo.LCID.ToString()),
-                new RegistryEntry("HKEY_LOCAL_MACHINE", @"System\CurrentControlSet\Control\Nls\CodePage", "OEMCP", "REG_SZ", culture => culture.TextInfo.OEMCodePage.ToString() ),
+                new RegistryEntry("HKEY_LOCAL_MACHINE", @"System\CurrentControlSet\Control\Nls\CodePage", "OEMCP", "REG_SZ", culture => culture.TextInfo.OEMCodePage.ToString()),
                 new RegistryEntry("HKEY_LOCAL_MACHINE", @"System\CurrentControlSet\Control\Nls\CodePage", "ACP", "REG_SZ", culture => culture.TextInfo.ANSICodePage.ToString())
 
             };
 
-            var advancedEntries = new[] 
+            var advancedEntries = new[]
             {
-                new RegistryEntry( "HKEY_CURRENT_USER", @"Control Panel\International", "Locale", "REG_SZ", culture => culture.TextInfo.LCID.ToString("X8")),
-                new RegistryEntry( "HKEY_CURRENT_USER", @"Control Panel\International", "LocaleName", "REG_SZ", culture => $"{culture.TextInfo.CultureName}\x00"),
-                new RegistryEntry( "HKEY_CURRENT_USER", @"Control Panel\Desktop", "PreferredUILanguages", "REG_MULTI_SZ", culture => $"{culture.TextInfo.CultureName}\x00"),
-                new RegistryEntry( "HKEY_CURRENT_USER", @"Control Panel\Desktop\MuiCached", "MachinePreferredUILanguages", "REG_MULTI_SZ", culture => $"{culture.TextInfo.CultureName}\x00")
+                new RegistryEntry("HKEY_CURRENT_USER", @"Control Panel\International", "Locale", "REG_SZ", culture => culture.TextInfo.LCID.ToString("X8")),
+                new RegistryEntry("HKEY_CURRENT_USER", @"Control Panel\International", "LocaleName", "REG_SZ", culture => $"{culture.TextInfo.CultureName}\x00"),
+                new RegistryEntry("HKEY_CURRENT_USER", @"Control Panel\Desktop", "PreferredUILanguages", "REG_MULTI_SZ", culture => $"{culture.TextInfo.CultureName}\x00"),
+                new RegistryEntry("HKEY_CURRENT_USER", @"Control Panel\Desktop\MuiCached", "MachinePreferredUILanguages", "REG_MULTI_SZ", culture => $"{culture.TextInfo.CultureName}\x00")
             };
 
             entriesIncludingAdvanced = entries.Concat(advancedEntries).ToArray();
