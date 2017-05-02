@@ -242,7 +242,7 @@ namespace LEProc
                         .TextInfo.ANSICodePage);
 
                 var registries = profile.RedirectRegistry
-                    ? new RegistryEntriesLoader().GetRegistryEntries(profile.IsAdvancedRedirection)
+                    ? RegistryEntriesLoader.GetRegistryEntries(profile.IsAdvancedRedirection)
                     : null;
 
                 var l = new LoaderWrapper

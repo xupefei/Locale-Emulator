@@ -74,18 +74,10 @@
   <ItemGroup>
     <Compile Include="Amemiya.Extensions.ArrayExtensions.cs" />
     <Compile Include="RegistryEntriesLoader.cs" />
-    <Compile Include="IRegistryEntry.cs" />
+    <Compile Include="RegistryEntry.cs" />
     <Compile Include="LoaderWrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistryEntries\HKCU\Control Panel\Desktop\MuiCached\MachinePreferredUILanguages.cs" />
-    <Compile Include="RegistryEntries\HKCU\Control Panel\Desktop\PreferredUILanguages.cs" />
-    <Compile Include="RegistryEntries\HKCU\Control Panel\International\Locale.cs" />
-    <Compile Include="RegistryEntries\HKCU\Control Panel\International\LocaleName.cs" />
-    <Compile Include="RegistryEntries\HKLM\System\CurrentControlSet\Control\Nls\Codepage\OEMCP.cs" />
-    <Compile Include="RegistryEntries\HKLM\System\CurrentControlSet\Control\Nls\Codepage\ACP.cs" />
-    <Compile Include="RegistryEntries\HKLM\System\CurrentControlSet\Control\Nls\Language\InstallLanguage.cs" />
-    <Compile Include="RegistryEntries\HKLM\System\CurrentControlSet\Control\Nls\Language\Default.cs" />
     <Compile Include="LERegistryRedirector.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
