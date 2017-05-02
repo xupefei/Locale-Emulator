@@ -5,7 +5,7 @@ namespace LEProc
     public class RegistryEntry
     {
 
-        public delegate string ValueGetter(CultureInfo culture);
+        public delegate string ValueReceiver(CultureInfo culture);
 
         /// <summary>
         /// e.g. HKEY_LOCAL_MACHINE
@@ -28,11 +28,12 @@ namespace LEProc
         public string Type { get; private set; }
 
         /// <summary>
-        /// e.g. 932
+        /// e.g. culture => culture.TextInfo.ANSICodePage.ToString()
+        /// In the example above, if the culture corresponds to ja-jp, the result is "932".
         /// </summary>
-        public ValueGetter GetValue { get; private set; }
+        public ValueReceiver GetValue { get; private set; }
 
-        public RegistryEntry(string root, string key, string name, string type, ValueGetter getValue)
+        public RegistryEntry(string root, string key, string name, string type, ValueReceiver getValue)
         {
             Root = root;
             Key = key;
