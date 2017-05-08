@@ -107,7 +107,7 @@
             this.groupBox1.Size = new System.Drawing.Size(729, 100);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "For currect user";
+            this.groupBox1.Text = "For current user";
             // 
             // groupBox2
             // 
