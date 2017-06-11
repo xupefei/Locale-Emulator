@@ -123,6 +123,7 @@
 Begin by selecting either installation mode below.
  * For current user: Register context menu for current user only.
  * For all users: Register context menu for all users on this PC. This installation requires administrator privilege.
-</value>
+
+Afterwards, edit the languages and timezones available and advanced settings by using the global profile list.</value>
   </data>
 </root>
