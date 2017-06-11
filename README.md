@@ -18,6 +18,13 @@ Download available at <https://github.com/xupefei/Locale-Emulator/releases>.
 
 For usage, please read <http://xupefei.github.io/Locale-Emulator/> (in English and 中文).
 
+## Usage ##
+
+LEInstaller : Mandatory to open first for installation of Locale Emulator
+LEGUI       : Settings tool to edit the global profile list, languages and timezones to emulate etc
+LEProc      : Command line utility
+LEUpdater   : Updater
+
 ## Translate ##
 
 If you want to help translating Locale Emulator, you can find all strings in
