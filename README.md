@@ -20,7 +20,7 @@ For usage, please read <http://xupefei.github.io/Locale-Emulator/> (in English a
 
 ## Usage ##
 
-- **LEInstaller**: Mandatory to open first for installation of Locale Emulator
+- **LEInstaller**: Mandatory to open first for the installation of Locale Emulator
 - **LEGUI**: Settings tool to edit the global profile list, languages and timezones to emulate etc
 - **LEProc**: Command line utility
 - **LEUpdater**: Updater
