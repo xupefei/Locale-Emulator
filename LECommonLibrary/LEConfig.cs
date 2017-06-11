@@ -82,7 +82,18 @@ namespace LECommonLibrary
         {
             var defaultProfiles = new[]
                                   {
-                                      new LEProfile("Run in Japanese",
+                                      new LEProfile("Run in English (US)",
+                                                    Guid.NewGuid().ToString(),
+                                                    false,
+                                                    string.Empty,
+                                                    "en-US",
+                                                    "W. Europe Standard Time",
+                                                    false,
+                                                    true,
+                                                    false,
+                                                    false
+                                          ),
+                                       new LEProfile("Run in Japanese",
                                                     Guid.NewGuid().ToString(),
                                                     false,
                                                     string.Empty,
