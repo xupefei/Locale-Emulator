@@ -24,7 +24,7 @@ For usage, please read <http://xupefei.github.io/Locale-Emulator/> (in English a
 
 **LEGUI**       : Settings tool to edit the global profile list, languages and timezones to emulate etc
 
-**LEProc **     : Command line utility
+**LEProc**     : Command line utility
 
 **LEUpdater**   : Updater
 
