@@ -87,7 +87,7 @@ namespace LECommonLibrary
                                                     false,
                                                     string.Empty,
                                                     "en-US",
-                                                    "W. Europe Standard Time",
+                                                    "Pacific Standard Time",
                                                     false,
                                                     true,
                                                     false,
