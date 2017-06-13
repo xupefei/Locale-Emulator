@@ -58,7 +58,7 @@ namespace LEInstaller
 
             buttonUninstall.Enabled = ShellExtensionManager.IsInstalled(false);
             buttonUninstallAllUsers.Enabled = ShellExtensionManager.IsInstalled(true);
-            buttonEditGlobal.Enabled = ShellExtensionManager.IsInstalled(true);
+            buttonEditGlobal.Enabled = ShellExtensionManager.IsInstalled(true) || ShellExtensionManager.IsInstalled(false);
         }
 
         private void buttonInstall_Click(object sender, EventArgs e)
@@ -107,7 +107,7 @@ namespace LEInstaller
 
         private void buttonEditGlobal_Click(object sender, EventArgs e)
         {
-            Process.Start(Application.StartupPath + @"\LEGUI.exe");
+            Process.Start(Path.Combine(crtDir, "LEGUI.exe"));
             Application.Exit();
         }
 
