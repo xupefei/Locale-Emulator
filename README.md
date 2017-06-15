@@ -8,8 +8,6 @@ Locale Emulator
 
 Yet Another System Region and Language Simulator by xupefei and contributors.
 
-Just a fork with English (US) as one of the default languages.
-
 ![LE interface](http://i.imgur.com/E4Gqyly.png)
 
 ## Download ##
