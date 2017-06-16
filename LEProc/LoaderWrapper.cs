@@ -254,7 +254,7 @@ namespace LEProc
                                                   [MarshalAs(UnmanagedType.LPWStr), In] string applicationName,
                                                   [MarshalAs(UnmanagedType.LPWStr), In] string commandLine,
                                                   [MarshalAs(UnmanagedType.LPWStr), In] string currentDirectory,
-                                                  ulong creationFlags,
+                                                  uint creationFlags,
                                                   IntPtr startupInfo,
                                                   IntPtr processInformation,
                                                   IntPtr processAttributes,
