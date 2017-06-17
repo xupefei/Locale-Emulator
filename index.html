@@ -10,8 +10,41 @@
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="scripts/i18next-1.10.1.min.js"></script>
         <script>i18n.init({ lng: navigator.language, fallbackLng: 'en' }, function(err, t) { $("body").i18n(); });</script>
+        <style>
+          .nav ul {
+              list-style-type: none;
+              margin: 0;
+              padding: 0;
+              overflow: hidden;
+              background-color: #04523F;
+          }
+
+          .nav li {
+              float: left;
+          }
+          .nav .active {
+              background-color: #4CAF50;
+          }
+          .nav li a {
+              display: block;
+              color: white;
+              text-align: center;
+              padding: 14px 16px;
+              text-decoration: none;
+          }
+
+          .nav li a:hover {
+              background-color: #111;
+          }
+        </style>
     </head>
     <body>
+        <section class="nav">
+          <ul>
+            <li><a href="/QuickLook/">QuickLook</a></li>
+            <li><a class="active" href="#">Locale Emulator</a></li>
+          </ul>
+        </section>
         <section class="page-header">
             <h1 class="project-name" data-i18n="[html]nav.name;"></h1>
             <h2 class="project-tagline" data-i18n="[html]nav.tag;"></h2>
