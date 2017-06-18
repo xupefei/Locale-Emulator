@@ -58,6 +58,7 @@ namespace LEInstaller
 
             buttonUninstall.Enabled = ShellExtensionManager.IsInstalled(false);
             buttonUninstallAllUsers.Enabled = ShellExtensionManager.IsInstalled(true);
+            buttonEditGlobal.Enabled = ShellExtensionManager.IsInstalled(true) || ShellExtensionManager.IsInstalled(false);
         }
 
         private void buttonInstall_Click(object sender, EventArgs e)
@@ -74,6 +75,7 @@ namespace LEInstaller
                 MessageBoxIcon.Information);
 
             buttonUninstall.Enabled = true;
+            buttonEditGlobal.Enabled = true;
         }
 
         private void buttonInstallAllUsers_Click(object sender, EventArgs e)
@@ -100,6 +102,13 @@ namespace LEInstaller
                 MessageBoxIcon.Information);
 
             buttonUninstallAllUsers.Enabled = true;
+            buttonEditGlobal.Enabled = true;
+        }
+
+        private void buttonEditGlobal_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(crtDir, "LEGUI.exe"));
+            Application.Exit();
         }
 
         public static void DisableDPIScale()
