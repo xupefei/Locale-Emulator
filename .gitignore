@@ -26,3 +26,6 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 *.vssscc
 $tf*/
+/.vs
+/.vs/ProjectSettings.json
+/.vs/slnx.sqlite

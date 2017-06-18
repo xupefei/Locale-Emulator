@@ -6,7 +6,7 @@ Locale Emulator
 [![Github All Releases](https://img.shields.io/github/downloads/xupefei/Locale-Emulator/total.svg)](https://github.com/xupefei/Locale-Emulator/releases)
 [![GitHub release](https://img.shields.io/github/release/xupefei/Locale-Emulator.svg)](https://github.com/xupefei/Locale-Emulator/releases/latest)
 
-Yet Another System Region and Language Simulator
+Yet Another System Region and Language Simulator by xupefei and contributors.
 
 ![LE interface](http://i.imgur.com/E4Gqyly.png)
 
@@ -15,6 +15,13 @@ Yet Another System Region and Language Simulator
 Download available at <https://github.com/xupefei/Locale-Emulator/releases>.
 
 For usage, please read <http://xupefei.github.io/Locale-Emulator/> (in English and 中文).
+
+## Usage ##
+
+- **LEInstaller**: Mandatory to open first for the installation of Locale Emulator
+- **LEGUI**: Settings tool to edit the global profile list, languages and timezones to emulate etc
+- **LEProc**: Command line utility
+- **LEUpdater**: Updater
 
 ## Translate ##
 
