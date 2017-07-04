@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <VersionInfo>
-  <Version>2.3.1.0</Version>
-  <Date>2017-04-06</Date>
-  <Url>http://xupefei.github.io/Locale-Emulator/</Url>
-  <Note>Support Windows 10 1703 (15063.)</Note>
+  <Version>2.3.1.1</Version>
+  <Date>2017-07-05</Date>
+  <Url>http://pooi.moe/Locale-Emulator/</Url>
+  <Note>Add code signature.</Note>
 </VersionInfo>
