@@ -30,7 +30,7 @@
     "faq_1": "Google Chrome is blocking the download.",
     "faq_1_ans": "Please go to the \"Downloads\" page (chrome://downloads/) and select \"Recover file.\"",
     "faq_2": "My antivirus software reports LocaleEmulator.dll as a virus.",
-    "faq_2_ans": "You can add a trusted item in your antivirus software, or simply remove all files of LE.",
+    "faq_2_ans": "Validate the code signature <a href=\"https://github.com/xupefei/Locale-Emulator/wiki/Validate-the-code-signature\">here</a>. Y ou can ignore that warning if everythign is okay.",
     "faq_3": "After checking antivirus software, Locale Emulator still fails.",
     "faq_3_ans": "Please make sure you have installed ALL updates in Windows Update. If the problem presists, please consider to report the issue (See below).",
     "bug_report": "Bug reports? Suggestions? Want to contribute translations?",
