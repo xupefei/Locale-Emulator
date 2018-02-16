@@ -9,11 +9,27 @@ namespace LEInstaller
         ///     The main entry point for the application.
         /// </summary>
         [STAThread]
-        private static void Main()
+        private static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Form1 form1=null;
+            if (args.Length == 1)
+            {
+                if (args[0] == "--InstallAll")
+                    form1 = new Form1(1);
+                else if (args[0] == "--UninstallAll")
+                    form1 = new Form1(2);
+                else
+                    form1 = new Form1();
+            }
+            else
+                form1 = new Form1();
+            Application.Run(form1);
+
+            
+
+            
         }
     }
 }
