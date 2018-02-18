@@ -15,9 +15,10 @@ namespace LEInstaller
 {
     public partial class Form1 : Form
     {
+        private int cmdMode = 0;
         private readonly string crtDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-        public Form1()
+        
+        public Form1(int CmdMode=0)
         {
             // We need to remove all ADS first.
             // https://github.com/xupefei/Locale-Emulator/issues/22.
@@ -27,13 +28,44 @@ namespace LEInstaller
             DisableDPIScale();
 
             InitializeComponent();
+            cmdMode = CmdMode;
+        }
+
+        private void RunAsAdmin(string Arguments="")
+        {
+            var startup = new ProcessStartInfo();
+            startup.WindowStyle = ProcessWindowStyle.Normal;
+            startup.UseShellExecute = true;
+            startup.WorkingDirectory = Environment.CurrentDirectory;
+            startup.Arguments = Arguments;
+            startup.FileName = Application.ExecutablePath;
+            startup.Verb = "runas";
+
+            try
+            {
+                using (var proc = Process.Start(startup))
+                {
+                    Environment.Exit(0);
+                    return;
+                }
+            }
+            catch (SystemException)
+            {
+                MessageBox.Show(this,"Error with Launching Application as administrator\r\n"+ 
+                    "\r\n"+
+                    "Please run this application as administrator and try again.",
+                    "LE Context Menu Installer",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             if (Environment.OSVersion.Version.CompareTo(new Version(6, 0)) <= 0)
             {
-                MessageBox.Show("Sorry, Locale Emulator is only for Windows 7, 8/8.1 and 10.",
+                MessageBox.Show(this, "Sorry, Locale Emulator is only for Windows 7, 8/8.1 and 10.",
                     "OS Outdated",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -59,6 +91,18 @@ namespace LEInstaller
             buttonUninstall.Enabled = ShellExtensionManager.IsInstalled(false);
             buttonUninstallAllUsers.Enabled = ShellExtensionManager.IsInstalled(true);
             buttonEditGlobal.Enabled = ShellExtensionManager.IsInstalled(true) || ShellExtensionManager.IsInstalled(false);
+
+            switch (cmdMode)
+            {
+                case 1:
+                    buttonInstallAllUsers.PerformClick();
+                    break;
+                case 2:
+                    buttonUninstallAllUsers.PerformClick();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void buttonInstall_Click(object sender, EventArgs e)
@@ -67,7 +111,7 @@ namespace LEInstaller
 
             NotifyShell();
 
-            MessageBox.Show("Install finished. Right click any executable and enjoy :)\r\n" +
+            MessageBox.Show(this, "Install finished. Right click any executable and enjoy :)\r\n" +
                             "\r\n" +
                             "PS: A reboot (or restart of \"explorer.exe\") is required if you are upgrading from an old version.",
                 "LE Context Menu Installer",
@@ -82,11 +126,12 @@ namespace LEInstaller
         {
             if (!IsAdministrator())
             {
-                MessageBox.Show("Please run this application as administrator and try again.",
+                /*MessageBox.Show(this, "Please run this application as administrator and try again.",
                     "LE Context Menu Installer",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-
+                    MessageBoxIcon.Error);*/
+                
+                RunAsAdmin("--InstallAll");
                 return;
             }
 
@@ -94,7 +139,7 @@ namespace LEInstaller
 
             NotifyShell();
 
-            MessageBox.Show("Install finished. Right click any executable and enjoy :)\r\n" +
+            MessageBox.Show(this, "Install finished. Right click any executable and enjoy :)\r\n" +
                             "\r\n" +
                             "PS: A reboot (or restart of \"explorer.exe\") is required if you are upgrading from an old version.",
                 "LE Context Menu Installer",
@@ -132,7 +177,7 @@ namespace LEInstaller
 
             NotifyShell();
 
-            MessageBox.Show("Uninstall finished. Thanks for using Locale Emulator :)",
+            MessageBox.Show(this, "Uninstall finished. Thanks for using Locale Emulator :)",
                 "LE Context Menu Installer",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -144,11 +189,13 @@ namespace LEInstaller
         {
             if (!IsAdministrator())
             {
-                MessageBox.Show("Please run this application as administrator and try again.",
+                /*MessageBox.Show(this, "Please run this application as administrator and try again.",
                     "LE Context Menu Installer",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                    MessageBoxIcon.Error);*/
 
+                
+                RunAsAdmin("--UninstallAll");
                 return;
             }
 
@@ -156,7 +203,7 @@ namespace LEInstaller
 
             NotifyShell();
 
-            MessageBox.Show("Uninstall finished. Thanks for using Locale Emulator :)",
+            MessageBox.Show(this, "Uninstall finished. Thanks for using Locale Emulator :)",
                 "LE Context Menu Installer",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -187,7 +234,7 @@ namespace LEInstaller
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message + "\r\n\r\n" + e.StackTrace);
+                MessageBox.Show(this, e.Message + "\r\n\r\n" + e.StackTrace);
             }
         }
 
@@ -208,7 +255,7 @@ namespace LEInstaller
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message + "\r\n\r\n" + e.StackTrace);
+                MessageBox.Show(this, e.Message + "\r\n\r\n" + e.StackTrace);
             }
         }
 
@@ -258,7 +305,7 @@ namespace LEInstaller
                 }
                 catch (Exception ee)
                 {
-                    MessageBox.Show(ee.Message + "\r\nPlease try rebooting your PC.");
+                    MessageBox.Show(this, ee.Message + "\r\nPlease try rebooting your PC.");
                     return false;
                 }
             }
@@ -273,7 +320,7 @@ namespace LEInstaller
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message + "\r\nPlease try install/uninstall again.");
+                MessageBox.Show(this, e.Message + "\r\nPlease try install/uninstall again.");
                 return false;
             }
         }
