@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VersionInfo>
-  <Version>2.3.1.1</Version>
-  <Date>2017-07-05</Date>
+  <Version>2.4.0.0</Version>
+  <Date>2018-03-28</Date>
   <Url>http://pooi.moe/Locale-Emulator/</Url>
-  <Note>Add code signature.</Note>
+  <Note>Prepare for upcoming Windows 10 1803 (Build 17133).</Note>
 </VersionInfo>
