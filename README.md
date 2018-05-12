@@ -34,19 +34,6 @@ After you translated the above files into your language, please either create a 
  5. Clone and build the core libraries: https://github.com/xupefei/Locale-Emulator-Core
  6. Copy LoaderDll.dll and LocaleEmulator.dll from Locale-Emulator-Core to Locale-Emulator build folder.
 
-## Submit Issue ##
-
-*Due to the limited effort, [we only accept issues under Windows 10 OS](https://github.com/xupefei/Locale-Emulator/wiki/Stopping-support-for-old-Windows-OS). If you are using another version of Windows, you may fix it by yourself.*
-
-You can submit an issue if any application is not working (but you think should work) with Locale Emulator. Before submitting, please turn-off your antivirus and protection software and try again.
-
-If you decide to submit a ticket, please indicate the following information in the issue:
-
- - Your system type (32 / 64 / 65536bit).
- - Name and company of the broken application.
- - Error message produced by Locale Emulator, including error number, application path, version of Locale Emulator and UAC information.
- -  Attach a screen capture if the application runs but not running correctly.
-
 ## Feature Request ##
 
 You can also submit an issue if you have some wonderful ideas to improve Locale Emulator. Then I *may* accept it because I want to make Locale Emulator *small*. So if your idea is to add automatic translation function to Locale Emulator, please fork this repo and do it yourself.
