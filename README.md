@@ -23,7 +23,7 @@ If you want to help translating Locale Emulator, you can find all strings in
  -  `DefaultLanguage.xaml` in `LEGUI/Lang` folder.
  -  `DefaultLanguage.xml` in `LEContextMenuHandler/Lang` folder.
 
-After you translated the above files into your language, please either create a pull request or submit a ticket to notify me about that.
+After you translated the above files into your language, please inform me by creating a pull request.
 
 ## Build ##
 
@@ -33,10 +33,6 @@ After you translated the above files into your language, please either create a 
  4. Perform Build action.
  5. Clone and build the core libraries: https://github.com/xupefei/Locale-Emulator-Core
  6. Copy LoaderDll.dll and LocaleEmulator.dll from Locale-Emulator-Core to Locale-Emulator build folder.
-
-## Feature Request ##
-
-You can also submit an issue if you have some wonderful ideas to improve Locale Emulator. Then I *may* accept it because I want to make Locale Emulator *small*. So if your idea is to add automatic translation function to Locale Emulator, please fork this repo and do it yourself.
 
 ## License ##
 
