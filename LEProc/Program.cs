@@ -77,10 +77,6 @@ namespace LEProc
                     "-global\tOpen Global Profile Manager.\r\n" +
                     "\r\n" +
                     "\r\n" +
-                    "Have a suggestion? Want to report a bug? You're welcome! \r\n" +
-                    "Go to https://github.com/xupefei/Locale-Emulator/issues.\r\n" +
-                    "\r\n" +
-                    "\r\n" +
                     "You can press CTRL+C to copy this message to your clipboard.\r\n",
                     "Locale Emulator Version " + GlobalHelper.GetLEVersion()
                 );
