@@ -44,13 +44,14 @@ namespace LECommonLibrary
                 br.BaseStream.Seek(0x3C, SeekOrigin.Begin);
                 //fix file handle doen't close if file is not truly an WIN32 executable
                 //the "br.ReadInt32()" here may lead to "br.ReadUInt16()" reading after the whole file
-
-                if (br.BaseStream.Length < sizeof(Int32) + 4 || br.ReadInt32()+4<0)
+				//or even read before the file...
+				Int32 i = br.ReadInt32();
+                if (br.BaseStream.Length < i + 4 + sizeof(UInt16) || i + 4 < 0)
                 {
                     br.Close();
                     return PEType.Unknown;
                 }
-                br.BaseStream.Seek(br.ReadInt32() + 4, SeekOrigin.Begin);
+                br.BaseStream.Seek(i + 4, SeekOrigin.Begin);
                 var machine = br.ReadUInt16();
 
                 br.Close();
