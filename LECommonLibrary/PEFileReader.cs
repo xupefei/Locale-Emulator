@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace LECommonLibrary
 {
@@ -44,7 +45,7 @@ namespace LECommonLibrary
                 //fix file handle doen't close if file is not truly an WIN32 executable
                 //the "br.ReadInt32()" here may lead to "br.ReadUInt16()" reading after the whole file
 
-                if (br.BaseStream.Length < sizeof(int) + 4)
+                if (br.BaseStream.Length < sizeof(Int32) + 4)
                 {
                     br.Close();
                     return PEType.Unknown;
