@@ -28,12 +28,12 @@ namespace LECommonLibrary
                 //The following if clauses are meant to fix non-win32 executables with .exe extension
                 //other possible fixes:
                 //1. move BinaryReader br outside the try block and call br.close() in catch
-                //   (proposed by oroginal author, but I was afraid of creating br throwing execptions)
+                //   (proposed by original author, but I was afraid of creating br throwing execptions)
                 //2. add a line for verifying the first two bytes of the .exe to be "MZ" or 0x4D5A
                 //   (This may be a better solution, but I'm not sure if things will go fine if
                 //    the file is actually a dll or so with the same bytes)
                 //PS: I don't know why the file handle doen't close after both the stream and
-                //    the binary reader moves out of scope 
+                //    the binary reader moves out of scope...
 
                 //fix file handle doesn't close if file is empty
                 if (br.BaseStream.Length < 0x3c) {
