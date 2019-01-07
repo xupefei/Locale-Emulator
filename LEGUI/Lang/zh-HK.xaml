@@ -16,7 +16,7 @@
     <system:String x:Key="Timezone">時區</system:String>
     <system:String x:Key="DebugOptions">進階選項</system:String>
     <system:String x:Key="AsAdmin">以管理員身分執行</system:String>
-    <system:String x:Key="RedirectRegistry">偽造註冊表</system:String>
+    <system:String x:Key="RedirectRegistry">偽造語言註冊表中語言相關選項</system:String>
     <system:String x:Key="IsAdvancedRedirection">偽造系統 UI 語言</system:String>
     <system:String x:Key="WithCREATESUSPENDED">用 CREATE__SUSPENDED 標誌建立進程</system:String>
     <system:String x:Key="Miscellaneous">其它</system:String>
