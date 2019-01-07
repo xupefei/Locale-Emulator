@@ -16,7 +16,7 @@
     <system:String x:Key="Timezone">Strefa czasowa</system:String>
     <system:String x:Key="DebugOptions">Ustawienia zaawansowane</system:String>
     <system:String x:Key="AsAdmin">Uruchom jako administrator</system:String>
-    <system:String x:Key="RedirectRegistry">Symuluj rejestr</system:String>
+    <system:String x:Key="RedirectRegistry">Symuluj ustawienia języka w rejestrze</system:String>
     <system:String x:Key="IsAdvancedRedirection">Symuluj język Interfejsu Użytkownika systemu</system:String>
     <system:String x:Key="WithCREATESUSPENDED">Utwórz proces z CREATE__SUSPENDED</system:String>
     <system:String x:Key="Miscellaneous">Różne</system:String>
