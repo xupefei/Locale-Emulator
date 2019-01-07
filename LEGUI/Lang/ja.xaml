@@ -16,7 +16,7 @@
     <system:String x:Key="Timezone">タイムゾーン</system:String>
     <system:String x:Key="DebugOptions">上級者用オプション</system:String>
     <system:String x:Key="AsAdmin">管理者として実行</system:String>
-    <system:String x:Key="RedirectRegistry">レジストリを偽造</system:String>
+    <system:String x:Key="RedirectRegistry">言語関連のレジストリキーを偽造</system:String>
     <system:String x:Key="IsAdvancedRedirection">システムのUI言語を偽造</system:String>
     <system:String x:Key="WithCREATESUSPENDED">CREATE__SUSPENDEDでプロセスを実行</system:String>
     <system:String x:Key="Miscellaneous">その他</system:String>
