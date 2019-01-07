@@ -16,7 +16,7 @@
     <system:String x:Key="Timezone">时区</system:String>
     <system:String x:Key="DebugOptions">高级选项</system:String>
     <system:String x:Key="AsAdmin">以管理员权限运行</system:String>
-    <system:String x:Key="RedirectRegistry">伪造注册表</system:String>
+    <system:String x:Key="RedirectRegistry">伪造语言相关注册表键值</system:String>
     <system:String x:Key="IsAdvancedRedirection">伪造系统 UI 语言</system:String>
     <system:String x:Key="WithCREATESUSPENDED">用 CREATE__SUSPENDED 标志创建进程</system:String>
     <system:String x:Key="Miscellaneous">其它</system:String>
