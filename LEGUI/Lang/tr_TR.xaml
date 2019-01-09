@@ -16,7 +16,7 @@
     <system:String x:Key="Timezone">Saat dilimi</system:String>
     <system:String x:Key="DebugOptions">Gelişmiş Ayarlar</system:String>
     <system:String x:Key="AsAdmin">Yönetici olarak çalıştır</system:String>
-    <system:String x:Key="RedirectRegistry">Sahte kayıt defteri</system:String>
+    <system:String x:Key="RedirectRegistry">Kayıt Defterinde dil bağlantılı sahte anahtarlar</system:String>
     <system:String x:Key="IsAdvancedRedirection">Sahte sistem arayüz dili</system:String>
     <system:String x:Key="WithCREATESUSPENDED">İşlemi CREATE__SUSPENDED ile yarat</system:String>
     <system:String x:Key="Miscellaneous">Çeşitli</system:String>
