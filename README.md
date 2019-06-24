@@ -8,13 +8,13 @@ Locale Emulator
 
 Yet Another System Region and Language Simulator
 
-![LE interface](http://i.imgur.com/E4Gqyly.png)
+![LE interface](https://i.imgur.com/E4Gqyly.png)
 
 ## Download ##
 
 Download available at <https://github.com/xupefei/Locale-Emulator/releases>.
 
-For usage, please read <http://xupefei.github.io/Locale-Emulator/> (in English and 中文).
+For usage, please read <https://xupefei.github.io/Locale-Emulator/> (in English and 中文).
 
 ## Translate ##
 
@@ -36,11 +36,11 @@ After you translated the above files into your language, please inform me by cre
 
 ## License ##
 
-![enter image description here](http://www.gnu.org/graphics/lgplv3-147x51.png)
+![LGPL](https://www.gnu.org/graphics/lgplv3-147x51.png)
 
-`LEContextMenuHandler` project use source codes from [Microsoft All-In-One Code Framework](http://blogs.msdn.com/b/onecode/) which is licensed by [Microsoft Public License](http://www.microsoft.com/en-us/openness/licenses.aspx#MPL).
+`LEContextMenuHandler` project use source codes from [Microsoft All-In-One Code Framework](https://blogs.msdn.com/b/onecode/) which is licensed by [Microsoft Public License](https://www.microsoft.com/en-us/openness/licenses.aspx#MPL).
 
-[Flat icon set](commit/eae9fbc27f1a4c85986577202b61742c6287e10a) from [graphicex](http://graphicex.com/icon-and-logo/15983-flat-alphabet-in-9-colors-with-long-shadow-6913875.html).
+[Flat icon set](commit/eae9fbc27f1a4c85986577202b61742c6287e10a) from [graphicex](https://graphicex.com/icon-and-logo/15983-flat-alphabet-in-9-colors-with-long-shadow-6913875.html).
 
 All other source code files are licensed under [LGPL-3.0](https://opensource.org/licenses/LGPL-3.0).
 
