@@ -177,7 +177,9 @@ namespace LEInstaller
 
             NotifyShell();
 
-            MessageBox.Show(this, "Uninstall finished. Thanks for using Locale Emulator :)",
+            MessageBox.Show(this, "Uninstall finished. Thanks for using Locale Emulator :)\r\n" +
+                            "\r\n" +
+                            "PS: A reboot is required to unlock some components.",
                 "LE Context Menu Installer",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -203,7 +205,9 @@ namespace LEInstaller
 
             NotifyShell();
 
-            MessageBox.Show(this, "Uninstall finished. Thanks for using Locale Emulator :)",
+            MessageBox.Show(this, "Uninstall finished. Thanks for using Locale Emulator :)\r\n" +
+                            "\r\n" +
+                            "PS: A reboot is required to unlock some components.",
                 "LE Context Menu Installer",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -437,5 +441,10 @@ namespace LEInstaller
 
         [DllImport("user32.dll")]
         private static extern bool SetProcessDPIAware();
+
+        private void ButtonExtract_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
