@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using LECommonLibrary;
 
@@ -88,7 +89,14 @@ namespace LEProc
 
             try
             {
-                Args = args;
+                var argWithQuotesList = Regex.Matches(Environment.CommandLine, @"[\""].+?[\""]|[^ ]+")
+                    .Cast<Match>()
+                    .ToArray();
+                Args = new string[argWithQuotesList.Length - 1];
+                for (var i = 1; i < argWithQuotesList.Length; i += 1)
+                {
+                    Args[i - 1] = argWithQuotesList[i].ToString();
+                }
 
                 switch (Args[0])
                 {
@@ -112,9 +120,9 @@ namespace LEProc
                         break;
 
                     default:
-                        if (File.Exists(Args[0]))
+                        if (File.Exists(Args[0].Trim('"')))
                         {
-                            RunWithDefaultProfile(Args[0]);
+                            RunWithDefaultProfile(Args[0].Trim('"'));
                         }
                         break;
                 }
