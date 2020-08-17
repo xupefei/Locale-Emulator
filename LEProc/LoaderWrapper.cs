@@ -179,19 +179,31 @@ namespace LEProc
             var locLEB = Marshal.AllocHGlobal(newLEB.Length);
             Marshal.Copy(newLEB, 0, locLEB, newLEB.Length);
 
+            AttachConsole(ATTACH_PARENT_PROCESS);
+
+            var startupInfo = new STARTUPINFO();
+            var processInformation = new PROCESS_INFORMATION();
+
             var ret = LeCreateProcess(locLEB,
                                    ApplicationName,
                                    CommandLine,
                                    CurrentDirectory,
                                    DebugMode ? CREATE_SUSPENDED : CREATE_NORMAL,
-                                   IntPtr.Zero,
-                                   IntPtr.Zero,
+                                   ref startupInfo,
+                                   out processInformation,
                                    IntPtr.Zero,
                                    IntPtr.Zero,
                                    IntPtr.Zero,
                                    IntPtr.Zero);
 
             Marshal.FreeHGlobal(locLEB);
+
+            if (ret == 0)
+            {
+                WaitForSingleObject(processInformation.hProcess, INFINITE);
+                CloseHandle(processInformation.hProcess);
+                CloseHandle(processInformation.hThread);
+            }
 
             return ret;
         }
@@ -249,18 +261,63 @@ namespace LEProc
             return BytesToStruct<_REG_TZI_FORMAT>(tzi);
         }
 
+        [StructLayout(LayoutKind.Sequential)]
+        public struct PROCESS_INFORMATION
+        {
+            public IntPtr hProcess;
+            public IntPtr hThread;
+            public uint dwProcessId;
+            public uint dwThreadId;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct STARTUPINFO
+        {
+            public int cb;
+            public String lpReserved;
+            public String lpDesktop;
+            public String lpTitle;
+            public uint dwX;
+            public uint dwY;
+            public uint dwXSize;
+            public uint dwYSize;
+            public uint dwXCountChars;
+            public uint dwYCountChars;
+            public uint dwFillAttribute;
+            public uint dwFlags;
+            public short wShowWindow;
+            public short cbReserved2;
+            public IntPtr lpReserved2;
+            public IntPtr hStdInput;
+            public IntPtr hStdOutput;
+            public IntPtr hStdError;
+        }
+
         [DllImport("LoaderDll.dll", CharSet = CharSet.Unicode)]
         public static extern uint LeCreateProcess(IntPtr leb,
                                                   [MarshalAs(UnmanagedType.LPWStr), In] string applicationName,
                                                   [MarshalAs(UnmanagedType.LPWStr), In] string commandLine,
                                                   [MarshalAs(UnmanagedType.LPWStr), In] string currentDirectory,
                                                   uint creationFlags,
-                                                  IntPtr startupInfo,
-                                                  IntPtr processInformation,
+                                                  ref STARTUPINFO startupInfo,
+                                                  out PROCESS_INFORMATION processInformation,
                                                   IntPtr processAttributes,
                                                   IntPtr threadAttributes,
                                                   IntPtr environment,
                                                   IntPtr token);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern UInt32 WaitForSingleObject(IntPtr hHandle, UInt32 dwMilliseconds);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool CloseHandle(IntPtr hHandle);
+
+        const uint INFINITE = 0xFFFFFFFF;
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool AttachConsole(uint dwProcessId);
+
+        const uint ATTACH_PARENT_PROCESS = 0x0ffffffff;
 
         [StructLayout(LayoutKind.Sequential)]
         internal struct LEB
