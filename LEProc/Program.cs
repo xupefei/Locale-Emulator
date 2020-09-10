@@ -89,6 +89,9 @@ namespace LEProc
 
             try
             {
+                // To keep original quotes in the command line. If we directly use args[] to make the command line, 
+                //      {_cmd1.exe / c _cmd2.exe "path with space"} will become {_cmd1.exe / c _cmd2.exe path with space}
+                //      and will cause issues.
                 var argWithQuotesList = Regex.Matches(Environment.CommandLine, @"[\""].+?[\""]|[^ ]+")
                     .Cast<Match>()
                     .ToArray();
