@@ -14,7 +14,7 @@
     <system:String x:Key="LocationSettings">位置设定</system:String>
     <system:String x:Key="TimezoneSettings">时区设置</system:String>
     <system:String x:Key="Timezone">时区</system:String>
-    <system:String x:Key="DebugOptions">高级选项</system:String>
+    <system:String x:Key="DebugOptions">调试选项</system:String>
     <system:String x:Key="AsAdmin">以管理员权限运行</system:String>
     <system:String x:Key="RedirectRegistry">伪造语言相关注册表键值</system:String>
     <system:String x:Key="IsAdvancedRedirection">伪造系统 UI 语言</system:String>
