@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VersionInfo>
-  <Version>2.4.1.0</Version>
-  <Date>2019-08-16</Date>
-  <Url>http://pooi.moe/Locale-Emulator/</Url>
-  <Note>Bugfix and more language support.</Note>
+  <Version>2.5.0.0</Version>
+  <Date>2021-08-23</Date>
+  <Url>https://github.com/xupefei/Locale-Emulator/releases/tag/v2.5.0.0</Url>
+  <Note>Added Windows 11 support.</Note>
 </VersionInfo>
