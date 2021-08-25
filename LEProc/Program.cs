@@ -4,7 +4,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using LECommonLibrary;
 
@@ -89,17 +88,7 @@ namespace LEProc
 
             try
             {
-                // To keep original quotes in the command line. If we directly use args[] to make the command line, 
-                //      {_cmd1.exe / c _cmd2.exe "path with space"} will become {_cmd1.exe / c _cmd2.exe path with space}
-                //      and will cause issues.
-                var argWithQuotesList = Regex.Matches(Environment.CommandLine, @"[\""].+?[\""]|[^ ]+")
-                    .Cast<Match>()
-                    .ToArray();
-                Args = new string[argWithQuotesList.Length - 1];
-                for (var i = 1; i < argWithQuotesList.Length; i += 1)
-                {
-                    Args[i - 1] = argWithQuotesList[i].ToString();
-                }
+                Args = args;
 
                 switch (Args[0])
                 {
@@ -123,9 +112,9 @@ namespace LEProc
                         break;
 
                     default:
-                        if (File.Exists(Args[0].Trim('"')))
+                        if (File.Exists(Args[0]))
                         {
-                            RunWithDefaultProfile(Args[0].Trim('"'));
+                            RunWithDefaultProfile(Args[0]);
                         }
                         break;
                 }
