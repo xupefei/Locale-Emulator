@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VersionInfo>
-  <Version>2.5.0.0</Version>
-  <Date>2021-08-23</Date>
+  <Version>2.5.0.1</Version>
+  <Date>2021-08-25</Date>
   <Url>https://pooi.moe/Locale-Emulator/</Url>
   <Note>Added Windows 11 support.</Note>
 </VersionInfo>
