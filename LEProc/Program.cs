@@ -211,7 +211,7 @@ namespace LEProc
 
                     // use arguments in le.config, prior to command line arguments
                     commandLine += string.IsNullOrEmpty(profile.Parameter) && Args.Skip(argumentsStart).Any()
-                        ? Args.Skip(argumentsStart).Aggregate((a, b) => $"{a} {b}")
+                        ? Args.Skip(argumentsStart).Select(x=>$"\"{x}\"").Aggregate((a, b) => $"{a} {b}")
                         : profile.Parameter;
                 }
                 else
