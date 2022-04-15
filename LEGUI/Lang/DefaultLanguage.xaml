@@ -9,13 +9,13 @@
     <system:String x:Key="SaveAs">Save As ...</system:String>
     <system:String x:Key="SaveAsInstruction">New profile name:</system:String>
     <system:String x:Key="Delete">Delete</system:String>
-    <system:String x:Key="ConfirmDel">Are you sure want to delete this profile?</system:String>
+    <system:String x:Key="ConfirmDel">Are you sure you want to delete this profile?</system:String>
     <system:String x:Key="Location">Location</system:String>
     <system:String x:Key="LocationSettings">Location Settings</system:String>
     <system:String x:Key="TimezoneSettings">Timezone Settings</system:String>
     <system:String x:Key="Timezone">Timezone</system:String>
     <system:String x:Key="DebugOptions">Advanced Options</system:String>
-    <system:String x:Key="AsAdmin">Run as an administrator</system:String>
+    <system:String x:Key="AsAdmin">Run as administrator</system:String>
     <system:String x:Key="RedirectRegistry">Fake language-related keys in Registry</system:String>
     <system:String x:Key="IsAdvancedRedirection">Fake system UI language</system:String>
     <system:String x:Key="WithCREATESUSPENDED">Create process with CREATE__SUSPENDED</system:String>
